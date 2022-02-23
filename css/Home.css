@@ -1,0 +1,36 @@
+/* .carousel-item{
+    width: 100% !important;
+    height: 500px !important;
+}
+.img-height-500{
+    width: 100% !important;
+    height: 100% !important;
+} */
+
+.nav-link {
+    margin: 0px 10px;
+}
+
+.nav-link:hover {
+    padding: 7px !important;
+    border: 1px solid white;
+}
+
+.bg-color-grey-hover:hover {
+    background-color: #d8e3e887 !important;
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+.footer {
+    height: 200px;
+}
