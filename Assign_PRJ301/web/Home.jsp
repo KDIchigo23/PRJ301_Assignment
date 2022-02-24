@@ -1,3 +1,10 @@
+<%-- 
+    Document   : Home
+    Created on : Feb 24, 2022, 3:52:48 PM
+    Author     : ADMIN
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
