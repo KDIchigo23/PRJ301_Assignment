@@ -24,17 +24,54 @@ public class ProductDAO {
     public List<Product> getAllProduccts() {
         List<Product> list = new ArrayList<>();
         try {
-            String sql = "select pro.proId, pro.proName, pro.proDescription, pro.proQuantity, \n"
-                    + "pro.proPrice, p.pId, p.pName, pro.proImg_url \n"
-                    + "from Products pro inner join Players p\n"
+            String sql = "select pro.proId, pro.pId, pro.proName, p.pName, \n"
+                    + "pro.proDescription, pro.proQuantity, pro.proPrice, \n"
+                    + "pro.proImg_url, ct.ctId, ct.ctName\n"
+                    + "from Products pro inner join Category ct\n"
+                    + "on pro.ctId = ct.ctId\n"
+                    + "inner join Players p\n"
                     + "on pro.pId = p.pId";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getFloat(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                Product product = new Product(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getInt(6), rs.getFloat(7), rs.getString(8), rs.getInt(9), rs.getString(10));
                 list.add(product);
             }
+        } catch (Exception ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Product> getProductByCategoryId(int categoryId) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "select pro.proId, pro.pId, pro.proName, p.pName, \n"
+                    + "pro.proDescription, pro.proQuantity, pro.proPrice, \n"
+                    + "pro.proImg_url, ct.ctId, ct.ctName\n"
+                    + "from Products pro inner join Category ct\n"
+                    + "on pro.ctId = ct.ctId\n"
+                    + "inner join Players p\n"
+                    + "on pro.pId = p.pId \n"
+                    + "and ct.ctId = ?";
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ResultSet rs = ps.executeQuery();
+
+            //Lặp rs để lấy data
+            while (rs.next()) {
+                Product product = new Product(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getInt(6), rs.getFloat(7), rs.getString(8), rs.getInt(9), rs.getString(10));
+                list.add(product);
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

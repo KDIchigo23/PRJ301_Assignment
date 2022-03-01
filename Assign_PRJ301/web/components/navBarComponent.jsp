@@ -4,11 +4,12 @@
     Author     : ADMIN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <div class="container-fluid px-4 px-lg-5">
-        <img src="https://cdn.nba.com/logos/nba/nba-logoman-75-word_white.svg" style="height: 40px;" alt="">
+        <a href="home-controller"><img src="https://cdn.nba.com/logos/nba/nba-logoman-75-word_white.svg" style="height: 40px;" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -28,8 +29,11 @@
                         <li>
                             <hr class="dropdown-divider" style="color: #d8e3e887;" />
                         </li>
-                        <li><a class="dropdown-item text-white bg-color-grey-hover" href="#!">Jersey</a></li>
-                        <li><a class="dropdown-item text-white bg-color-grey-hover" href="#!">Shoe</a></li>
+                        <c:forEach items="${listCategories}" var="CT">
+                            <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
+                        </c:forEach>
+                        
+<!--                        <li><a class="dropdown-item text-white bg-color-grey-hover" href="#!">Sneaker</a></li>-->
                     </ul>
                 </li>
             </ul>

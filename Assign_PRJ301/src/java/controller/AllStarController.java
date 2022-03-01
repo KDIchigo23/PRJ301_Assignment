@@ -6,6 +6,7 @@
 package controller;
 
 import dao.AllStarDAO;
+import dao.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.AllStar;
+import model.Category;
 
 /**
  *
@@ -36,7 +38,9 @@ public class AllStarController extends HttpServlet {
         
         List<AllStar> listAllStarsLebrons = new AllStarDAO().getAllAllStarLebrons();
         List<AllStar> listAllStarsDurants = new AllStarDAO().getAllAllStarDurants();
-        
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        request.setAttribute("listCategories", listCategories);
         request.setAttribute("listAllStarsLebrons", listAllStarsLebrons);
         request.setAttribute("listAllStarsDurants", listAllStarsDurants);
         request.getRequestDispatcher("AllStar-2022.jsp").forward(request, response);

@@ -38,6 +38,11 @@ CREATE TABLE [AllStar_Players_2022] (
 	apImg_url NVARCHAR(2000),
 )
 
+CREATE TABLE [Category] (
+	ctId INT PRIMARY KEY NOT NULL,
+	ctName VARCHAR(255) NOT NULL,
+)
+
 CREATE TABLE [Products] (
 	proId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	pId INT FOREIGN KEY(pId) REFERENCES [Players](pId) NOT NULL,
@@ -46,13 +51,9 @@ CREATE TABLE [Products] (
 	proQuantity INT NOT NULL,
 	proPrice FLOAT NOT NULL,
 	proImg_url NVARCHAR(255),
+	ctId INT FOREIGN KEY(ctId) REFERENCES [Category](ctId) NOT NULL
 )
 
-CREATE TABLE [Products_Type] (
-	ptId INT PRIMARY KEY NOT NULL,
-	proId INT FOREIGN KEY(proId) REFERENCES [Products](proId) NOT NULL,
-	ptName VARCHAR(255) NOT NULL,
-)
 
 CREATE TABLE [Customer] (
 	cId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -64,9 +65,9 @@ CREATE TABLE [Customer] (
 )
 
 DROP TABLE [AllStar_Players_2022]
-DROP TABLE [Products_Type]
 DROP TABLE [Customer]
 DROP TABLE [Products]
+DROP TABLE [Category]
 DROP TABLE [Players] 
 DROP TABLE [Team]
 DROP TABLE [Group] 
@@ -139,88 +140,94 @@ INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, a
 INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Devin Booker', 21, 5, 'Team Durant', 20, 'Member', 'https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/274157113_10160322822013463_9089127324548096246_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=730e14&_nc_ohc=8AM3jK8kyhsAX_74kmS&tn=7UGqLqlll5cu7aev&_nc_ht=scontent.fhan5-10.fna&oh=00_AT_zJuMtItYrlHkt84xAPe_qT4QtKZFVH7kRwn01fgnfXg&oe=621FAF4D') 
 INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Khris Middleton', 7, 2, 'Team Durant', 5, 'Member', 'https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/274192619_10160322821733463_8774283708214930569_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=730e14&_nc_ohc=VMQ1ZB8CEBAAX9rgnNw&_nc_ht=scontent.fhan5-10.fna&oh=00_AT-QMaDldJ26iKn7OBh1_RGQH1LR3tkY1LWQyAHnYO6KWw&oe=621FEAD4') 
  
+ 
+INSERT INTO [Category] (ctId, ctName) VALUES (1, 'Jersey')
+INSERT INTO [Category] (ctId, ctName) VALUES (2, 'Sneaker')
+INSERT INTO [Category] (ctId, ctName) VALUES (3, 'Item')
 
 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(1, 'Embiid Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.21', 10, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-joel-embiid-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(2, 'J.Harden Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.1', 20, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-james-harden-blue-icon-edition-2022-trade-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(3, 'Danny Green Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.14', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-danny-green-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(4, 'T.arris Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.12', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-tobias-harris-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(5, 'T.Maxey Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.0', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-tyrese-maxey-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(6, 'Giannis Jersey', 'Color: black, green; New jersey of Bucks, No.34', 10, 99.9, 'https://www.nbajerseyonline.net/image/milwaukee-bucks/milwaukee-bucks-giannis-antetokounmpo-black-2021-nba-finals-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(7, 'Kh.Middleton Jersey', 'Color: black, green; New jersey of Bucks, No.22', 20, 79.9, 'https://www.nbajerseyonline.net/image/milwaukee-bucks/milwaukee-bucks-khris-middleton-black-2021-nba-finals-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(8, 'Jr.Holiday Jersey', 'Color: black, green; New jersey of Bucks, No.21', 20, 69.9, 'https://www.nbajerseyonline.net/image/milwaukee-bucks/milwaukee-bucks-jrue-holiday-black-2021-nba-finals-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(9, 'Bobby Portis Jersey', 'Color: green, yellow; New jersey of Bucks, No.9', 20, 69.9, 'https://www.nbajerseyonline.net/images/milwaukee-bucks/milwaukee-bucks-icon-edition-bobby-portis-jr.-green-swingman-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(10, 'B.Lopez Jersey', 'Color: green, yellow; Old jersey of Bucks, No.11', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/milwaukee-bucks/milwaukee-bucks-brook-lopez-hunter-green-2021-22-75th-anniversary-diamond-icon-edition-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(11, 'P.Siakam Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.43', 20, 79.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-pascal-siakam-black-replica-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(12, 'Scottie Barnes Jersey', 'Color: red, black; Raptors use this jersey in 5 years, No.4', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-scottie-barnes-red-authentic-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(13, 'Khem Birch Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.24', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-khem-birch-black-statement-edition-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(14, 'Fred Vanvleet Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.23', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-fred-vanvleet-black-replica-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(15, 'Anunoby Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.3', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-og-anunoby-black-replica-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(16, 'K.Durant Jersey', 'Color: blue, black; New jersey of Nets, No.7', 10, 99.9, 'https://www.nbajerseyonline.net/mlb-apparels/brooklyn-nets/men-brooklyn-nets-kevin-durant-blue-city-edition-75th-anniversary-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(17, 'K.Irving Jersey', 'Color: blue, black; New jersey of Nets, No.11', 20, 79.9, 'https://www.nbajerseyonline.net/nba-apparels/brooklyn-nets/brooklyn-nets-kyrie-irving-navy-2021-22-75th-anniversary-authentic-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(18, 'Ben Simmons Jersey', 'Color: blue, black; New jersey of Nets, No.10', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/brooklyn-nets/brooklyn-nets-ben-simmons-navy-2022-city-edition-75th-diamond-badge-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(19, 'Seth Curry Jersey', 'Color: blue, black; New jersey of Nets, No.30', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/brooklyn-nets/brooklyn-nets-seth-curry-navy-2022-city-edition-75th-diamond-badge-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(20, 'B.Griffin Jersey', 'Color: blue, black; New jersey of Nets, No.2', 20, 69.9, 'https://www.nbajerseyonline.net/mlb-apparels/brooklyn-nets/men-brooklyn-nets-blake-griffin-blue-city-edition-75th-anniversary-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(21, 'D.Booker Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.1', 10, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-devin-booker-black-2021-22-replica-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(22, 'C.Paul Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.3', 10, 99.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-chris-paul-black-2021-22-replica-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(23, 'F.Kaminsky Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.8', 20, 69.9, 'https://www.nbajerseyonline.net/phoenix-suns/men-phoenix-suns-frank-kaminsky-nba75th-city-edition-black-2021-22-replica-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(24, 'D.Ayton Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.22', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-deandre-ayton-black-2021-22-replica-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(25, 'M.Bridges Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.25', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-mikal-bridges-black-2021-22-replica-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(26, 'Steph.Curry Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.30', 10, 99.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-stephen-curry-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(27, 'K.Thompson Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.11', 15, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-klay-thompson-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(28, 'Draymond Green Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.23', 15, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-draymond-green-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(29, 'A.Wiggins Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.22', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-andrew-wiggins-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(30, 'K.Looney Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.5', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-kevon-looney-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(31, 'K.Leonard Jersey', 'Color: black, white; New Jersey of Clippers, No.2', 10, 99.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-kawhi-leonard-black-city-edition-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(32, 'P.George Jersey', 'Color: black, white; New Jersey of Clippers, No.13', 15, 79.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-paul-george-black-city-edition-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(33, 'Marcus Morris Sr Jersey', 'Color: black, white; New Jersey of Clippers, No.8', 20, 69.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-marcus-morris-sr.-black-city-edition-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(34, 'Ivica Zubac Jersey', 'Color: black, white; New Jersey of Clippers, No.40', 20, 69.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-ivica-zubac-black-city-edition-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(35, 'Nicolas batum Jersey', 'Color: black, white; New Jersey of Clippers, No.33', 20, 69.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-nicolas-batum-black-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(36, 'L.James Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.6', 10, 109.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-lebron-james-purple-2021-22-75th-anniversary-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(37, 'A.Davis Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.23', 10, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-anthony-davis-purple-2021-22-75th-anniversary-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(38, 'Russel Westbrook Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.0', 15, 79.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-russell-westbrook-purple-2021-22-75th-anniversary-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(39, 'Carmelo Anthony Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.7', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-anthony-davis-purple-2021-22-75th-anniversary-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(40, 'Malik Monk Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.11', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-malik-monk-purple-2021-22-75th-anniversary-city-jersey.jpg') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(1, 'Under Armour Embiid 1 Promotions', 'Color: black, silver, orange; ', 10, 120, 'https://www.nbcsports.com/sites/rsnunited/files/article/content/Embiid_Shoes_Under_Armour.jpg')
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(2, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(3, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(4, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(5, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(6, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(7, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(8, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(9, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(10, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(11, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(12, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(13, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(14, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(15, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(15, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(17, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(18, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(19, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(20, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(21, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(22, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(23, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(24, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(25, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(26, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(27, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(28, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(29, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(30, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(31, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(32, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(33, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(34, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(35, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(36, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(37, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(38, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(39, '', '', , , '') 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url) VALUES(40, '', '', , , '') 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(1, 'Embiid Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.21', 10, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-joel-embiid-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(2, 'J.Harden Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.1', 20, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-james-harden-blue-icon-edition-2022-trade-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(3, 'Danny Green Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.14', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-danny-green-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(4, 'T.arris Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.12', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-tobias-harris-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(5, 'T.Maxey Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.0', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-tyrese-maxey-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Giannis Jersey', 'Color: black, green; New jersey of Bucks, No.34', 10, 99.9, 'https://www.nbajerseyonline.net/image/milwaukee-bucks/milwaukee-bucks-giannis-antetokounmpo-black-2021-nba-finals-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(7, 'Kh.Middleton Jersey', 'Color: black, green; New jersey of Bucks, No.22', 20, 79.9, 'https://www.nbajerseyonline.net/image/milwaukee-bucks/milwaukee-bucks-khris-middleton-black-2021-nba-finals-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(8, 'Jr.Holiday Jersey', 'Color: black, green; New jersey of Bucks, No.21', 20, 69.9, 'https://www.nbajerseyonline.net/image/milwaukee-bucks/milwaukee-bucks-jrue-holiday-black-2021-nba-finals-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(9, 'Bobby Portis Jersey', 'Color: green, yellow; New jersey of Bucks, No.9', 20, 69.9, 'https://www.nbajerseyonline.net/images/milwaukee-bucks/milwaukee-bucks-icon-edition-bobby-portis-jr.-green-swingman-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(10, 'B.Lopez Jersey', 'Color: green, yellow; Old jersey of Bucks, No.11', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/milwaukee-bucks/milwaukee-bucks-brook-lopez-hunter-green-2021-22-75th-anniversary-diamond-icon-edition-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(11, 'P.Siakam Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.43', 20, 79.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-pascal-siakam-black-replica-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(12, 'Scottie Barnes Jersey', 'Color: red, black; Raptors use this jersey in 5 years, No.4', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-scottie-barnes-red-authentic-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(13, 'Khem Birch Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.24', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-khem-birch-black-statement-edition-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(14, 'Fred Vanvleet Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.23', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-fred-vanvleet-black-replica-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(15, 'Anunoby Jersey', 'Color: black, red; Raptors use this jersey in 5 years, No.3', 20, 69.9, 'https://www.nbajerseyonline.net/image/toronto-raptors/toronto-raptors-og-anunoby-black-replica-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(16, 'K.Durant Jersey', 'Color: blue, black; New jersey of Nets, No.7', 10, 99.9, 'https://www.nbajerseyonline.net/mlb-apparels/brooklyn-nets/men-brooklyn-nets-kevin-durant-blue-city-edition-75th-anniversary-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(17, 'K.Irving Jersey', 'Color: blue, black; New jersey of Nets, No.11', 20, 79.9, 'https://www.nbajerseyonline.net/nba-apparels/brooklyn-nets/brooklyn-nets-kyrie-irving-navy-2021-22-75th-anniversary-authentic-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(18, 'Ben Simmons Jersey', 'Color: blue, black; New jersey of Nets, No.10', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/brooklyn-nets/brooklyn-nets-ben-simmons-navy-2022-city-edition-75th-diamond-badge-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(19, 'Seth Curry Jersey', 'Color: blue, black; New jersey of Nets, No.30', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/brooklyn-nets/brooklyn-nets-seth-curry-navy-2022-city-edition-75th-diamond-badge-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(20, 'B.Griffin Jersey', 'Color: blue, black; New jersey of Nets, No.2', 20, 69.9, 'https://www.nbajerseyonline.net/mlb-apparels/brooklyn-nets/men-brooklyn-nets-blake-griffin-blue-city-edition-75th-anniversary-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(21, 'D.Booker Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.1', 10, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-devin-booker-black-2021-22-replica-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(22, 'C.Paul Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.3', 10, 99.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-chris-paul-black-2021-22-replica-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(23, 'F.Kaminsky Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.8', 20, 69.9, 'https://www.nbajerseyonline.net/phoenix-suns/men-phoenix-suns-frank-kaminsky-nba75th-city-edition-black-2021-22-replica-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(24, 'D.Ayton Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.22', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-deandre-ayton-black-2021-22-replica-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(25, 'M.Bridges Jersey', 'Color: black, orange; Suns use this jersey in 2 years, No.25', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/phoenix-suns/phoenix-suns-mikal-bridges-black-2021-22-replica-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Steph.Curry Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.30', 10, 99.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-stephen-curry-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(27, 'K.Thompson Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.11', 15, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-klay-thompson-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(28, 'Draymond Green Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.23', 15, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-draymond-green-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(29, 'A.Wiggins Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.22', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-andrew-wiggins-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(30, 'K.Looney Jersey', 'Color: black, yellow; Warriors use this jersey in 6 years, No.5', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/golden-state-warriors/golden-state-warriors-kevon-looney-black-2021-22-city-edition-75th-anniversary-diamond-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(31, 'K.Leonard Jersey', 'Color: black, white; New Jersey of Clippers, No.2', 10, 99.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-kawhi-leonard-black-city-edition-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(32, 'P.George Jersey', 'Color: black, white; New Jersey of Clippers, No.13', 15, 79.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-paul-george-black-city-edition-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(33, 'Marcus Morris Sr Jersey', 'Color: black, white; New Jersey of Clippers, No.8', 20, 69.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-marcus-morris-sr.-black-city-edition-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(34, 'Ivica Zubac Jersey', 'Color: black, white; New Jersey of Clippers, No.40', 20, 69.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-ivica-zubac-black-city-edition-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(35, 'Nicolas batum Jersey', 'Color: black, white; New Jersey of Clippers, No.33', 20, 69.9, 'https://www.nbajerseyonline.net/image/los-angeles-clippers/los-angeles-clippers-nicolas-batum-black-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'L.James Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.6', 10, 109.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-lebron-james-purple-2021-22-75th-anniversary-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(37, 'A.Davis Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.23', 10, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-anthony-davis-purple-2021-22-75th-anniversary-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(38, 'Russel Westbrook Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.0', 15, 79.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-russell-westbrook-purple-2021-22-75th-anniversary-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(39, 'Carmelo Anthony Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.7', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-anthony-davis-purple-2021-22-75th-anniversary-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(40, 'Malik Monk Jersey', 'Color: purple, white; Lakers use this jersey in 8 years, No.11', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/los-angeles-lakers/los-angeles-lakers-malik-monk-purple-2021-22-75th-anniversary-city-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(1, 'Under Armour Embiid 1 Promotions', 'Color: black, silver, orange; It look like normal sneaker', 10, 119.9, 'https://sneakernews.com/wp-content/uploads/2020/08/joel-embiid-under-armour-shoes-1.jpg', 2)
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(2, 'Adidas Harden Stepback 2', 'Color: black, lightblue, blue, red, orange; It look like normal sneaker', 10, 149.8, 'https://cf.shopee.tw/file/b1882167a04c289267b8a74ddaa91e7a', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(3, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(4, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(5, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(7, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(8, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(9, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(10, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(11, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(12, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(13, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(14, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(15, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(15, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(17, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(18, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(19, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(20, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(21, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(22, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(23, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(24, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(25, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(27, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(28, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(29, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(30, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(31, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(32, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(33, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(34, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(35, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(37, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(38, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(39, '', '', , , '', ) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(40, '', '', , , '', ) 
+
+
 
 
 

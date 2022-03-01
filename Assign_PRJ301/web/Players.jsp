@@ -61,51 +61,7 @@
 
         </div>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-            <div class="container-fluid px-4 px-lg-5">
-                <img src="https://cdn.nba.com/logos/nba/nba-logoman-75-word_white.svg" style="height: 40px;" alt="">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="player-controller" data-bs-toggle="offcanvas"
-                               data-bs-target="#demo">NBA Team</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link text-white" href="allstar-controller">NBA All-Star</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" href="#" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item text-white bg-color-grey-hover" href="product-controller">All Products</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" style="color: #d8e3e887;" />
-                                </li>
-                                <li><a class="dropdown-item text-white bg-color-grey-hover" href="#!">Jersey</a></li>
-                                <li><a class="dropdown-item text-white bg-color-grey-hover" href="#!">Shoe</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex mx-auto">
-                        <input class="form-control me-2" type="search" placeholder="Search in here" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">
-                            Search
-                        </button>
-                    </form>
-                    <form class="d-flex my-2">
-                        <button class="btn btn-outline-light" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-light text-dark ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
-                    <button class="btn btn-outline-primary ms-lg-2">Login</button>
-                </div>
-            </div>
-        </nav>
+        <%@include file="components/navBarComponent.jsp" %>
     </header>
 
     <body style="margin: 66px 10px 0px 10px !important; background-color: lightgoldenrodyellow;">
@@ -127,103 +83,8 @@
         </nav>
     </body>
 
-    <footer class="container-fluid text-center text-lg-start border border-secondary mt-2 pt-4 bg-dark">
-        <!-- Grid container -->
-        <div class="container-fluid p-4">
-            <!--Grid row-->
-            <div class="row">
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
-                    <h5 class="text-uppercase mb-4 text-white-50">NBA</h5>
-
-                    <ul class="list-unstyled mb-4">
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">NBA Pre-season</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">NBA All-star Game</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">NBA Finals Game</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">NBA 75 </a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
-                    <h5 class="text-uppercase mb-4 text-white-50">Skills</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Dribbling Skills</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Shooting Skills</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Passing Skills</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Dunking Skills</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
-                    <h5 class="text-uppercase mb-4 text-white-50">Shop</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Jersey</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Ball</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Shoe</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
-                    <h5 class="text-uppercase mb-4 text-white-50">Special Skills</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Shooting 3-point</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Alley-oop Dunk</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Breaking Ankle</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-white text-decoration-none">Buzzer-Beater</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-
-            </div>
-            <!--Grid row-->
-        </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
-        <div class="text-center p-3 border-top border-white">
-            <a class="text-white" href="#">Made by KDIchigo</a>
-        </div>
+    <footer>
+        <%@include file="components/footerComponent.jsp" %>
     </footer>
 
 </html>

@@ -21,10 +21,10 @@ import model.Product;
  *
  * @author ADMIN
  */
-public class ProductController extends HttpServlet {
+public class HomeController extends HttpServlet {
 
     /**
-     * PSrocesses requests for both HTTP <code>GET</code> and <code>POST</code>
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
@@ -35,13 +35,11 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<Product> listProducts = new ProductDAO().getAllProduccts();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
 
-        request.setAttribute("listProducts", listProducts);
         request.setAttribute("listCategories", listCategories);
 
-        request.getRequestDispatcher("Products.jsp").forward(request, response);
+        request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

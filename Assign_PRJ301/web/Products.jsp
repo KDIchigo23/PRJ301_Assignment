@@ -19,6 +19,8 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" href="css/Home.css">
         <link href="css/styles.css" rel="stylesheet" />
@@ -60,9 +62,6 @@
                                         </div>
                                     </c:when>  
                                 </c:choose> 
-<!--                                <div class="badge bg-dark text-white position-absolute px-2 py-1" style="top: 0.5rem; right: 0.5rem; background-color: red !important;">Sale
-                                    </div>-->
-                                <!-- Product image-->
                                 <img class="card-img-top" src="${Pro.proImg_url}" alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -93,7 +92,13 @@
                                             </c:choose> 
                                         </div>
                                         <!-- Product price-->
-                                        <c:choose>  
+                                        <c:choose>
+                                            <c:when test="${Pro.proPrice > 150}">  
+                                                <span class="text-muted text-decoration-line-through">$179.9</span>
+                                            </c:when> 
+                                            <c:when test="${Pro.proPrice > 100}">  
+                                                <span class="text-muted text-decoration-line-through">$149.9</span>
+                                            </c:when>  
                                             <c:when test="${Pro.proPrice > 90}">  
                                                 <span class="text-muted text-decoration-line-through">$119.9</span>
                                             </c:when>  
@@ -101,7 +106,6 @@
                                                 <span class="text-muted text-decoration-line-through">$109.9</span>
                                             </c:when>   
                                         </c:choose>
-<!--                                        <span class="text-muted text-decoration-line-through">$119.9</span>-->
                                         $${Pro.proPrice}
                                     </div>
                                 </div>
@@ -191,18 +195,8 @@
 
             </div>
         </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
-            </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
 
+    </body>
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>

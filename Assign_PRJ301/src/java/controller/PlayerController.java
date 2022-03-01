@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.CategoryDAO;
 import dao.PlayerDAO;
 import dao.TeamDAO;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Category;
 import model.Player;
 import model.Team;
 
@@ -35,14 +37,12 @@ public class PlayerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        int iId = Integer.parseInt(request.getParameter(name))
         List<Team> listTeams = new TeamDAO().getAllTeams();
-
         List<Player> listPlayers = new PlayerDAO().getAllPlayers();
-//        List<Player> listPlayersById = new PlayerDAO().getAllPlayersByTeamId(tId);
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
 
+        request.setAttribute("listCategories", listCategories);
         request.setAttribute("listTeams", listTeams);
-
         request.setAttribute("listPlayers", listPlayers);
 
         request.getRequestDispatcher("Players.jsp").forward(request, response);
