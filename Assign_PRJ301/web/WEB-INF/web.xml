@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>AllStarController</servlet-name>
+        <servlet-class>controller.AllStarController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlayerController</servlet-name>
+        <servlet-class>controller.PlayerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterTeamController</servlet-name>
+        <servlet-class>controller.FilterTeamController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductController</servlet-name>
+        <servlet-class>controller.ProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllStarController</servlet-name>
+        <url-pattern>/allstar-controller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayerController</servlet-name>
+        <url-pattern>/player-controller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterTeamController</servlet-name>
+        <url-pattern>/filter-team</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductController</servlet-name>
+        <url-pattern>/product-controller</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
