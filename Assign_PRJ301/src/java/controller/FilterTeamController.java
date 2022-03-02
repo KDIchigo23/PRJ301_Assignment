@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.CategoryDAO;
 import dao.PlayerDAO;
 import dao.TeamDAO;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Category;
 import model.Player;
 import model.Team;
 
@@ -40,7 +42,9 @@ public class FilterTeamController extends HttpServlet {
 
             List<Player> listPlayers = new PlayerDAO().getPlayerByTeamId(teamId);
             List<Team> listTeams = new TeamDAO().getAllTeams();
+            List<Category> listCategories = new CategoryDAO().getAllCategories();
 
+            request.setAttribute("listCategories", listCategories);
             request.setAttribute("listPlayers", listPlayers);
             request.setAttribute("listTeams", listTeams);
 

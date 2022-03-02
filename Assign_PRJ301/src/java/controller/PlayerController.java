@@ -37,13 +37,20 @@ public class PlayerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        final int PAGE_SIZE = 12;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
+        }
+        
         List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Player> listPlayers = new PlayerDAO().getAllPlayers();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
 
         request.setAttribute("listCategories", listCategories);
         request.setAttribute("listTeams", listTeams);
-        request.setAttribute("listPlayers", listPlayers);
+        request.setAttribute("listPlayers", listPlayers.subList((page-1)*PAGE_SIZE, page*PAGE_SIZE));
 
         request.getRequestDispatcher("Players.jsp").forward(request, response);
     }

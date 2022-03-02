@@ -35,10 +35,21 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<Product> listProducts = new ProductDAO().getAllProduccts();
+        final int PAGE_SIZE = 12;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
+        }
+        
+        
+        List<Product> listProducts = new ProductDAO().getAllProducts();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
+//        List<Product> lisProductsOfPlayer = new ProductDAO().getProductsByPlayerId();
+        
 
-        request.setAttribute("listProducts", listProducts);
+//        request.setAttribute("lisProductsOfPlayer", lisProductsOfPlayer);
+        request.setAttribute("listProducts", listProducts.subList((page-1)*PAGE_SIZE, page*PAGE_SIZE));
         request.setAttribute("listCategories", listCategories);
 
         request.getRequestDispatcher("Products.jsp").forward(request, response);

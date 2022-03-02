@@ -37,8 +37,8 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex mx-auto">
-                <input class="form-control me-2" type="search" placeholder="Search in here" aria-label="Search" />
+            <form action="search" class="d-flex mx-auto">
+                <input class="form-control me-2" type="search" placeholder="Search in here" aria-label="Search" name="keyword"/>
                 <button class="btn btn-outline-success" type="submit">
                     Search
                 </button>
@@ -50,7 +50,7 @@
                     <span class="badge bg-light text-dark ms-1 rounded-pill">0</span>
                 </button>
             </form>
-            <button class="btn btn-outline-primary ms-lg-2">Login</button>
+            <a href="login-controller"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
         </div>
     </div>
 </nav>

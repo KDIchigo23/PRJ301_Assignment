@@ -6,9 +6,11 @@
 package controller;
 
 import dao.CategoryDAO;
+import dao.PlayerDAO;
 import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,10 +40,26 @@ public class FilterCategoryController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-            
+
+            List<Product> listPlayersrByCategoryIdTemp = new ArrayList<Product>();
+
             List<Product> listProducts = new ProductDAO().getProductByCategoryId(categoryId);
             List<Category> listCategories = new CategoryDAO().getAllCategories();
+            List<Product> listPlayersrByCategoryId = new PlayerDAO().getPlayerByCategoryId(categoryId);
 
+            for (Product product : listPlayersrByCategoryId) {
+                for (Product listplayersrbycategoryidtemp : listPlayersrByCategoryIdTemp) {
+                    if (listPlayersrByCategoryIdTemp.isEmpty()) {
+                        listPlayersrByCategoryIdTemp.add(product);
+                    }
+                    if (product.getpId() != listplayersrbycategoryidtemp.getpId()) {
+                        listPlayersrByCategoryIdTemp.add(product);
+                    }
+                    request.setAttribute("listPlayersrByCategoryIdTemp", listPlayersrByCategoryIdTemp);
+                }
+            }
+
+            request.setAttribute("listPlayersrByCategoryId", listPlayersrByCategoryId);
             request.setAttribute("listProducts", listProducts);
             request.setAttribute("listCategories", listCategories);
 
