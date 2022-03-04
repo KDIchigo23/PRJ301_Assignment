@@ -4,16 +4,22 @@ GO
 USE Assign_PRJ301
 GO
 
+---------- Table [dbo].[Group]
+
 CREATE TABLE [Group] (
 	gId INT PRIMARY KEY NOT NULL,
 	gName VARCHAR(20) NOT NULL,
 )
+GO
+---------- Table [dbo].[Team]
 
 CREATE TABLE [Team] (
 	tId INT PRIMARY KEY NOT NULL,
 	tName VARCHAR(255) NOT NULL,
 	gId INT  FOREIGN KEY(gId) REFERENCES [Group](gId) NOT NULL,
 )
+GO
+---------- Table [dbo].[Players]
 
 CREATE TABLE [Players] (
 	pId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -26,6 +32,8 @@ CREATE TABLE [Players] (
 	pAchievement VARCHAR(255),
 	pImg_url VARCHAR(2000)
 )
+GO
+---------- Table [dbo].[AllStar_Players_2022]
 
 CREATE TABLE [AllStar_Players_2022] (
 	apId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -37,11 +45,15 @@ CREATE TABLE [AllStar_Players_2022] (
 	apRules VARCHAR(255) NOT NULL,
 	apImg_url NVARCHAR(2000),
 )
+GO
+---------- Table [dbo].[Category]
 
 CREATE TABLE [Category] (
 	ctId INT PRIMARY KEY NOT NULL,
 	ctName VARCHAR(255) NOT NULL,
 )
+GO
+---------- Table [dbo].[Products]
 
 CREATE TABLE [Products] (
 	proId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -53,7 +65,8 @@ CREATE TABLE [Products] (
 	proImg_url NVARCHAR(255),
 	ctId INT FOREIGN KEY(ctId) REFERENCES [Category](ctId) NOT NULL
 )
-
+GO
+---GO------- Table [dbo].[Customer]
 
 CREATE TABLE [Customer] (
 	cId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -63,14 +76,66 @@ CREATE TABLE [Customer] (
 	cPhone INT NOT NULL,
 	cAddress NVARCHAR(255) NOT NULL,
 )
+GO
+---------- Table [dbo].[Account]
 
+CREATE TABLE [dbo].[Account](
+	[aId] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[aUsername] [nvarchar](255) NULL,
+	[aPassword] [nvarchar](255) NULL,
+	[aDisplayName] [nvarchar](255) NULL,
+	[aAddress] [nvarchar](255) NULL,
+	[aEmail] [nvarchar](255) NULL,
+	[aPhone] [nvarchar](255) NULL,
+)
+
+GO
+-------------- Table [dbo].[Shipping]  
+
+CREATE TABLE [dbo].[Shipping](
+	[sId] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[sName] [nvarchar](255) NULL,
+	[sPhone] [nvarchar](255) NULL,
+	[sAddress] [nvarchar](255) NULL,
+)
+
+GO
+-------------- Table [dbo].[Orders]  
+
+CREATE TABLE [dbo].[Orders](
+	[oId] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[aId] [int] FOREIGN KEY(aId) REFERENCES [Account](aId) NOT NULL,
+	[oTotalPrice] [float] NULL,
+	[oNote] [text] NULL,
+	[oCreated_date] [date] NULL,
+	[sId] [int] FOREIGN KEY(sId) REFERENCES [Shipping](sId) NULL,
+)
+GO
+
+-------------- Table [dbo].[OrderDetail] 
+
+CREATE TABLE [dbo].[OrderDetail](
+	[odId] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[oId] [int] FOREIGN KEY(oId) REFERENCES [Orders](oId) NULL,
+	[odProductName] [nvarchar](255) NULL,
+	[odProductImg_url] [nvarchar](255) NULL,
+	[odProductPrice] [float] NULL,
+	[odQuantity] [int] NULL,	
+)
+GO
+
+ 
+DROP TABLE [OrderDetail] 
+DROP TABLE [Orders] 
+DROP TABLE [Shipping]
+DROP TABLE [Account] 
 DROP TABLE [AllStar_Players_2022]
 DROP TABLE [Customer]
 DROP TABLE [Products]
 DROP TABLE [Category]
 DROP TABLE [Players] 
 DROP TABLE [Team]
-DROP TABLE [Group] 
+
 
 
 INSERT INTO [Group] (gId, gName) VALUES (1, 'West')
@@ -129,7 +194,7 @@ INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, 
 INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('Malik Monk', '1998-02-04', 8, 'SG', '1.91 m', 11, 'Consensus second-team All-American (2017)', 'https://www.si.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTg3MTM5MTA1OTg4MDI3ODg5/usatsi_17589820.jpg')
 INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('Georges Niang', '1993-07-17', 1, 'PF', '2.01 m', 20, 'First-team All NBA G League (2018)', 'https://cdn.vox-cdn.com/thumbor/dAFK-8nWzkFMDLhdfV-XYiPipGw=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/22966890/1236194253.jpg')
 INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('Isaiah Joe', '1999-07-02', 1, 'SG', '1.93', 7, 'SEC All-Freshman team (2019)', 'https://cdn.vox-cdn.com/thumbor/nrFHbXvE7xE7yIeRi9Jwf7lZNJc=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/22324245/1230792329.jpg')
-INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('Matisse Thybulle', '1997-03-04', 1, 'SF', '1.96', 22, '', 'https://static01.nyt.com/images/2020/07/16/sports/16nba-matisse-lede2/16nba-matisse-lede2-mediumSquareAt3X.jpg')
+INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('Matisse Thybulle', '1997-03-04', 1, 'SF', '1.96', 22, 'SEC All-Freshman team (2020)', 'https://static01.nyt.com/images/2020/07/16/sports/16nba-matisse-lede2/16nba-matisse-lede2-mediumSquareAt3X.jpg')
 INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('Jordan Nwora', '1998-08-08', 2, 'SF', '2.03', 13, 'NBA champion (2021)', 'https://www.ballysports.com/images/image/private/t_1-1_768/f_auto/prod/bismlnvgrpbcwcqfifry.jpg')
 INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('George Hill', '1986-04-04', 2, 'PG', '1.93 m', 3, 'Summit League Player of the Year (2008)', 'https://www.si.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTg3MTE0NDE1ODMxNjU1NTY1/usatsi_12756514_168388303_lowres.jpg')
 INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, pImg_url) VALUES ('Pat Connaughton', '1993-01-06', 2, 'SG', '1.96 m', 24, 'NBA champion (2021)', 'https://cdn.vox-cdn.com/thumbor/XnFB26OGuZfzKwLHdYsGkhk-ONw=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/23239410/1358288228.jpg')
@@ -172,7 +237,7 @@ INSERT INTO [Category] (ctId, ctName) VALUES (3, 'Item')
 
 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(1, 'Embiid Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.21', 10, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-joel-embiid-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(2, 'J.Harden Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.1', 20, 89.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-james-harden-blue-icon-edition-2022-trade-jersey.jpg', 1) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(2, 'J.Harden Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.1', 20, 89.9, 'https://www.nbasportsjersey.com/images/philadelphia-76ers/james-harden-75th-anniversary-icon-royal-jersey-.jpg', 1) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(3, 'Danny Green Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.14', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-danny-green-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(4, 'T.arris Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.12', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-tobias-harris-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(5, 'T.Maxey Jersey', 'Color: blue, white; Philadelphia use this jersey in 12 years, No.0', 20, 69.9, 'https://www.nbajerseyonline.net/nba-apparels/philadelphia-76ers/philadelphia-76ers-tyrese-maxey-royal-2021-22-75th-anniversary-diamond-icon-jersey.jpg', 1) 
@@ -242,7 +307,7 @@ INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, pro
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(1, 'US Armour Embiid 1', 'Color: white, blue; Only in USA', 10, 119.9, 'https://www.efootwear.eu/media/catalog/product/cache/image/650x650//0/0/0000208465373_04_rz.jpg', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(5, '', '', , , '', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Nike Zoom Freak 2(Giannis)', 'Color: grey, black, white; This sneaker only have big size', 15, 169.9, 'https://cdn.shopify.com/s/files/1/0562/8631/4662/products/CK5424-101_67cdd077-3cf1-403f-b4b2-a9e92060232b.jpg?v=1630915304', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(7, 'Nike Zoom Freak 1 Special(Giannis)', 'Color: Orange; Special sneaker from Freak 1 ', 10, 149.9, 'https://cf.shopee.ph/file/e749381125997f526e02374af72d2020', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Nike Zoom Freak 1 Special(Giannis)', 'Color: Orange; Special sneaker from Freak 1 ', 10, 149.9, 'https://cf.shopee.ph/file/e749381125997f526e02374af72d2020', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(8, '', '', , , '', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(9, '', '', , , '', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(10, '', '', , , '', 2) 

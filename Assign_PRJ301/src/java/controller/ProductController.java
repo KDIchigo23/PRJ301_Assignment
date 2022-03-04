@@ -14,8 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Product;
+import model.ProductOnly;
 
 /**
  *
@@ -35,6 +37,7 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         final int PAGE_SIZE = 12;
         int page = 1;
         String pageStr = request.getParameter("page");
@@ -42,16 +45,26 @@ public class ProductController extends HttpServlet {
             page = Integer.parseInt(pageStr);
         }
         
+        int totalProducts = new ProductDAO().getTotalProducts();
+        int totalPage = totalProducts / PAGE_SIZE;
+        if (totalProducts % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
         
-        List<Product> listProducts = new ProductDAO().getAllProducts();
+        List<ProductOnly> listProducts = new ProductDAO().getProductsWithPagging(page, PAGE_SIZE);
+//        List<Product> listProducts = new ProductDAO().getAllProducts();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-//        List<Product> lisProductsOfPlayer = new ProductDAO().getProductsByPlayerId();
         
 
 //        request.setAttribute("lisProductsOfPlayer", lisProductsOfPlayer);
-        request.setAttribute("listProducts", listProducts.subList((page-1)*PAGE_SIZE, page*PAGE_SIZE));
-        request.setAttribute("listCategories", listCategories);
-
+        request.setAttribute("listProducts", listProducts);
+        session.setAttribute("listCategories", listCategories);
+        request.setAttribute("page", page);
+        request.setAttribute("totalPage", totalPage);
+        session.setAttribute("urlHistory", "product-controller");
+        request.setAttribute("pagination_url", "product-controller?");
+        
+        
         request.getRequestDispatcher("Products.jsp").forward(request, response);
     }
 

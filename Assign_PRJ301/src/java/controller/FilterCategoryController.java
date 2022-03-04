@@ -16,8 +16,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Product;
+import model.ProductOnly;
 
 /**
  *
@@ -37,34 +39,37 @@ public class FilterCategoryController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-
-            List<Product> listPlayersrByCategoryIdTemp = new ArrayList<Product>();
-
-            List<Product> listProducts = new ProductDAO().getProductByCategoryId(categoryId);
-            List<Category> listCategories = new CategoryDAO().getAllCategories();
-            List<Product> listPlayersrByCategoryId = new PlayerDAO().getPlayerByCategoryId(categoryId);
-
-            for (Product product : listPlayersrByCategoryId) {
-                for (Product listplayersrbycategoryidtemp : listPlayersrByCategoryIdTemp) {
-                    if (listPlayersrByCategoryIdTemp.isEmpty()) {
-                        listPlayersrByCategoryIdTemp.add(product);
-                    }
-                    if (product.getpId() != listplayersrbycategoryidtemp.getpId()) {
-                        listPlayersrByCategoryIdTemp.add(product);
-                    }
-                    request.setAttribute("listPlayersrByCategoryIdTemp", listPlayersrByCategoryIdTemp);
-                }
-            }
-
-            request.setAttribute("listPlayersrByCategoryId", listPlayersrByCategoryId);
-            request.setAttribute("listProducts", listProducts);
-            request.setAttribute("listCategories", listCategories);
-
-            request.getRequestDispatcher("Products.jsp").forward(request, response);
+        /* TODO output your page here. You may use following sample code. */
+        HttpSession session = request.getSession();
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        final int PAGE_SIZE = 12;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
         }
+
+        int totalProducts = new ProductDAO().getTotalProducts(categoryId);
+        int totalPage = totalProducts / PAGE_SIZE;
+        if (totalProducts % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+
+//            List<Product> listPlayersrByCategoryIdTemp = new ArrayList<Product>();
+        List<Product> listProducts = new ProductDAO().getProductByCategoryIdAndPagging(categoryId, page, PAGE_SIZE);
+//            List<Product> listProducts = new ProductDAO().getProductByCategoryId(categoryId);
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+//            List<Product> listPlayersrByCategoryId = new PlayerDAO().getPlayerByCategoryId(categoryId);
+
+        request.setAttribute("listProducts", listProducts);
+        session.setAttribute("listCategories", listCategories);
+        request.setAttribute("page", page);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("categoryId", categoryId);
+        request.setAttribute("pagination_url", "filter-category?categoryId="+categoryId+"&");
+
+        request.getRequestDispatcher("Products.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

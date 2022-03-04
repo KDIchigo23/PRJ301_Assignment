@@ -5,21 +5,22 @@
  */
 package controller;
 
-import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
+import javax.servlet.http.HttpSession;
+import model.Cart;
 
 /**
  *
  * @author ADMIN
  */
-public class FilterPlayerController extends HttpServlet {
+public class UpdateCartQuantityController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,13 +34,21 @@ public class FilterPlayerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-        List<Product> listPlayersrByCategoryId = new ProductDAO().getPlayerByCategoryId(categoryId);
+        HttpSession session = request.getSession();
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
 
-        request.setAttribute("listPlayersrByCategoryId", listPlayersrByCategoryId);
+        if (carts.containsKey(productId)) {
+            carts.get(productId).setQuantity(quantity);
+        }
 
-        request.getRequestDispatcher("Products.jsp").forward(request, response);
+        session.setAttribute("carts", carts);
+        response.sendRedirect("cart-controller");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

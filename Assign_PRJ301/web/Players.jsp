@@ -10,17 +10,20 @@
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Latest compiled and minified CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Latest compiled JavaScript -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Homepage - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" href="css/Home.css">
         <link href="css/styles.css" rel="stylesheet" />
-        <title>NBA players</title>
     </head>
 
     <style>
@@ -44,21 +47,24 @@
         <div class="offcanvas offcanvas-start" id="demo">
             <div class="offcanvas-header">
                 <h1 class="offcanvas-title">Team</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>           
             </div>
 
             <div class="offcanvas-body">
+                <div class="dropdown dropend team-hover mb-4">
+                    <a href="player-controller" class="text-dark text-decoration-none">All Players in NBA</a>    
+                </div>
                 <h4 class="text-dark">West</h4>
                 <c:forEach begin="0" end="3" items="${listTeams}" var="T">
                     <div class="dropdown dropend team-hover">
-                        <a href="filter-team?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
+                        <a href="${team_url}?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
                     </div>
                 </c:forEach>
                 <br>
                 <h4 class="text-dark">East</h4>               
                 <c:forEach begin="4" end="8" items="${listTeams}" var="T">
                     <div class="dropdown dropend team-hover">
-                        <a href="filter-team?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
+                        <a href="${team_url}?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
                     </div>
                 </c:forEach>
             </div>
@@ -76,7 +82,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="player-controller" data-bs-target="#demo" data-bs-toggle="offcanvas">NBA Team</a>
+                            <a class="nav-link active text-white" aria-current="page" data-bs-toggle="offcanvas" data-bs-target="#demo" href="player-controller">NBA Team</a>
                         </li>
                         <li class="nav-item"><a class="nav-link text-white" href="allstar-controller">NBA All-Star</a></li>
                         <li class="nav-item dropdown">
@@ -87,26 +93,25 @@
                                 <li>
                                     <hr class="dropdown-divider" style="color: #d8e3e887;" />
                                 </li>
-                                <c:forEach items="${listCategories}" var="CT">
+                                <c:forEach items="${sessionScope.listCategories}" var="CT">
                                     <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
                                     </c:forEach>
 
-                                <!--                        <li><a class="dropdown-item text-white bg-color-grey-hover" href="#!">Sneaker</a></li>-->
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex mx-auto">
-                        <input class="form-control me-2" type="search" placeholder="Search in here" aria-label="Search" />
+                    <form action="search-player" class="d-flex mx-auto">
+                        <input class="form-control me-2" type="search" placeholder="Search in here" aria-label="Search" name="keyword"/>
                         <button class="btn btn-outline-success" type="submit">
                             Search
                         </button>
                     </form>
                     <form class="d-flex my-2">
-                        <button class="btn btn-outline-light" type="submit">
+                        <a href="cart-controller" class="btn btn-outline-light">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-light text-dark ms-1 rounded-pill">0</span>
-                        </button>
+                            <span class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
+                        </a>
                     </form>
                     <a href="login-controller"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
                 </div>
@@ -132,12 +137,51 @@
             </c:forEach>
         </nav>
 
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="player-controller?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="player-controller?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-        </ul>
+        <c:choose>
+            <c:when test="${listPlayers==null || listPlayers.size()==0}">
+                Not founds
+            </c:when>
+            <c:when test="${totalPage < 2}">
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                    <ul class="pagination">
+                        <c:forEach begin="1" end="${totalPage}" var="i">
+                            <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                            </c:forEach>
+                    </ul>
+                </nav>
+            </c:when>
+            <c:when test="${page < 2}">
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                    <ul class="pagination">                               
+                        <c:forEach begin="1" end="${totalPage}" var="i">
+                            <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                            </c:forEach>
+                        <li class="page-item"><a class="page-link" href="${pagination_url}page=${page+1}">Next</a></li>
+                    </ul>
+                </nav>
+            </c:when>
+            <c:when test="${page+1 > totalPage}">
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="${pagination_url}page=${page-1}">Previous</a></li>
+                            <c:forEach begin="1" end="${totalPage}" var="i">
+                            <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                            </c:forEach>
+                    </ul>
+                </nav>
+            </c:when>
+            <c:otherwise>
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="${pagination_url}page=${page-1}">Previous</a></li>
+                            <c:forEach begin="1" end="${totalPage}" var="i">
+                            <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                            </c:forEach>
+                        <li class="page-item"><a class="page-link" href="${pagination_url}page=${page+1}">Next</a></li>
+                    </ul>
+                </nav>
+            </c:otherwise>
+        </c:choose>
     </body>
 
     <footer>

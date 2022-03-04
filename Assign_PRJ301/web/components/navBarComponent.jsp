@@ -29,26 +29,24 @@
                         <li>
                             <hr class="dropdown-divider" style="color: #d8e3e887;" />
                         </li>
-                        <c:forEach items="${listCategories}" var="CT">
+                        <c:forEach items="${sessionScope.listCategories}" var="CT">
                             <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
                         </c:forEach>
-                        
-<!--                        <li><a class="dropdown-item text-white bg-color-grey-hover" href="#!">Sneaker</a></li>-->
                     </ul>
                 </li>
             </ul>
-            <form action="search" class="d-flex mx-auto">
+            <form action="search-product" class="d-flex mx-auto">
                 <input class="form-control me-2" type="search" placeholder="Search in here" aria-label="Search" name="keyword"/>
                 <button class="btn btn-outline-success" type="submit">
                     Search
                 </button>
             </form>
             <form class="d-flex my-2">
-                <button class="btn btn-outline-light" type="submit">
+                <a href="cart-controller" class="btn btn-outline-light">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-light text-dark ms-1 rounded-pill">0</span>
-                </button>
+                    <span class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
+                </a>
             </form>
             <a href="login-controller"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
         </div>

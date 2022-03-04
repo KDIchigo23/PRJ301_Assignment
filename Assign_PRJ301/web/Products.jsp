@@ -67,7 +67,7 @@
                                         </div>
                                     </c:when>  
                                 </c:choose> 
-                                <img class="card-img-top" src="${Pro.proImg_url}" alt="..." />
+                                <a href="product-detail?productId=${Pro.proId}"><img class="card-img-top" src="${Pro.proImg_url}" alt="..." /></a>
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
@@ -132,21 +132,60 @@
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="add-to-cart?productId=${Pro.proId}">Add to cart</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
-
-
                 </div>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="product-controller?page=1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="product-controller?page=2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                </ul>
+
+                <c:choose>
+                    <c:when test="${listProducts==null || listProducts.size()==0}">
+                        Not founds
+                    </c:when>
+                    <c:when test="${totalPage < 2}">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                                    </c:forEach>
+                            </ul>
+                        </nav>
+                    </c:when>
+                    <c:when test="${page < 2}">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">                               
+                                <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                                    </c:forEach>
+                                <li class="page-item"><a class="page-link" href="${pagination_url}page=${page+1}">Next</a></li>
+                            </ul>
+                        </nav>
+                    </c:when>
+                    <c:when test="${page+1 > totalPage}">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="${pagination_url}page=${page-1}">Previous</a></li>
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                                    </c:forEach>
+                            </ul>
+                        </nav>
+                    </c:when>
+                    <c:otherwise>
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="${pagination_url}page=${page-1}">Previous</a></li>
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
+                                    </c:forEach>
+                                <li class="page-item"><a class="page-link" href="${pagination_url}page=${page+1}">Next</a></li>
+                            </ul>
+                        </nav>
+                    </c:otherwise>
+                </c:choose>
+
             </div>
         </section>
 

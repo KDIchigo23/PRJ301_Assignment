@@ -5,32 +5,32 @@
  */
 package model;
 
-public class Product {
+/**
+ *
+ * @author ADMIN
+ */
+public class ProductOnly {
     private int proId;
     private int pId;
     private String proName;
-    private String pName;
     private String proDescription;
     private int proQuantity;
     private float proPrice;
     private String proImg_url;
     private int ctId;
-    private String ctName;
 
-    public Product() {
+    public ProductOnly() {
     }
 
-    public Product(int proId, int pId, String proName, String pName, String proDescription, int proQuantity, float proPrice, String proImg_url, int ctId, String ctName) {
+    public ProductOnly(int proId, int pId, String proName, String proDescription, int proQuantity, float proPrice, String proImg_url, int ctId) {
         this.proId = proId;
         this.pId = pId;
         this.proName = proName;
-        this.pName = pName;
         this.proDescription = proDescription;
         this.proQuantity = proQuantity;
         this.proPrice = proPrice;
         this.proImg_url = proImg_url;
         this.ctId = ctId;
-        this.ctName = ctName;
     }
 
     public int getProId() {
@@ -55,14 +55,6 @@ public class Product {
 
     public void setProName(String proName) {
         this.proName = proName;
-    }
-
-    public String getpName() {
-        return pName;
-    }
-
-    public void setpName(String pName) {
-        this.pName = pName;
     }
 
     public String getProDescription() {
@@ -105,18 +97,11 @@ public class Product {
         this.ctId = ctId;
     }
 
-    public String getCtName() {
-        return ctName;
-    }
-
-    public void setCtName(String ctName) {
-        this.ctName = ctName;
-    }
-
     @Override
     public String toString() {
-        return "Product{" + "proId=" + proId + ", pId=" + pId + ", proName=" + proName + ", pName=" + pName + ", proDescription=" + proDescription + ", proQuantity=" + proQuantity + ", proPrice=" + proPrice + ", proImg_url=" + proImg_url + ", ctId=" + ctId + ", ctName=" + ctName + '}';
+        return "ProductOnly{" + "proId=" + proId + ", pId=" + pId + ", proName=" + proName + ", proDescription=" + proDescription + ", proQuantity=" + proQuantity + ", proPrice=" + proPrice + ", proImg_url=" + proImg_url + ", ctId=" + ctId + '}';
     }
 
+    
     
 }

@@ -26,16 +26,14 @@ public class PlayerDAO {
         List<Player> list = new ArrayList<>();
         try {
             String sql = "select p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
-                    + "t.tId, t.tName, p.pAchievement, p.pImg_url, COUNT(p.pId) as \"Number of Product\"  \n"
-                    + "from Players p inner join Team t on p.tId = t.tId\n"
-                    + "group by p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
-                    + "t.tId, t.tName, p.pAchievement, p.pImg_url";
+                    + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
+                    + "from Players p inner join Team t on p.tId = t.tId";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Player player = new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-                        rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10));
+                Player player = new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9));
                 list.add(player);
             }
         } catch (Exception ex) {
@@ -48,10 +46,9 @@ public class PlayerDAO {
         List<Player> list = new ArrayList<>();
         try {
             String sql = "select p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
-                    + "t.tId, t.tName, p.pAchievement, p.pImg_url, COUNT(p.pId) as \"Number of Product\" \n"
-                    + "from Players p inner join Team t on p.tId = t.tId where t.tId = ?\n"
-                    + "group by p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
-                    + "t.tId, t.tName, p.pAchievement, p.pImg_url";
+                    + "t.tId, t.tName, p.pAchievement, p.pImg_url\n"
+                    + "from Players p inner join Team t \n"
+                    + "on p.tId = t.tId where t.tId = ?";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
 
@@ -63,8 +60,8 @@ public class PlayerDAO {
 
             //Lặp rs để lấy data
             while (rs.next()) {
-                Player player = new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), 
-                        rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10));
+                Player player = new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9));
                 list.add(player);
             }
 
@@ -105,6 +102,142 @@ public class PlayerDAO {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+
+    public List<Player> getPlayerWithPagging(int page, int PAGE_SIZE) {
+        List<Player> list = new ArrayList<>();
+        try {
+            String sql = "with t as (select ROW_NUMBER() over (order by p.pId asc) as r,\n"
+                    + "p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
+                    + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
+                    + "from Players p inner join Team t on p.tId = t.tId)\n"
+                    + "select * from t where r between ?*?-(?-1) and ?*?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, page);
+            ps.setInt(2, PAGE_SIZE);
+            ps.setInt(3, PAGE_SIZE);
+            ps.setInt(4, page);
+            ps.setInt(5, PAGE_SIZE);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Player player = new Player(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                list.add(player);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PlayerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Player> getPlayerByTeamIdAndPagging(int teamId, int page, int PAGE_SIZE) {
+        List<Player> list = new ArrayList<>();
+        try {
+            String sql = "with s as (select ROW_NUMBER() over (order by p.pId asc) as r,\n"
+                    + "p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
+                    + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
+                    + "from Players p inner join Team t on p.tId = t.tId and p.tId = ?)\n"
+                    + "select * from s where r between ?*?-(?-1) and ?*? ";
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, teamId);
+            ps.setInt(2, page);
+            ps.setInt(3, PAGE_SIZE);
+            ps.setInt(4, PAGE_SIZE);
+            ps.setInt(5, page);
+            ps.setInt(6, PAGE_SIZE);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ResultSet rs = ps.executeQuery();
+
+            //Lặp rs để lấy data
+            while (rs.next()) {
+                Player player = new Player(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                list.add(player);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Player> getPlayersWithPaggingAndSearch(String keyword, int page, int PAGE_SIZE) {
+        List<Player> list = new ArrayList<>();
+        try {
+            String sql = "with s as (select ROW_NUMBER() over (order by p.pId asc) as r,\n"
+                    + "p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
+                    + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
+                    + "from Players p inner join Team t on p.tId = t.tId and p.pName like ?)\n"
+                    + "select * from s where r between ?*?-(?-1) and ?*?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+            ps.setInt(2, page);
+            ps.setInt(3, PAGE_SIZE);
+            ps.setInt(4, PAGE_SIZE);
+            ps.setInt(5, page);
+            ps.setInt(6, PAGE_SIZE);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Player player = new Player(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                list.add(player);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public int getTotalPlayers() {
+        try {
+            String sql = "select count(pId) from Players";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getTotalPlayers(int teamId) {
+        try {
+            String sql = "select count(p.pId) from Players p where p.tId = ?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, teamId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getTotalPlayers(String keyword) {
+        try {
+            String sql = "select count(p.pId) from Players p where p.pName like ?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }

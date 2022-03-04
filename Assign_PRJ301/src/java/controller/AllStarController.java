@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.AllStar;
 import model.Category;
 
@@ -35,12 +36,13 @@ public class AllStarController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         
         List<AllStar> listAllStarsLebrons = new AllStarDAO().getAllAllStarLebrons();
         List<AllStar> listAllStarsDurants = new AllStarDAO().getAllAllStarDurants();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
 
-        request.setAttribute("listCategories", listCategories);
+        session.setAttribute("listCategories", listCategories);
         request.setAttribute("listAllStarsLebrons", listAllStarsLebrons);
         request.setAttribute("listAllStarsDurants", listAllStarsDurants);
         request.getRequestDispatcher("AllStar-2022.jsp").forward(request, response);

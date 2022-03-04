@@ -6,25 +6,24 @@
 package controller;
 
 import dao.CategoryDAO;
-import dao.PlayerDAO;
-import dao.TeamDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Cart;
 import model.Category;
-import model.Player;
-import model.Team;
 
 /**
  *
  * @author ADMIN
  */
-public class PlayerController extends HttpServlet {
+public class DeleteCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,33 +36,27 @@ public class PlayerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final int PAGE_SIZE = 12;
-        int page = 1;
-        String pageStr = request.getParameter("page");
-        if (pageStr != null) {
-            page = Integer.parseInt(pageStr);
-        }
+        response.setContentType("text/html;charset=UTF-8");
+        int productId = Integer.parseInt(request.getParameter("productId"));
 
-        int totalPlayers = new PlayerDAO().getTotalPlayers();
-        int totalPage = totalPlayers / PAGE_SIZE;
-        if (totalPlayers % PAGE_SIZE != 0) {
-            totalPage += 1;
-        }
         HttpSession session = request.getSession();
 
-        List<Player> listPlayers = new PlayerDAO().getPlayerWithPagging(page, PAGE_SIZE);
-        List<Team> listTeams = new TeamDAO().getAllTeams();
-//        List<Player> listPlayers = new PlayerDAO().getAllPlayers();
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
+
+        if (carts.containsKey(productId)) {
+            carts.remove(productId);
+        }
+        
         List<Category> listCategories = new CategoryDAO().getAllCategories();
 
         session.setAttribute("listCategories", listCategories);
-        request.setAttribute("listTeams", listTeams);
-        request.setAttribute("listPlayers", listPlayers);
-        request.setAttribute("page", page);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("pagination_url", "player-controller?");
-
-        request.getRequestDispatcher("Players.jsp").forward(request, response);
+        session.setAttribute("carts", carts);
+        response.sendRedirect("cart-controller");
+        
+//        request.getRequestDispatcher("Cart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

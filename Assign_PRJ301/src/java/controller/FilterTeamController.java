@@ -37,19 +37,36 @@ public class FilterTeamController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            int teamId = Integer.parseInt(request.getParameter("teamId"));
-
-            List<Player> listPlayers = new PlayerDAO().getPlayerByTeamId(teamId);
-            List<Team> listTeams = new TeamDAO().getAllTeams();
-            List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-            request.setAttribute("listCategories", listCategories);
-            request.setAttribute("listPlayers", listPlayers);
-            request.setAttribute("listTeams", listTeams);
-
-            request.getRequestDispatcher("Players.jsp").forward(request, response);
+        int teamId = Integer.parseInt(request.getParameter("teamId"));
+        final int PAGE_SIZE = 12;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
         }
+
+        int totalPlayers = new PlayerDAO().getTotalPlayers(teamId);
+        int totalPage = totalPlayers / PAGE_SIZE;
+        if (totalPlayers % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+
+        List<Player> listPlayers = new PlayerDAO().getPlayerByTeamIdAndPagging(teamId, page, PAGE_SIZE);
+
+//        List<Player> listPlayers = new PlayerDAO().getPlayerByTeamId(teamId);
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        request.setAttribute("listCategories", listCategories);
+        request.setAttribute("listPlayers", listPlayers);
+        request.setAttribute("listTeams", listTeams);
+        request.setAttribute("page", page);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pagination_url", "filter-team?teamId=" + teamId + "&");
+        request.setAttribute("team_url", "filter-team");
+
+        request.getRequestDispatcher("Players.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
