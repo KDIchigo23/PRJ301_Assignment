@@ -48,7 +48,7 @@
             </div>
 
             <div class="container" style="min-height: 300px">
-                <table class="row table" border="1" style="min-width: 60%;">
+                <table class="row table" border="1" style="min-width: 60%; margin: 0px !important">
                     <c:choose>
                         <c:when test="${sessionScope.carts==null||sessionScope.carts.size()==0}">
                             <h1>List Cart is Empty</h1>
@@ -82,14 +82,14 @@
                         <c:when test="${sessionScope.carts==null||sessionScope.carts.size()==0}">
                             <a class="text-decoration-none text-light">
                                 <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px" data-bs-target="#myModal">
-                                    Buy now
+                                    Check out
                                 </button>
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a href="check-buy-now" class="text-decoration-none text-light">
+                            <a href="checkout-controller" class="text-decoration-none text-light">
                                 <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px">
-                                    Buy now
+                                    Check out
                                 </button>
                             </a>
                         </c:otherwise>
@@ -121,12 +121,7 @@
                         <input value="1" style="width: 30px">
                         <button class="px-3 py-1" value="+" style="font-size: 15px; background-color: white; border: 1px solid black; border-left: none !important">+</button>
                     </div>
-
-
-
-
                 </div>
-
             </div>
         </div>
     </body>

@@ -61,12 +61,8 @@
         <servlet-class>controller.FilterProductTeamController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckBuyNowController</servlet-name>
-        <servlet-class>controller.CheckBuyNowController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CheckNullController</servlet-name>
-        <servlet-class>controller.CheckNullController</servlet-class>
+        <servlet-name>CheckOutController</servlet-name>
+        <servlet-class>controller.CheckOutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
@@ -133,12 +129,8 @@
         <url-pattern>/filter-proteam</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CheckBuyNowController</servlet-name>
-        <url-pattern>/check-buy-now</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CheckNullController</servlet-name>
-        <url-pattern>/check-null</url-pattern>
+        <servlet-name>CheckOutController</servlet-name>
+        <url-pattern>/checkout-controller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>

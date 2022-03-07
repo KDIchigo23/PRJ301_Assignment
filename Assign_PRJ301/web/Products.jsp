@@ -45,7 +45,7 @@
             <div class="container-fluid row px-4 px-lg-5 mt-5">
                 <div class="row col-xl-3 mx-4 list-group list-group-flush">
   
-                    <div class="container mt-3">
+                    <div class="container">
                         <div>
                             <c:forEach items="${sessionScope.listTeams}" var="T">
                                 <div class="card">

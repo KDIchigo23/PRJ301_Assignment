@@ -6,12 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<nav class="container-fluid text-center text-lg-start border border-secondary mt-2 pt-4 bg-dark">
-    <!-- Grid container -->
+<!--<nav class="container-fluid text-center text-lg-start border border-secondary mt-2 pt-4 bg-dark">
+     Grid container 
     <div class="container-fluid p-4">
-        <!--Grid row-->
+        Grid row
         <div class="row">
-            <!--Grid column-->
+            Grid column
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
                 <h5 class="text-uppercase mb-4 text-white-50">NBA</h5>
 
@@ -30,9 +30,9 @@
                     </li>
                 </ul>
             </div>
-            <!--Grid column-->
+            Grid column
 
-            <!--Grid column-->
+            Grid column
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
                 <h5 class="text-uppercase mb-4 text-white-50">Skills</h5>
 
@@ -51,9 +51,9 @@
                     </li>
                 </ul>
             </div>
-            <!--Grid column-->
+            Grid column
 
-            <!--Grid column-->
+            Grid column
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
                 <h5 class="text-uppercase mb-4 text-white-50">Shop</h5>
 
@@ -69,9 +69,9 @@
                     </li>
                 </ul>
             </div>
-            <!--Grid column-->
+            Grid column
 
-            <!--Grid column-->
+            Grid column
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ps-5">
                 <h5 class="text-uppercase mb-4 text-white-50">Special Skills</h5>
 
@@ -90,20 +90,20 @@
                     </li>
                 </ul>
             </div>
-            <!--Grid column-->
+            Grid column
 
-            <!--Grid column-->
+            Grid column
 
         </div>
-        <!--Grid row-->
+        Grid row
     </div>
-    <!-- Grid container -->
+     Grid container 
 
-    <!-- Copyright -->
+     Copyright 
     <div class="text-center p-3 border-top border-white">
         <a class="text-white" href="#">Made by KDIchigo</a>
     </div>
-</nav>
+</nav>-->
 
 
 <footer class="text-center text-white" style="background-color: #caced1;">
@@ -112,7 +112,7 @@
         <!-- Section: Images -->
         <section class="">
             <div class="row">
-                <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0 my-2">
                     <div
                         class="bg-image hover-overlay ripple shadow-1-strong rounded"
                         data-ripple-color="light"
@@ -129,7 +129,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0 my-2">
                     <div
                         class="bg-image hover-overlay ripple shadow-1-strong rounded"
                         data-ripple-color="light"
@@ -146,7 +146,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <div class="col-lg-2 col-md-6 mb-4 my-2 mb-md-0">
                     <div
                         class="bg-image hover-overlay ripple shadow-1-strong rounded"
                         data-ripple-color="light"
@@ -163,7 +163,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <div class="col-lg-2 col-md-6 mb-4 my-2 mb-md-0">
                     <div
                         class="bg-image hover-overlay ripple shadow-1-strong rounded"
                         data-ripple-color="light"
@@ -180,7 +180,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0 my-2">
                     <div
                         class="bg-image hover-overlay ripple shadow-1-strong rounded"
                         data-ripple-color="light"
@@ -197,7 +197,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <div class="col-lg-2 col-md-6 mb-4 my-2 mb-md-0">
                     <div
                         class="bg-image hover-overlay ripple shadow-1-strong rounded"
                         data-ripple-color="light"

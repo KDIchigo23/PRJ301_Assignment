@@ -95,7 +95,7 @@
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
-                            <table class="text-dark cart-table row" style="border: 1px solid gray; box-shadow:">
+                            <table class="text-dark cart-table row pe-2 ps-1" style="border: 1px solid gray; box-shadow:">
                                 <c:choose>
                                     <c:when test="${carts==null || carts.size()==0}">
                                         <tr><td class="not-founds">Not founds</td></tr>
@@ -124,20 +124,22 @@
                             <a class="btn ms-1 pb-1 account-div">
                                 <i class="bi bi-person-circle text-white me-2 account-img py-5"></i><span class="text-white">${sessionScope.account.aDisplayName}</span>
                                 <table class="text-dark cart-table row account-table" style="border: 1px solid gray;">
-                                    <c:if test="${sessionScope.account.isSell == 1}">
-                                        <tr>
-                                            <td class="text-center">Manager Sell</td>
-                                        </tr>
-                                    </c:if>
-                                    <c:if test="${sessionScope.account.isAdmin == 1}">
-                                        <tr>
-                                            <td class="text-center">Manager Account</td>
-                                        </tr>
-                                    </c:if>
                                     <c:if test="${sessionScope.account.isSell == 1 && sessionScope.account.isAdmin == 1}">
                                         <tr>
                                             <td class="text-center">Manager Account</td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-center">Manager Sell</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.isSell == 1 && sessionScope.account.isAdmin == 0}">
+                                        <tr>
+                                            <td class="text-center">Manager Sell</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.isAdmin == 1 && sessionScope.account.isSell == 0}">
+                                        <tr>
+                                            <td class="text-center">Manager Account</td>
                                         </tr>
                                     </c:if>
                                     <c:if test="${sessionScope.account.isSell == 0 && sessionScope.account.isAdmin == 0}">

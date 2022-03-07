@@ -119,9 +119,9 @@ GO
 CREATE TABLE [dbo].[OrderDetail](
 	[odId] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[oId] [int] FOREIGN KEY(oId) REFERENCES [Orders](oId) NULL,
-	[odProductName] [nvarchar](255) NULL,
-	[odProductImg_url] [nvarchar](255) NULL,
-	[odProductPrice] [float] NULL,
+	[proName] [nvarchar](255) NULL,
+	[proImg_url] [nvarchar](255) NULL,
+	[proPrice] [float] NULL,
 	[odQuantity] [int] NULL,	
 )
 GO
@@ -335,14 +335,21 @@ INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, pro
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'Nike LeBron 8 Low V2', 'Color: mix color, red; The sneaker are very popular', 30, 149.9, 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/b83a9261-34cb-4249-9207-3ae078adf322/lebron-8-v-2-low-shoes-K83bDn.png', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'Nike LeBron 17 White And Gold', 'Color: white and gold; Expensive sneaker from LeBron in 2019', 10, 169.9, 'https://acrossports.s3.amazonaws.com/productPhotos/NIKE/CD5006101/CD5006101_8.jpg', 2) 
 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(1, 'Embiid Model', 'It is small', 100, 19.9, 'https://i5.walmartimages.com/asr/15f89af1-a699-4b13-9e5e-04fe6783be02_1.331fa7d553408b61e2b8adc3233977cd.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(2, 'J.Harden KeyChain', 'Have model keychain and normal keychain', 100, 19.9, 'https://m.media-amazon.com/images/I/617f0xJ25KL._AC_SL1500_.jpg', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Giannis NBA 2K19 Model', 'It look like Giannis in NBA 2K19 game', 100, 19.9, 'https://m.media-amazon.com/images/I/51q7vG6wm1L.jpg', 3) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Giannis Model', 'It is small and look like "The Freak"', 100, 19.9, 'https://cf.shopee.vn/file/3d29bb8326439403bede4a522072174a', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(14, 'F.Vanvleet Model', 'It is small with NBA 2019 champions', 100, 19.9, 'https://m.media-amazon.com/images/I/71xxmkNrmJL._AC_SL1500_.jpg', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(16, 'KD Jersey KeyChain', 'It is small with No.7 and signature', 40, 19.9, 'https://cdn.shopify.com/s/files/1/2030/1917/products/KDNN_2400x.jpg?v=1638508249', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(17, 'Kyrie Jersey KeyChain', 'It is small and great with No.11', 100, 19.9, 'https://cdn.shopify.com/s/files/1/2030/1917/products/KyrieNN_2400x.jpg?v=1638508360', 3) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, 'https://ae01.alicdn.com/kf/HTB1X7MKQCrqK1RjSZK9q6xyypXac.jpg', 3) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Model', 'It is small and great lay-up skill', 50, 29.9, 'https://cdn.shopify.com/s/files/1/2578/8918/products/BHNBSMUFIRGSSC_p.jpg?v=1619630599', 3) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(27, 'Klay Jersey and Model KeyChain', 'It is small and great with No.11', 100, 19.9, 'https://static3.tcdn.com.br/img/img_prod/460977/chaveiro_klay_thompson_warriors_basquete_nba_evali_90369_1_9415d3531c8206659f59518a2c8f32a7.jpg', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(31, 'K.Leonard', 'It is small and great with No.2', 100, 19.9, 'https://cdn.shopify.com/s/files/1/2578/8918/products/BHNBSMUDYDULCKL_g3_2048x.jpg?v=1613715109', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(32, 'PG13 KeyChain', 'It is normal keychain', 100, 19.9, 'https://cdn11.bigcommerce.com/s-xhmrmcecz5/images/stencil/1280x1280/products/65881/66729/Paul-George-Los-Angeles-Clippers-NBA__51283.1608102605.jpg?c=1', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'LeBron Jersey KeyChain', 'It is LeBron 10 Black', 100, 19.9, 'http://i.ebayimg.com/images/g/aD8AAOSwhURZgRGI/s-l500.jpg', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'LeBron Model', 'It is small and great with No.23', 100, 19.9, 'https://cdn11.bigcommerce.com/s-ruomlrv671/images/stencil/1280x1280/products/27296/53963/medicom-nba-20-james__1__13335.1643218424.jpg?c=2', 3) 
 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
 
 
 INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)

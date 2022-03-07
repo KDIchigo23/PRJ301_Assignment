@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="css/Home.css">
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    
+
     <header>
         <%@include file="components/navBarComponent.jsp" %>
     </header>
@@ -64,6 +64,29 @@
             <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
                 <span class="carousel-control-next-icon"></span>
             </button>
+        </div>
+
+        <!-- Testimonial section-->
+        <div class="py-5 mt-2" style="background-color: darkgray;">
+            <div class="container px-5 my-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-10 col-xl-7">
+                        <div class="text-center">
+                            <div class="fs-4 mb-4 fst-italic">"You can’t be afraid to fail. It’s the only way you succeed.
+                                You’re not gonna succeed all the time and I know that!"</div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d"
+                                     alt="..." />
+                                <div class="fw-bold">
+                                    King James
+                                    <span class="fw-bold text-primary mx-1">/</span>
+                                    The best player in the NBA present
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Blog preview section-->
@@ -163,49 +186,27 @@
                 </div>
         </section>
 
-        <!-- Testimonial section-->
-        <div class="py-5 mt-2" style="background-color: darkgray;">
-            <div class="container px-5 my-5">
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-10 col-xl-7">
-                        <div class="text-center">
-                            <div class="fs-4 mb-4 fst-italic">"You can’t be afraid to fail. It’s the only way you succeed.
-                                You’re not gonna succeed all the time and I know that!"</div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d"
-                                     alt="..." />
-                                <div class="fw-bold">
-                                    King James
-                                    <span class="fw-bold text-primary mx-1">/</span>
-                                    The best player in the NBA present
+
+        <!-- Call to action-->
+        <!--            <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5 mx-auto" style="width: 70%;">
+                        <div
+                            class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                            <div class="mb-4 mb-xl-0">
+                                <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
+                                <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
+                            </div>
+                            <div class="ms-xl-4">
+                                <div class="input-group mb-2">
+                                    <input class="form-control" type="text" placeholder="Email address..."
+                                           aria-label="Email address..." aria-describedby="button-newsletter" />
+                                    <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign
+                                        up</button>
+                                </div>
+                                <div class="small text-white-50">We care about privacy, and will never share your data.
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Call to action-->
-            <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5 mx-auto" style="width: 70%;">
-                <div
-                    class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                    <div class="mb-4 mb-xl-0">
-                        <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
-                        <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
-                    </div>
-                    <div class="ms-xl-4">
-                        <div class="input-group mb-2">
-                            <input class="form-control" type="text" placeholder="Email address..."
-                                   aria-label="Email address..." aria-describedby="button-newsletter" />
-                            <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign
-                                up</button>
-                        </div>
-                        <div class="small text-white-50">We care about privacy, and will never share your data.
-                        </div>
-                    </div>
-                </div>
-            </aside>
-        </div>
+                    </aside>-->
 
     </body>
 
