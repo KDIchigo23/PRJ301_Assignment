@@ -8,7 +8,6 @@ package controller;
 import dao.CategoryDAO;
 import dao.ProductDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Product;
-import model.ProductOnly;
 
 /**
  *
@@ -41,11 +39,12 @@ public class ProductDetailController extends HttpServlet {
         int productId = Integer.parseInt(request.getParameter("productId"));
 
         List<Product> productDetail = new ProductDAO().getProductByProductId(productId);
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
         List<Product> listProducts = new ProductDAO().getAllProducts();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+        
 
-        request.setAttribute("productDetail", productDetail);
         session.setAttribute("listCategories", listCategories);
+        request.setAttribute("productDetail", productDetail);
         request.getSession().setAttribute("listProducts", listProducts);
         request.setAttribute("urlHistory", "product-detail?productId=" + productId);
 

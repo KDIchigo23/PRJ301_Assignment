@@ -49,8 +49,8 @@ public class DeleteCartController extends HttpServlet {
         if (carts.containsKey(productId)) {
             carts.remove(productId);
         }
-        
         List<Category> listCategories = new CategoryDAO().getAllCategories();
+        
 
         session.setAttribute("listCategories", listCategories);
         session.setAttribute("carts", carts);

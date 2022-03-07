@@ -5,6 +5,19 @@
  */
 package model;
 
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+
+@Builder
+@Getter
+@Setter
+@ToString
+
 public class Product {
     private int proId;
     private int pId;
@@ -33,28 +46,12 @@ public class Product {
         this.ctName = ctName;
     }
 
-    public int getProId() {
-        return proId;
-    }
-
-    public void setProId(int proId) {
-        this.proId = proId;
-    }
-
     public int getpId() {
         return pId;
     }
 
     public void setpId(int pId) {
         this.pId = pId;
-    }
-
-    public String getProName() {
-        return proName;
-    }
-
-    public void setProName(String proName) {
-        this.proName = proName;
     }
 
     public String getpName() {
@@ -65,58 +62,7 @@ public class Product {
         this.pName = pName;
     }
 
-    public String getProDescription() {
-        return proDescription;
-    }
-
-    public void setProDescription(String proDescription) {
-        this.proDescription = proDescription;
-    }
-
-    public int getProQuantity() {
-        return proQuantity;
-    }
-
-    public void setProQuantity(int proQuantity) {
-        this.proQuantity = proQuantity;
-    }
-
-    public float getProPrice() {
-        return proPrice;
-    }
-
-    public void setProPrice(float proPrice) {
-        this.proPrice = proPrice;
-    }
-
-    public String getProImg_url() {
-        return proImg_url;
-    }
-
-    public void setProImg_url(String proImg_url) {
-        this.proImg_url = proImg_url;
-    }
-
-    public int getCtId() {
-        return ctId;
-    }
-
-    public void setCtId(int ctId) {
-        this.ctId = ctId;
-    }
-
-    public String getCtName() {
-        return ctName;
-    }
-
-    public void setCtName(String ctName) {
-        this.ctName = ctName;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" + "proId=" + proId + ", pId=" + pId + ", proName=" + proName + ", pName=" + pName + ", proDescription=" + proDescription + ", proQuantity=" + proQuantity + ", proPrice=" + proPrice + ", proImg_url=" + proImg_url + ", ctId=" + ctId + ", ctName=" + ctName + '}';
-    }
+    
 
     
 }

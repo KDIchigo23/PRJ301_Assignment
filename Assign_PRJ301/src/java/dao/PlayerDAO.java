@@ -32,8 +32,19 @@ public class PlayerDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Player player = new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9));
+//                Player player = new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+//                        rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9));
+                Player player = Player.builder()
+                        .pId(rs.getInt(1))
+                        .pName(rs.getString(2))
+                        .pDob(rs.getString(3))
+                        .pPosition(rs.getString(4))
+                        .pNo(rs.getInt(5))
+                        .tId(rs.getInt(6))
+                        .tName(rs.getString(7))
+                        .pAchievement(rs.getString(8))
+                        .pImg_url(rs.getString(9))
+                        .build();
                 list.add(player);
             }
         } catch (Exception ex) {
@@ -42,7 +53,7 @@ public class PlayerDAO {
         return list;
     }
 
-    public List<Player> getPlayerByTeamId(int teamId) {
+    public List<Player> getPlayersByTeamId(int teamId) {
         List<Player> list = new ArrayList<>();
         try {
             String sql = "select p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
@@ -60,8 +71,17 @@ public class PlayerDAO {
 
             //Lặp rs để lấy data
             while (rs.next()) {
-                Player player = new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9));
+                Player player = Player.builder()
+                        .pId(rs.getInt(1))
+                        .pName(rs.getString(2))
+                        .pDob(rs.getString(3))
+                        .pPosition(rs.getString(4))
+                        .pNo(rs.getInt(5))
+                        .tId(rs.getInt(6))
+                        .tName(rs.getString(7))
+                        .pAchievement(rs.getString(8))
+                        .pImg_url(rs.getString(9))
+                        .build();
                 list.add(player);
             }
 
@@ -93,8 +113,18 @@ public class PlayerDAO {
 
             //Lặp rs để lấy data
             while (rs.next()) {
-                Product product = new Product(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getInt(6), rs.getFloat(7), rs.getString(8), rs.getInt(9), rs.getString(10));
+                Product product = Product.builder()
+                        .proId(rs.getInt(1))
+                        .pId(rs.getInt(2))
+                        .proName(rs.getString(3))
+                        .pName(rs.getString(4))
+                        .proDescription(rs.getString(5))
+                        .proQuantity(rs.getInt(6))
+                        .proPrice(rs.getInt(7))
+                        .proImg_url(rs.getString(8))
+                        .ctId(rs.getInt(9))
+                        .ctName(rs.getString(10))
+                        .build();
                 list.add(product);
             }
 
@@ -121,8 +151,17 @@ public class PlayerDAO {
             ps.setInt(5, PAGE_SIZE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Player player = new Player(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                Player player = Player.builder()
+                        .pId(rs.getInt(2))
+                        .pName(rs.getString(3))
+                        .pDob(rs.getString(4))
+                        .pPosition(rs.getString(5))
+                        .pNo(rs.getInt(6))
+                        .tId(rs.getInt(7))
+                        .tName(rs.getString(8))
+                        .pAchievement(rs.getString(9))
+                        .pImg_url(rs.getString(10))
+                        .build();
                 list.add(player);
             }
         } catch (Exception ex) {
@@ -155,8 +194,17 @@ public class PlayerDAO {
 
             //Lặp rs để lấy data
             while (rs.next()) {
-                Player player = new Player(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                Player player = Player.builder()
+                        .pId(rs.getInt(2))
+                        .pName(rs.getString(3))
+                        .pDob(rs.getString(4))
+                        .pPosition(rs.getString(5))
+                        .pNo(rs.getInt(6))
+                        .tId(rs.getInt(7))
+                        .tName(rs.getString(8))
+                        .pAchievement(rs.getString(9))
+                        .pImg_url(rs.getString(10))
+                        .build();
                 list.add(player);
             }
         } catch (Exception ex) {
@@ -183,8 +231,17 @@ public class PlayerDAO {
             ps.setInt(6, PAGE_SIZE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Player player = new Player(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                Player player = Player.builder()
+                        .pId(rs.getInt(2))
+                        .pName(rs.getString(3))
+                        .pDob(rs.getString(4))
+                        .pPosition(rs.getString(5))
+                        .pNo(rs.getInt(6))
+                        .tId(rs.getInt(7))
+                        .tName(rs.getString(8))
+                        .pAchievement(rs.getString(9))
+                        .pImg_url(rs.getString(10))
+                        .build();
                 list.add(player);
             }
         } catch (Exception ex) {

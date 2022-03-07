@@ -6,6 +6,21 @@
     width: 100% !important;
     height: 100% !important;
 } */
+.cart {
+    position: relative;
+}
+
+.cart-table {
+    display: none;
+    position: absolute;
+    width: 50px;
+    bottom: -20px;
+    
+}
+
+.cart:hover .cart-table {
+    display: block;
+}
 
 .nav-link {
     margin: 0px 10px;

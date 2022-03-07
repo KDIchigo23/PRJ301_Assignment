@@ -29,7 +29,11 @@ public class TeamDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Team team = new Team(rs.getInt(1), rs.getString(2), rs.getInt(3));
+                Team team = Team.builder()
+                        .tId(rs.getInt(1))
+                        .tName(rs.getString(2))
+                        .gId(rs.getInt(3))
+                        .build();
                 list.add(team);
             }
         } catch (Exception ex) {

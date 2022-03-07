@@ -33,8 +33,8 @@
     <body style="margin: 66px 10px 0px 10px !important; background-color: lightgoldenrodyellow;">
         <!-- Product section-->
         <section class="py-3">
-            <div class="container row px-4 px-lg-5 mt-5 mb-2 mx-auto">
-                <div class="col-md-6" style="padding: 0 !important">
+            <div class="container row px-4 px-lg-5 mt-5 mb-2 mx-auto align-items-center">
+                <div class="col-md-6">
                     <c:forEach items="${productDetail}" var="Pd">
                         <div class="col">
                             <div class="card h-100">
@@ -53,100 +53,98 @@
                                         </div>
                                     </c:when>  
                                 </c:choose> 
-                                <a><img class="card-img-top" src="${Pd.proImg_url}" alt="..." /></a>
+                                <a><img class="card-img-top mb-5 mb-md-0" src="${Pd.proImg_url}" alt="..." /></a>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
-                <div class="col-md-5 py-auto" style="padding: 0 !important">
-                    <div class="py-auto" style="margin-top: 30%; margin-bottom: 30%">
-                        <c:forEach items="${productDetail}" var="Pd">
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div>
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder" style="font-size: 40px">${Pd.proName}</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex small text-warning mb-2" style="padding-left: 17%">
-                                        <c:choose>  
-                                            <c:when test="${Pd.proPrice > 160}">  
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                            </c:when> 
-                                            <c:when test="${Pd.proPrice > 140}">  
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                            </c:when>
-                                            <c:when test="${Pd.proPrice > 90}">  
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                            </c:when>  
-                                            <c:when test="${Pd.proPrice > 80}">  
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                            </c:when>  
-                                            <c:otherwise>  
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div>
-                                                <div class="bi-star-fill" style="font-size: 20px"></div> 
-                                            </c:otherwise>  
-                                        </c:choose> 
-                                    </div>
-                                    <!-- Product price-->
-                                    <div style="padding-left: 12%">
-                                        <c:choose>
-                                            <c:when test="${Pd.proPrice > 160}">  
-                                                <span class="text-muted text-decoration-line-through" style="font-size: 24px">$189.9</span>
-                                            </c:when> 
-                                            <c:when test="${Pd.proPrice > 140}">  
-                                                <span class="text-muted text-decoration-line-through" style="font-size: 24px">$169.9</span>
-                                            </c:when> 
-                                            <c:when test="${Pd.proPrice > 100}">  
-                                                <span class="text-muted text-decoration-line-through" style="font-size: 24px">$149.9</span>
-                                            </c:when>  
-                                            <c:when test="${Pd.proPrice > 90}">  
-                                                <span class="text-muted text-decoration-line-through" style="font-size: 24px">$119.9</span>
-                                            </c:when>  
-                                            <c:when test="${Pd.proPrice > 89.9}">  
-                                                <span class="text-muted text-decoration-line-through" style="font-size: 24px">$109.9</span>
-                                            </c:when>   
-                                        </c:choose>
-                                        <span style="font-size: 24px">$${Pd.proPrice}</span>
-                                    </div>
-
-                                </div>
-                                <p class="lead" style="font-size: 20px">${Pd.proDescription}</p>
+                <div class="col-md-5 py-auto">
+                    <c:forEach items="${productDetail}" var="Pd">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <!-- Product name-->
+                            <div class="small mb-1">Made by: KDIchigo</div>
+                            <h1 class="display-5 fw-bolder">${Pd.proName}</h1>
+                            <!-- Product reviews-->
+                            <div class="d-flex small text-warning mb-2">
+                                <span class="me-1 text-dark" style="font-size: 20px">Rate:</span>
+                                <c:choose>  
+                                    <c:when test="${Pd.proPrice > 160}">  
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                    </c:when> 
+                                    <c:when test="${Pd.proPrice > 140}">  
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                    </c:when>
+                                    <c:when test="${Pd.proPrice > 90}">  
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                    </c:when>  
+                                    <c:when test="${Pd.proPrice > 80}">  
+                                        <div class="bi-star-fill" style="font-size: 20px;"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                    </c:when>  
+                                    <c:otherwise>  
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div>
+                                        <div class="bi-star-fill" style="font-size: 20px"></div> 
+                                    </c:otherwise>  
+                                </c:choose> 
                             </div>
-                            <!-- Product actions-->
-                            <div class="row pt-0 border-top-0 bg-transparent">
-                                <div class="col-3" style="padding: 0 !important">
-                                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="${Pd.proQuantity}" style="max-width: 4rem; float: right;  font-size: 20px" />
-                                </div>
-                                <div class="col-6" style="padding: 0 !important">
-                                    <a href="add-to-cart?productId=${Pd.proId}" class="btn btn-outline-dark flex-shrink-0 ms-2" type="button" style="padding: 8px;">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        Add to Card
-                                    </a>
-                                    <a class="btn btn-outline-success flex-shrink-0 ms-2" type="button" style="padding: 8px;">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        Buy now
-                                    </a>
-                                </div>                   
+                            <!-- Product price-->
+                            <div class="mb-1">
+                                <span class="me-1" style="font-size: 20px">Price:</span>
+                                <c:choose>
+                                    <c:when test="${Pd.proPrice > 160}">  
+                                        <span class="text-muted text-decoration-line-through" style="font-size: 20px">$189.9</span>
+                                    </c:when> 
+                                    <c:when test="${Pd.proPrice > 140}">  
+                                        <span class="text-muted text-decoration-line-through" style="font-size: 20px">$169.9</span>
+                                    </c:when> 
+                                    <c:when test="${Pd.proPrice > 100}">  
+                                        <span class="text-muted text-decoration-line-through" style="font-size: 20px">$149.9</span>
+                                    </c:when>  
+                                    <c:when test="${Pd.proPrice > 90}">  
+                                        <span class="text-muted text-decoration-line-through" style="font-size: 20px">$119.9</span>
+                                    </c:when>  
+                                    <c:when test="${Pd.proPrice > 80}">  
+                                        <span class="text-muted text-decoration-line-through" style="font-size: 20px">$109.9</span>
+                                    </c:when>   
+                                </c:choose>
+                                <span style="font-size: 24px">$${Pd.proPrice}</span>
+                            </div>
+                            <span class="me-1" style="font-size: 20px">Description:</span>
+                            <span class="lead" style="font-size: 20px">${Pd.proDescription}</span>
+                            <div class="mt-2">
+                                <input class="form-control text-center ms-1" id="inputQuantity" type="num" value="${Pd.proQuantity}"
+                                       style="max-width: 4rem; float: right;  font-size: 20px; float: left"/>
+                                <a href="add-to-cart?productId=${Pd.proId}" class="btn btn-outline-dark flex-shrink-0 mx-2" type="button" style="padding: 8px;">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Add to Card
+                                </a>
+                                <a class="btn btn-outline-success flex-shrink-0" type="button" style="padding: 8px;">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Buy now
+                                </a>
                             </div>
                         </div>
+                        <!--                             Product actions
+                                                    <div class="row pt-0 border-top-0 bg-transparent">
+                                                                           
+                                                    </div>-->
                     </c:forEach> 
                 </div>
-
             </div>
         </div>
     </section>
@@ -230,7 +228,7 @@
                                         <c:when test="${Pro.proPrice > 90}">  
                                             <span class="text-muted text-decoration-line-through">$119.9</span>
                                         </c:when>  
-                                        <c:when test="${Pro.proPrice > 89.9}">  
+                                        <c:when test="${Pro.proPrice > 80}">  
                                             <span class="text-muted text-decoration-line-through">$109.9</span>
                                         </c:when>   
                                     </c:choose>

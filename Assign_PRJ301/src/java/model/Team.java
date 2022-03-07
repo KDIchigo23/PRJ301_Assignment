@@ -5,10 +5,20 @@
  */
 package model;
 
-/**
- *
- * @author ADMIN
- */
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+
+@Builder
+@Getter
+@Setter
+@ToString
+
+
 public class Team {
     private int tId;
     private String tName;
@@ -47,10 +57,6 @@ public class Team {
         this.gId = gId;
     }
 
-    @Override
-    public String toString() {
-        return "Team{" + "tId=" + tId + ", tName=" + tName + ", gId=" + gId + '}';
-    }
-    
+   
     
 }

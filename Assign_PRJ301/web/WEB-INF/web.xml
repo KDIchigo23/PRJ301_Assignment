@@ -56,6 +56,22 @@
         <servlet-name>SearchPlayerController</servlet-name>
         <servlet-class>controller.SearchPlayerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilterProductTeamController</servlet-name>
+        <servlet-class>controller.FilterProductTeamController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckBuyNowController</servlet-name>
+        <servlet-class>controller.CheckBuyNowController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckNullController</servlet-name>
+        <servlet-class>controller.CheckNullController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
         <url-pattern>/allstar-controller</url-pattern>
@@ -111,6 +127,22 @@
     <servlet-mapping>
         <servlet-name>SearchPlayerController</servlet-name>
         <url-pattern>/search-player</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterProductTeamController</servlet-name>
+        <url-pattern>/filter-proteam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckBuyNowController</servlet-name>
+        <url-pattern>/check-buy-now</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckNullController</servlet-name>
+        <url-pattern>/check-null</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout-controller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

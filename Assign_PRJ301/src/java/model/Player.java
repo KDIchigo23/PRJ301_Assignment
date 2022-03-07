@@ -5,10 +5,18 @@
  */
 package model;
 
-/**
- *
- * @author ADMIN
- */
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+
+@Builder
+@Getter
+@Setter
+@ToString
+
 public class Player {
     private int pId;
     private String pName;
@@ -19,7 +27,6 @@ public class Player {
     private String tName;
     private String pAchievement;
     private String pImg_url;
-
 
     public Player() {
     }
@@ -108,10 +115,6 @@ public class Player {
         this.pImg_url = pImg_url;
     }
 
-    @Override
-    public String toString() {
-        return "Player{" + "pId=" + pId + ", pName=" + pName + ", pDob=" + pDob + ", pPosition=" + pPosition + ", pNo=" + pNo + ", tId=" + tId + ", tName=" + tName + ", pAchievement=" + pAchievement + ", pImg_url=" + pImg_url + '}';
-    }
-
+    
     
 }

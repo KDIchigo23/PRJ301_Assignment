@@ -6,6 +6,37 @@
     width: 100% !important;
     height: 100% !important;
 } */
+.btn-cart{
+    position: relative;
+}
+
+.cart-table{
+    display: none;
+    position: absolute;
+    top: 38px;
+    right: 11px;
+    width: 300px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.btn-cart:hover .cart-table{
+    display: block;
+}
+
+.not-founds{
+    padding: 50px 80px 50px 110px !important;
+}
+
+.cart-table tr{
+    margin-right: 0px !important;
+}
+
+@media only screen and (max-width: 768px){
+    .cart-table{
+        left: 11px;
+    }
+}
 
 .nav-link {
     margin: 0px 10px;

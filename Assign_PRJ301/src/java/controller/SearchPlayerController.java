@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Player;
 import model.Team;
@@ -54,10 +55,11 @@ public class SearchPlayerController extends HttpServlet {
         List<Player> listPlayers = new PlayerDAO().getPlayersWithPaggingAndSearch(keyword, page, PAGE_SIZE);
         List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-        request.setAttribute("listTeams", listTeams);
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("listCategories", listCategories);
+        session.setAttribute("listTeams", listTeams);
         request.setAttribute("listPlayers", listPlayers);
-        request.setAttribute("listCategories", listCategories);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pagination_url", "search-player?keyword=" + keyword + "&");

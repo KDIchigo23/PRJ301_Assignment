@@ -7,16 +7,17 @@ package controller;
 
 import dao.CategoryDAO;
 import dao.ProductDAO;
+import dao.TeamDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Product;
-import model.ProductOnly;
+import model.Team;
 
 /**
  *
@@ -43,24 +44,26 @@ public class SearchProductController extends HttpServlet {
         if (pageStr != null) {
             page = Integer.parseInt(pageStr);
         }
-        
+
         int totalProducts = new ProductDAO().getTotalProducts(keyword);
         int totalPage = totalProducts / PAGE_SIZE;
         if (totalProducts % PAGE_SIZE != 0) {
             totalPage += 1;
         }
         
-        List<ProductOnly> listProducts = new ProductDAO().getProductsWithPaggingAndSearch(keyword, page, PAGE_SIZE);
-        
-//        List<Product> listProducts = new ProductDAO().search(keyword);
+
+        List<Product> listProducts = new ProductDAO().getProductsWithPaggingAndSearch(keyword, page, PAGE_SIZE);
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-        
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        HttpSession session = request.getSession();
+
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("listCategories", listCategories);
         request.setAttribute("listProducts", listProducts);
-        request.setAttribute("listCategories", listCategories);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
-        request.setAttribute("pagination_url", "search-product?keyword="+keyword+"&");
-        
+        request.setAttribute("pagination_url", "search-product?keyword=" + keyword + "&");
+
         request.getRequestDispatcher("Products.jsp").forward(request, response);
     }
 

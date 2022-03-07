@@ -31,7 +31,7 @@
                         </li>
                         <c:forEach items="${sessionScope.listCategories}" var="CT">
                             <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
-                        </c:forEach>
+                            </c:forEach>
                     </ul>
                 </li>
             </ul>
@@ -42,13 +42,119 @@
                 </button>
             </form>
             <form class="d-flex my-2">
-                <a href="cart-controller" class="btn btn-outline-light">
+                <a href="cart-controller" class="btn btn-outline-light btn-cart">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
                     <span class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
+                    <table class="text-dark cart-table row" style="border: 1px solid gray;">
+                        <c:choose>
+                            <c:when test="${carts==null || carts.size()==0}">
+                                <tr><td class="not-founds">Not founds</td></tr>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${carts}" var="C">
+                                    <tr class="row mx-auto px-1 py-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); margin-left: 6px !important">
+                                    <input type="hidden" name="productId" value="${C.value.product.proId}"/>
+                                    <td scope="col" class="col-3"><img src="${C.value.product.proImg_url}" width="60"/></td>
+                                    <td scope="col" class="col-7 my-3">${C.value.product.proName}</td>
+                                    <td scope="col" class="col-1 my-3" style="color: red; float: left">$${C.value.product.proPrice}</td>
+                                    </tr>
+                                </c:forEach>
+                                <tr><td><a href="cart-controller" class="btn btn-outline-success flex-shrink-0 my-2" 
+                                           style="float: right; border: 1px solid #198754 !important;">Go to Cart</a></td></tr>
+                                    </c:otherwise>
+                                </c:choose>
+
+                    </table>
                 </a>
             </form>
-            <a href="login-controller"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
+            <c:choose>
+                <c:when test="${sessionScope.account == null}">
+                    <a href="Login.jsp"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
+                </c:when>
+                <c:when test="${sessionScope.account != null}">
+                    <a class="btn ms-1 pb-1 account-div">
+                        <i class="bi bi-person-circle text-white me-2 account-img py-5"></i><span class="text-white">${sessionScope.account.aDisplayName}</span>
+                        <table class="text-dark cart-table row account-table" style="border: 1px solid gray;">
+                            <c:if test="${sessionScope.account.isSell == 1}">
+                                <tr>
+                                    <td class="text-center">Manager Sell</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${sessionScope.account.isAdmin == 1}">
+                                <tr>
+                                    <td class="text-center">Manager Account</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${sessionScope.account.isSell == 1 && sessionScope.account.isAdmin == 1}">
+                                <tr>
+                                    <td class="text-center">Manager Account</td>
+                                    <td class="text-center">Manager Sell</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${sessionScope.account.isSell == 0 && sessionScope.account.isAdmin == 0}">
+                                <tr>
+                                    <td class="ext-center" style="width: 100%">Customer</td>
+                                </tr>
+                            </c:if>
+                            <td><a href="logout-controller" class="btn btn-outline-danger ms-lg-2 mt-2"
+                                   style="padding: 6px 34px 6px 34px !important">Logout</a></td>
+                        </table>
+                    </a>
+                </c:when>
+            </c:choose>
         </div>
     </div>
 </nav>
+
+<style>
+    .btn-cart{
+        position: relative;
+    }
+
+    .cart-table{
+        display: none;
+        position: absolute;
+        top: 38px;
+        right: 11px;
+        width: 300px;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    .btn-cart:hover .cart-table{
+        display: block;
+    }
+
+    .not-founds{
+        padding: 50px 80px 50px 110px !important;
+    }
+
+    .cart-table tr{
+        margin-right: 0px !important;
+    }
+
+    @media only screen and (max-width: 768px){
+        .cart-table{
+            left: 11px;
+        }
+    }
+
+    .account-div{
+        position: relative;
+    }
+
+    .account-table{
+        display: none;
+        position: absolute;
+        top: 36px;
+        right: 0;
+        width: 160px;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .account-div:hover .account-table{
+        display: block;
+    }
+</style>

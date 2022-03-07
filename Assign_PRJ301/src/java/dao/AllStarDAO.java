@@ -40,7 +40,17 @@ public class AllStarDAO {
 
             //Lặp rs để lấy data
             while (rs.next()) {
-                AllStar allstar = new AllStar(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+//                AllStar allstar = new AllStar(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                AllStar allstar = AllStar.builder()
+                        .apId(rs.getInt(1))
+                        .apName(rs.getString(2))
+                        .apPTS(rs.getInt(3))
+                        .apRules(rs.getString(4))
+                        .pPosition(rs.getString(5))
+                        .pNo(rs.getInt(6))
+                        .tName(rs.getString(7))
+                        .apImg_url(rs.getString(8))
+                        .build();
                 list.add(allstar);
             }
 
@@ -49,8 +59,8 @@ public class AllStarDAO {
         }
         return list;
     }
-    
-     public List<AllStar> getAllAllStarDurants() {
+
+    public List<AllStar> getAllAllStarDurants() {
         List<AllStar> list = new ArrayList<>();
         try {
             String sql = "select ap.apId, ap.apName, ap.apPTS, ap.apRules, \n"
@@ -69,7 +79,16 @@ public class AllStarDAO {
 
             //Lặp rs để lấy data
             while (rs.next()) {
-                AllStar allstar = new AllStar(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8));
+                AllStar allstar = AllStar.builder()
+                        .apId(rs.getInt(1))
+                        .apName(rs.getString(2))
+                        .apPTS(rs.getInt(3))
+                        .apRules(rs.getString(4))
+                        .pPosition(rs.getString(5))
+                        .pNo(rs.getInt(6))
+                        .tName(rs.getString(7))
+                        .apImg_url(rs.getString(8))
+                        .build();
                 list.add(allstar);
             }
 

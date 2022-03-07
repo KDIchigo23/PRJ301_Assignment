@@ -5,16 +5,14 @@
  */
 package controller;
 
-import dao.CategoryDAO;
+import dao.AccountDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
+import model.Account;
 
 /**
  *
@@ -34,11 +32,22 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-        session.setAttribute("listCategories", listCategories);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
         
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
+        Account account = new AccountDAO().login(username, password);
+        
+        if(account == null){
+            request.setAttribute("mess", "alert('Wrong username or password')");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        } else {
+            request.setAttribute("mess", "");
+            session.setAttribute("account", account);
+            request.setAttribute("account", account);
+            response.sendRedirect("home-controller");
+        }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

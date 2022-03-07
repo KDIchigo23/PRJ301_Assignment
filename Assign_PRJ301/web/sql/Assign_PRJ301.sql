@@ -87,6 +87,8 @@ CREATE TABLE [dbo].[Account](
 	[aAddress] [nvarchar](255) NULL,
 	[aEmail] [nvarchar](255) NULL,
 	[aPhone] [nvarchar](255) NULL,
+	[isSell] [bit] NULL,
+	[isAdmin] [bit] NULL,
 )
 
 GO
@@ -219,16 +221,16 @@ INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, 
 
 
 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Lebron James', 36, 8, 'Team Lebron', 24, 'Captain', 'https://scontent.fhan5-11.fna.fbcdn.net/v/t39.30808-6/274456867_10160322831353463_3430395174282502551_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=730e14&_nc_ohc=3kU9gjhZOTkAX95zKOM&_nc_ht=scontent.fhan5-11.fna&oh=00_AT9mN9ajP-RJ43YGtCcvPEo7SBZ5pQRpQiop-nzBzu8dZg&oe=621F4A89')
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Stephen Curry', 26, 6, 'Team Lebron', 50, 'Member', 'https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/274293785_10160322831233463_8832305123412676471_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=730e14&_nc_ohc=1magQnydw3oAX9RIJIj&_nc_ht=scontent.fhan5-10.fna&oh=00_AT-amsKTBih5aEcI-2QyELSozaUqKmpEzzC_jEGsUonZGw&oe=621E66E9') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Giannis Antetokounmpo', 6, 2, 'Team Lebron', 30, 'Member', 'https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/274135992_10160322831578463_7852897392032086785_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=730e14&_nc_ohc=RZZPcPFOCOUAX_F1oAp&_nc_ht=scontent.fhan5-10.fna&oh=00_AT8s_5WhNrkR9EfzYLri6k2YA74g5QFMhgRMXc6zCtoSsQ&oe=621F406D') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Chris Paul', 22, 5, 'Team Lebron', 15, 'Member', 'https://scontent.fhan5-8.fna.fbcdn.net/v/t39.30808-6/274511251_10160322831753463_3395540021795941153_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=ANvtb9Ty8U0AX_fmele&_nc_ht=scontent.fhan5-8.fna&oh=00_AT9uDnIWG2NRPLZouWgkJ-DosmbHf2WrAb8PvKc5xkIAFQ&oe=621FA926') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Fred Vanvleet', 14, 3, 'Team Lebron', 6, 'Member', 'https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/274168128_10160322831613463_4759881951765837725_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=730e14&_nc_ohc=zSWuQX_gvoEAX-kTZkf&tn=7UGqLqlll5cu7aev&_nc_ht=scontent.fhan5-10.fna&oh=00_AT-zMTyGKB4_onc82Z52oEOGUgy4f3rX7rGRmf5EZSRZsA&oe=621FCA87') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Draymond Green', 28, 6, 'Team Durant', 18, 'Member', 'https://scontent.fhan5-5.fna.fbcdn.net/v/t39.30808-6/274357408_10160322821958463_8456763819693951292_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=730e14&_nc_ohc=FZeu_aaiCW4AX-T2qwc&_nc_ht=scontent.fhan5-5.fna&oh=00_AT_Go1u9oZgHIVO4aYf_CQ9yGqaYrb4iDSjD9l6K6UZLcA&oe=621F4E5B') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Andrew Wiggins', 29, 6, 'Team Durant', 10, 'Member', 'https://scontent.fhan5-9.fna.fbcdn.net/v/t39.30808-6/274484067_10160322822098463_4878907513132599878_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=730e14&_nc_ohc=yeoqq4ZrYIMAX-AtS_t&_nc_ht=scontent.fhan5-9.fna&oh=00_AT-cq3W5oemYL0YN-QG-lMCLXNQOhlpiafOL8EpogTma8Q&oe=622030A2') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Joel Embiid', 1, 1, 'Team Durant', 36, 'Member', 'https://scontent.fhan5-11.fna.fbcdn.net/v/t39.30808-6/274255024_10160322821818463_3825793604694774878_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=730e14&_nc_ohc=hAeMotIqEiUAX8Txdd5&_nc_ht=scontent.fhan5-11.fna&oh=00_AT9A3JtKeuHVivWKeg3WPtVCO2pMPEfoznt8-ZCW_BIS2Q&oe=621F26E3') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Devin Booker', 21, 5, 'Team Durant', 20, 'Member', 'https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/274157113_10160322822013463_9089127324548096246_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=730e14&_nc_ohc=8AM3jK8kyhsAX_74kmS&tn=7UGqLqlll5cu7aev&_nc_ht=scontent.fhan5-10.fna&oh=00_AT_zJuMtItYrlHkt84xAPe_qT4QtKZFVH7kRwn01fgnfXg&oe=621FAF4D') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Khris Middleton', 7, 2, 'Team Durant', 5, 'Member', 'https://scontent.fhan5-10.fna.fbcdn.net/v/t39.30808-6/274192619_10160322821733463_8774283708214930569_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=730e14&_nc_ohc=VMQ1ZB8CEBAAX9rgnNw&_nc_ht=scontent.fhan5-10.fna&oh=00_AT-QMaDldJ26iKn7OBh1_RGQH1LR3tkY1LWQyAHnYO6KWw&oe=621FEAD4') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Lebron James', 36, 8, 'Team Lebron', 24, 'Captain', 'images/Allstars-2022/Allstars-2022-LeBron.png')
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Stephen Curry', 26, 6, 'Team Lebron', 50, 'Member', 'images/Allstars-2022/Allstars-2022-Curry.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Giannis Antetokounmpo', 6, 2, 'Team Lebron', 30, 'Member', 'images/Allstars-2022/Allstars-2022-Giannis.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Chris Paul', 22, 5, 'Team Lebron', 15, 'Member', 'images/Allstars-2022/Allstars-2022-Paul.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Fred Vanvleet', 14, 3, 'Team Lebron', 6, 'Member', 'images/Allstars-2022/Allstars-2022-Vanvleet.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Draymond Green', 28, 6, 'Team Durant', 18, 'Member', 'images/Allstars-2022/Allstars-2022-Green.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Andrew Wiggins', 29, 6, 'Team Durant', 10, 'Member', 'images/Allstars-2022/Allstars-2022-Wiggins.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Joel Embiid', 1, 1, 'Team Durant', 36, 'Member', 'images/Allstars-2022/Allstars-2022-Embiid.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Devin Booker', 21, 5, 'Team Durant', 20, 'Member', 'images/Allstars-2022/Allstars-2022-Booker.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Khris Middleton', 7, 2, 'Team Durant', 5, 'Member', 'images/Allstars-2022/Allstars-2022-Middleton.png') 
  
  
 INSERT INTO [Category] (ctId, ctName) VALUES (1, 'Jersey')
@@ -305,53 +307,49 @@ INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, pro
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(2, 'Adidas Harden Stepback 2', 'Color: black, lightblue, blue, red, orange; It look like normal sneaker', 10, 149.9, 'https://cf.shopee.tw/file/b1882167a04c289267b8a74ddaa91e7a', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(1, 'Under Armour Embiid 1 Preview', 'Color: grey; Special sneaker from Embiid 1', 10, 149.9, 'https://static.basketrevolution.es/media/catalog/product/cache/2/image/1200x1200/9df78eab33525d08d6e5fb8d27136e95/u/n/under_armour_embiid_one_gamer_tag_3024114-106_1.jpg', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(1, 'US Armour Embiid 1', 'Color: white, blue; Only in USA', 10, 119.9, 'https://www.efootwear.eu/media/catalog/product/cache/image/650x650//0/0/0000208465373_04_rz.jpg', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(5, '', '', , , '', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Nike Zoom Freak 2(Giannis)', 'Color: grey, black, white; This sneaker only have big size', 15, 169.9, 'https://cdn.shopify.com/s/files/1/0562/8631/4662/products/CK5424-101_67cdd077-3cf1-403f-b4b2-a9e92060232b.jpg?v=1630915304', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Nike Zoom Freak 1 Special(Giannis)', 'Color: Orange; Special sneaker from Freak 1 ', 10, 149.9, 'https://cf.shopee.ph/file/e749381125997f526e02374af72d2020', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(8, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(9, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(10, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(11, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(12, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(13, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(14, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(15, '', '', , , '', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(16, 'Nike KD 13 White Multicolor', 'Color: black, white and mix color; This sneaker is very long', 10, 169.9, 'https://i.pinimg.com/originals/be/d9/12/bed912b7053adf27ed8e994ba6d90850.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(16, 'Nike KD 14', 'Color: black, red; This sneaker is very speacial', 10, 149.9, 'https://www.whatproswear.com/wp-content/uploads/2021/06/kevin-durant-wearing-nike-kd-14-shoes-e1624228989654.jpeg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(16, 'Nike KD 14 Floral', 'Color: black, lightblue; This sneaker is very speacial', 10, 169.9, 'https://www.prodirectbasketball.com/productimages/V3_1_Main/240882_Main_Thumb_0887468.jpg', 2)
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(16, 'Nike KD 14 "Ky-D"', 'Color: black, red; This sneaker is very speacial; Combine with Kyrie', 10, 169.9, 'https://www.newjordans2021.com/wp-content/uploads/2021/06/Nike-KD-14-Ky-D-Black-Red-For-Sale-1.jpg', 2)
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(17, 'Nike Kyrie 7', 'Color: orange, white and mix color; It very popular in USA and it save your leg very well', 20, 149.9, 'https://www.whatproswear.com/wp-content/uploads/2021/01/kyrie-irving-wearing-nike-kyrie-7-expressions-shoes-e1609612041610.jpg', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(18, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(19, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(20, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(21, '', '', , , '', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(17, 'Nike Kyrie 7 "Ky-D"', 'Color: green and black; This sneaker is very speacial; Combine with KD', 10, 169.9, 'https://cdn.shopify.com/s/files/1/0039/0096/4953/products/194956845645_02_1024x1024.jpg?v=1622712816', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(17, 'Nike Kyrie 3 Room', 'Color: white and red; This sneaker is one of most great sneaker basketball in 2018', 20, 149.9, 'https://images.solecollector.com/complex/images/fl_lossy,q_auto/c_scale,w_690,dpr_2.0/v1/ysgfuqddmbamujlghpkq/sneaker-room-nike-kyrie-3-mom-release-date-8', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(17, 'Nike Kyrie 4', 'Color: black, green; It is popular sneaker from Kyrie', 10, 149.9, 'https://cf.shopee.vn/file/5339c8ff3e84214ba0175c53b2a05fde', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(22, 'CP3 Signature', 'Color: red, black; It is a new sneaker of CP3 in 2021', 30, 119.9, 'https://www.si.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTY4MDMxNDQ5NTkyNDQwMDgx/chris-paul-cp3xijpg.jpg', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(23, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(24, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(25, '', '', , , '', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Under Armour Curry Two “Iron Sharpens Iron”', 'Color: Gray, black, orange; The best sneaker of "Chef" in 2020', 30, 169.9, 'https://www.kicksonfire.com/wp-content/uploads/2015/10/Under-Armour-Curry-Two.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Under Armour Curry "Alternate Away" PE', 'Color: Gray, black, orange; The best sneaker of "Chef" in 2019', 20, 169.9, 'https://cdn.weartesters.com/wp-content/uploads/2013/12/Under-Armour-Anatomix-Spawn-Stephen-Curry-Away-PE-Detailed-Look-1.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Under Armour Curry 8 Gold Blooded', 'Color: gold and white; The most beautiful sneaker of "Chef" in 2020', 20, 169.9, 'https://i1.adis.ws/i/hibbett/0P375_1180_right1', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Under Armour Curry 8 Print Older Kids', 'Color: black, white and rain bow; Sneaker for kids', 30, 149.9, 'https://www.prodirectbasketball.com/productimages/V3_1_Main/224257_Main_0827479.jpg', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(27, 'Anta 2018 KT3 Light', 'Color: Lightblue, white; The third KT sneaker', 25, 149.9, 'https://www.chinasportshop.com/media/catalog/product/cache/1/thumbnail/1000x/17f82f742ffe127f42dca9de82fb58b1/k/t/kt3-light-11821166-green.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(27, 'Anta 2019 KT4', 'Color: blue, white; The fourth KT sneaker', 20, 149.9, 'https://i.pinimg.com/736x/74/24/86/74248650567540543894487883302abd.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(27, 'Anta 2017 KT2', 'Color: black, lightblue; The second KT sneaker', 20, 149.9, 'https://di2ponv0v5otw.cloudfront.net/posts/2019/09/04/5d701d948d6f1a951d171c1b/m_5d701dfc689ebc9071c39087.jpg', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(28, 'Converse G4 Draymond', 'Color: white, yellow and mix color', 25, 119.9, 'https://houseofheat.co/app/uploads/2020/04/converse-g4-low-ox-white-multi-color-167297c-release-date-info.jpg', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(29, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(30, '', '', , , '', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(28, 'Converse G4 Draymond Black', 'Color: black; The cheap sneaker from DG23', 25, 99.9, 'https://cf.shopee.ph/file/4635286dbc656872af8ab403eb878a64', 2) 
 INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(31, 'The New Balance OMN1S "Money Stacks"(Kawhi)', 'Color: green, black; New sneaker from K.Leonard in 2021', 20, 149.9, 'https://houseofheat.co/app/uploads/2019/12/kawhi-leonard-new-balance-omn1s-money-stacks-release-date-info-2.jpg', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(32, 'Paul George 2 Special', 'Color: black, galaxy; The nineth sneaker of PG13', 35, 119.9, 'https://ph-test-11.slatic.net/p/9be1ae961ff8ed7da8e47f7708956adb.jpg_720x720q80.jpg_.webp', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(33, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(34, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(35, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'Nike LeBron 19 To Debut In "Space"', 'Color: orange; The sneaker have close boost', 50, 169.9, 'https://lebronwire.usatoday.com/wp-content/uploads/sites/37/2021/06/NikeNews_SpaceJam_NewLegacy_Footwear_Apparel_09_original.jpg', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(37, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(38, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(39, '', '', , , '', 2) 
-INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(40, '', '', , , '', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(32, 'Paul George 2 Special', 'Color: black, galaxy; The second sneaker of PG13', 35, 119.9, 'https://ph-test-11.slatic.net/p/9be1ae961ff8ed7da8e47f7708956adb.jpg_720x720q80.jpg_.webp', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(32, 'Paul George 5 Black Multicolor', 'Color: black, lightblue; The nineth sneaker of PG13', 35, 149.9, 'https://baskettemple.com/wp-content/uploads/2021/01/CW3143-001-PHCFH001.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'Nike LeBron 19 To Debut In "Space"', 'Color: orange; The sneaker have close boost', 20, 169.9, 'https://lebronwire.usatoday.com/wp-content/uploads/sites/37/2021/06/NikeNews_SpaceJam_NewLegacy_Footwear_Apparel_09_original.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'Nike LeBron 11', 'Color: red, black; The sneaker are very popular', 30, 149.9, 'https://cdn.weartesters.com/wp-content/uploads/2013/11/Nike-LeBron-XI-11-Away-Available-Now-1.jpg', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'Nike LeBron 8 Low V2', 'Color: mix color, red; The sneaker are very popular', 30, 149.9, 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/b83a9261-34cb-4249-9207-3ae078adf322/lebron-8-v-2-low-shoes-K83bDn.png', 2) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(36, 'Nike LeBron 17 White And Gold', 'Color: white and gold; Expensive sneaker from LeBron in 2019', 10, 169.9, 'https://acrossports.s3.amazonaws.com/productPhotos/NIKE/CD5006101/CD5006101_8.jpg', 2) 
+
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(6, 'Giannis Model', 'It is small and look like "The Freak"', 100, 19.9, 'https://cf.shopee.vn/file/3d29bb8326439403bede4a522072174a', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, 'https://ae01.alicdn.com/kf/HTB1X7MKQCrqK1RjSZK9q6xyypXac.jpg', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Model', 'It is small and great lay-up skill', 50, 29.9, 'https://cdn.shopify.com/s/files/1/2578/8918/products/BHNBSMUFIRGSSC_p.jpg?v=1619630599', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
+
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
+INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, proImg_url, ctId) VALUES(26, 'Curry Jersey KeyChain', 'It is small and great with No.30', 100, 19.9, '', 3) 
 
 
-
-
-
-
-
-
-
-
-
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('dung', 'dung', 'Dung', '', '', '', 0, 1)
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('kdichigo', 'kdichigo', 'KDIchigo', '', '', '', 1, 1)
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)
 
 
 

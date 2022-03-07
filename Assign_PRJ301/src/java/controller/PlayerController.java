@@ -53,11 +53,11 @@ public class PlayerController extends HttpServlet {
 
         List<Player> listPlayers = new PlayerDAO().getPlayerWithPagging(page, PAGE_SIZE);
         List<Team> listTeams = new TeamDAO().getAllTeams();
-//        List<Player> listPlayers = new PlayerDAO().getAllPlayers();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
 
+        
         session.setAttribute("listCategories", listCategories);
-        request.setAttribute("listTeams", listTeams);
+        session.setAttribute("listTeams", listTeams);
         request.setAttribute("listPlayers", listPlayers);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);

@@ -5,42 +5,23 @@
  */
 package model;
 
-/**
- *
- * @author ADMIN
- */
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+
+@Builder
+@Getter
+@Setter
+@ToString
+
 public class Category {
     private int ctId;
     private String ctName;
 
-    public Category() {
-    }
-
-    public Category(int ctId, String ctName) {
-        this.ctId = ctId;
-        this.ctName = ctName;
-    }
-
-    public int getCtId() {
-        return ctId;
-    }
-
-    public void setCtId(int ctId) {
-        this.ctId = ctId;
-    }
-
-    public String getCtName() {
-        return ctName;
-    }
-
-    public void setCtName(String ctName) {
-        this.ctName = ctName;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" + "ctId=" + ctId + ", ctName=" + ctName + '}';
-    }
     
     
 }

@@ -22,26 +22,10 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="css/Home.css">
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="css/Home.css"/>
+
     </head>
-
-    <style>
-        .offcanvas-body div{
-            width: 100%;
-            border-bottom: 1px solid rgba(29, 27, 27, 0.151);
-            padding: 5px 0px;
-        }
-
-        .offcanvas-body div a{
-            width: 100px !important;
-            font-size: 20px;
-        }
-
-        .team-hover:hover{
-            background-color: gray;
-        }
-    </style>
 
     <header>
         <div class="offcanvas offcanvas-start" id="demo">
@@ -55,16 +39,16 @@
                     <a href="player-controller" class="text-dark text-decoration-none">All Players in NBA</a>    
                 </div>
                 <h4 class="text-dark">West</h4>
-                <c:forEach begin="0" end="3" items="${listTeams}" var="T">
+                <c:forEach begin="0" end="3" items="${sessionScope.listTeams}" var="T">
                     <div class="dropdown dropend team-hover">
-                        <a href="${team_url}?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
+                        <a href="filter-team?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
                     </div>
                 </c:forEach>
                 <br>
                 <h4 class="text-dark">East</h4>               
-                <c:forEach begin="4" end="8" items="${listTeams}" var="T">
+                <c:forEach begin="4" end="8" items="${sessionScope.listTeams}" var="T">
                     <div class="dropdown dropend team-hover">
-                        <a href="${team_url}?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
+                        <a href="filter-team?teamId=${T.tId}" class="text-dark text-decoration-none">${T.tName}</a>    
                     </div>
                 </c:forEach>
             </div>
@@ -107,13 +91,66 @@
                         </button>
                     </form>
                     <form class="d-flex my-2">
-                        <a href="cart-controller" class="btn btn-outline-light">
+                        <a href="cart-controller" class="btn btn-outline-light btn-cart">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
+                            <table class="text-dark cart-table row" style="border: 1px solid gray; box-shadow:">
+                                <c:choose>
+                                    <c:when test="${carts==null || carts.size()==0}">
+                                        <tr><td class="not-founds">Not founds</td></tr>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach items="${carts}" var="C">
+                                            <tr class="row mx-auto px-1 py-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); margin-left: 6px !important">
+                                            <input type="hidden" name="productId" value="${C.value.product.proId}"/>
+                                            <td scope="col" class="col-3"><img src="${C.value.product.proImg_url}" width="60"/></td>
+                                            <td scope="col" class="col-7 my-3">${C.value.product.proName}</td>
+                                            <td scope="col" class="col-1 my-3" style="color: red; float: left">$${C.value.product.proPrice}</td>
+                                            </tr>
+                                        </c:forEach>
+                                        <tr><td><a href="cart-controller" class="btn btn-outline-success flex-shrink-0 my-2" 
+                                                   style="float: right; border: 1px solid #198754 !important;">Go to Cart</a></td></tr>
+                                            </c:otherwise>
+                                        </c:choose>
+                            </table>
                         </a>
                     </form>
-                    <a href="login-controller"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
+                    <c:choose>
+                        <c:when test="${sessionScope.account == null}">
+                            <a href="Login.jsp"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
+                        </c:when>
+                        <c:when test="${sessionScope.account != null}">
+                            <a class="btn ms-1 pb-1 account-div">
+                                <i class="bi bi-person-circle text-white me-2 account-img py-5"></i><span class="text-white">${sessionScope.account.aDisplayName}</span>
+                                <table class="text-dark cart-table row account-table" style="border: 1px solid gray;">
+                                    <c:if test="${sessionScope.account.isSell == 1}">
+                                        <tr>
+                                            <td class="text-center">Manager Sell</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.isAdmin == 1}">
+                                        <tr>
+                                            <td class="text-center">Manager Account</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.isSell == 1 && sessionScope.account.isAdmin == 1}">
+                                        <tr>
+                                            <td class="text-center">Manager Account</td>
+                                            <td class="text-center">Manager Sell</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.isSell == 0 && sessionScope.account.isAdmin == 0}">
+                                        <tr>
+                                            <td class="ext-center" style="width: 100%">Customer</td>
+                                        </tr>
+                                    </c:if>
+                                    <td><a href="logout-controller" class="btn btn-outline-danger ms-lg-2 mt-2"
+                                           style="padding: 6px 34px 6px 34px !important">Logout</a></td>
+                                </table>
+                            </a>
+                        </c:when>
+                    </c:choose>
                 </div>
             </div>
         </nav>
@@ -187,5 +224,73 @@
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>
+
+
+    <style>
+        .offcanvas-body div{
+            width: 100%;
+            border-bottom: 1px solid rgba(29, 27, 27, 0.151);
+            padding: 5px 0px;
+        }
+
+        .offcanvas-body div a{
+            width: 100px !important;
+            font-size: 20px;
+        }
+
+        .team-hover:hover{
+            background-color: gray;
+        }
+
+        .btn-cart{
+            position: relative;
+        }
+
+        .cart-table{
+            display: none;
+            position: absolute;
+            top: 38px;
+            right: 11px;
+            width: 300px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .btn-cart:hover .cart-table{
+            display: block;
+        }
+
+        .not-founds{
+            padding: 50px 80px 50px 110px !important;
+        }
+
+        .cart-table tr{
+            margin-right: 0px !important;
+        }
+
+        @media only screen and (max-width: 768px){
+            .cart-table{
+                left: 11px;
+            }
+        }
+
+        .account-div{
+            position: relative;
+        }
+
+        .account-table{
+            display: none;
+            position: absolute;
+            top: 36px;
+            right: 0;
+            width: 160px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .account-div:hover .account-table{
+            display: block;
+        }
+    </style>
 
 </html>

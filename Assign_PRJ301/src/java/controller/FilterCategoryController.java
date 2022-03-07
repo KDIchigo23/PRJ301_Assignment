@@ -6,11 +6,9 @@
 package controller;
 
 import dao.CategoryDAO;
-import dao.PlayerDAO;
 import dao.ProductDAO;
+import dao.TeamDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Product;
-import model.ProductOnly;
+import model.Team;
 
 /**
  *
@@ -49,24 +47,24 @@ public class FilterCategoryController extends HttpServlet {
             page = Integer.parseInt(pageStr);
         }
 
-        int totalProducts = new ProductDAO().getTotalProducts(categoryId);
+        int totalProducts = new ProductDAO().getTotalProductsByCategoryId(categoryId);
         int totalPage = totalProducts / PAGE_SIZE;
         if (totalProducts % PAGE_SIZE != 0) {
             totalPage += 1;
         }
 
-//            List<Product> listPlayersrByCategoryIdTemp = new ArrayList<Product>();
         List<Product> listProducts = new ProductDAO().getProductByCategoryIdAndPagging(categoryId, page, PAGE_SIZE);
-//            List<Product> listProducts = new ProductDAO().getProductByCategoryId(categoryId);
+        List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-//            List<Product> listPlayersrByCategoryId = new PlayerDAO().getPlayerByCategoryId(categoryId);
 
-        request.setAttribute("listProducts", listProducts);
+        
         session.setAttribute("listCategories", listCategories);
+        request.setAttribute("listProducts", listProducts);
+        session.setAttribute("listTeams", listTeams);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("categoryId", categoryId);
-        request.setAttribute("pagination_url", "filter-category?categoryId="+categoryId+"&");
+        request.setAttribute("pagination_url", "filter-category?categoryId=" + categoryId + "&");
 
         request.getRequestDispatcher("Products.jsp").forward(request, response);
 

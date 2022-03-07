@@ -22,7 +22,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" href="css/Home.css">
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet"/>        
     </head>
 
     <header>
@@ -78,14 +78,58 @@
                 </table>
                 <div>
                     <h2 style="float: right; margin-right: 10px">Total Amount: $${totalMoney}</h2><br/><br/>
-                    <a href="buynow" class="btn btn-success w-25" style="float: right; margin-right: 10px">Buy now</a>
+                    <c:choose>
+                        <c:when test="${sessionScope.carts==null||sessionScope.carts.size()==0}">
+                            <a class="text-decoration-none text-light">
+                                <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px" data-bs-target="#myModal">
+                                    Buy now
+                                </button>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="check-buy-now" class="text-decoration-none text-light">
+                                <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px">
+                                    Buy now
+                                </button>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-danger">Error</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body text-danger text-center" style="font-size: 20px">
+                                    Don't have any product in cart!!! <br/>
+                                    Let choose some product
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <a href="product-controller"><button type="button" class="btn btn-success">Go to Shop</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <button class="px-3 py-1" value="-" style="font-size: 15px; background-color: white; border: 1px solid black; border-right: none !important">-</button>
+                        <input value="1" style="width: 30px">
+                        <button class="px-3 py-1" value="+" style="font-size: 15px; background-color: white; border: 1px solid black; border-left: none !important">+</button>
+                    </div>
+
+
+
+
                 </div>
 
             </div>
         </div>
-
     </body>
-
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>

@@ -44,10 +44,22 @@
         <section class="py-5">
             <div class="container-fluid row px-4 px-lg-5 mt-5">
                 <div class="row col-xl-3 mx-4 list-group list-group-flush">
-                    <c:forEach items="${listPlayersrByCategoryId}" var="PBCI">
-                        <a class="list-group-item" href="filter-player?categoryId=${PBCI.ctId}">${PBCI.pName}</a><br/>
-                    </c:forEach>
+  
+                    <div class="container mt-3">
+                        <div>
+                            <c:forEach items="${sessionScope.listTeams}" var="T">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a class="btn" href="filter-proteam?teamId=${T.tId}" style="font-size: 18px">
+                                            ${T.tName}
+                                        </a> 
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="row col-xl-9 gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
                     <c:forEach items="${listProducts}" var="Pro">
                         <div class="col mb-5">
@@ -123,7 +135,7 @@
                                             <c:when test="${Pro.proPrice > 90}">  
                                                 <span class="text-muted text-decoration-line-through">$119.9</span>
                                             </c:when>  
-                                            <c:when test="${Pro.proPrice > 89.9}">  
+                                            <c:when test="${Pro.proPrice > 80}">  
                                                 <span class="text-muted text-decoration-line-through">$109.9</span>
                                             </c:when>   
                                         </c:choose>

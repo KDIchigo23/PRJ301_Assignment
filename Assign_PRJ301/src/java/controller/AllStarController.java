@@ -40,9 +40,10 @@ public class AllStarController extends HttpServlet {
         
         List<AllStar> listAllStarsLebrons = new AllStarDAO().getAllAllStarLebrons();
         List<AllStar> listAllStarsDurants = new AllStarDAO().getAllAllStarDurants();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
+List<Category> listCategories = new CategoryDAO().getAllCategories();
+        
 
-        session.setAttribute("listCategories", listCategories);
+        session.setAttribute("listCategories", listCategories);      
         request.setAttribute("listAllStarsLebrons", listAllStarsLebrons);
         request.setAttribute("listAllStarsDurants", listAllStarsDurants);
         request.getRequestDispatcher("AllStar-2022.jsp").forward(request, response);
