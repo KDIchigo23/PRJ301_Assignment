@@ -92,6 +92,7 @@ CREATE TABLE [dbo].[Account](
 )
 
 GO
+
 -------------- Table [dbo].[Shipping]  
 
 CREATE TABLE [dbo].[Shipping](
@@ -113,7 +114,8 @@ CREATE TABLE [dbo].[Orders](
 	[sId] [int] FOREIGN KEY(sId) REFERENCES [Shipping](sId) NULL,
 )
 GO
-
+ALTER TABLE [dbo].[Orders] ADD  CONSTRAINT [DF_Orders_oCreated_date]  DEFAULT (getdate()) FOR [oCreated_date]
+GO
 -------------- Table [dbo].[OrderDetail] 
 
 CREATE TABLE [dbo].[OrderDetail](
@@ -136,6 +138,7 @@ DROP TABLE [Customer]
 DROP TABLE [Products]
 DROP TABLE [Category]
 DROP TABLE [Players] 
+DROP TABLE [Group] 
 DROP TABLE [Team]
 
 

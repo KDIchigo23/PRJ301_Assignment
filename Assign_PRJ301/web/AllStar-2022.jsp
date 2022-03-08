@@ -26,11 +26,10 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
 
-    <header>
-        <%@include file="components/navBarComponent.jsp" %>
-    </header>
-
-    <body style="margin: 66px 10px 0px 10px !important; background-color: lightgoldenrodyellow;">
+    <body style="margin: 100px 10px 0px 10px !important; background-color: lightgoldenrodyellow;">
+        <header>
+            <%@include file="components/navBarComponent.jsp" %>
+        </header>
         <div class="mb-4">
             <img style="width: 100%;" src="images/Allstars-2022/NBA75_AllStar_2022.png" alt="">
         </div>

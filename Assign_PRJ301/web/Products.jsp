@@ -26,11 +26,12 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
 
-    <header>
-        <%@include file="components/navBarComponent.jsp" %>
-    </header>
 
     <body>
+        <header>
+            <%@include file="components/navBarComponent.jsp" %>
+        </header>
+
         <div class="bg-dark py-5" style="background-image: url('images/NBA-Shopping.png'); margin: 66px 10px 0px 10px !important; background-size: cover;">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
@@ -44,7 +45,7 @@
         <section class="py-5">
             <div class="container-fluid row px-4 px-lg-5 mt-5">
                 <div class="row col-xl-3 mx-4 list-group list-group-flush">
-  
+
                     <div class="container">
                         <div>
                             <c:forEach items="${sessionScope.listTeams}" var="T">

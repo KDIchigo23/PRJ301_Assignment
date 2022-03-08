@@ -297,4 +297,42 @@ public class PlayerDAO {
         return 0;
     }
 
+    public List<Player> getPlayerByPlayerId(int playerId) {
+        List<Player> list = new ArrayList<>();
+        try {
+            String sql = "select p.pId, p.pName, p.pDob, p.pPosition, p.pNo, \n"
+                    + "t.tId, t.tName, p.pAchievement, p.pImg_url\n"
+                    + "from Players p inner join Team t \n"
+                    + "on p.tId = t.tId where p.pId = ?";
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, playerId);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ResultSet rs = ps.executeQuery();
+
+            //Lặp rs để lấy data
+            while (rs.next()) {
+                Player player = Player.builder()
+                        .pId(rs.getInt(1))
+                        .pName(rs.getString(2))
+                        .pDob(rs.getString(3))
+                        .pPosition(rs.getString(4))
+                        .pNo(rs.getInt(5))
+                        .tId(rs.getInt(6))
+                        .tName(rs.getString(7))
+                        .pAchievement(rs.getString(8))
+                        .pImg_url(rs.getString(9))
+                        .build();
+                list.add(player);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(PlayerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
 }

@@ -26,11 +26,12 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
 
-    <header>
-        <%@include file="components/navBarComponent.jsp" %>
-    </header>
 
     <body style="margin: 66px 10px 0px 10px !important; background-color: lightgoldenrodyellow;">
+        <header>
+            <%@include file="components/navBarComponent.jsp" %>
+        </header>
+
         <!-- Product section-->
         <section class="py-3">
             <div class="container row px-4 px-lg-5 mt-5 mb-2 mx-auto align-items-center">

@@ -25,11 +25,12 @@
         <link href="css/styles.css" rel="stylesheet"/>        
     </head>
 
-    <header>
-        <%@include file="components/navBarComponent.jsp" %>
-    </header>
 
     <body style="margin: 80px 10px 0px 10px !important;">
+        <header>
+            <%@include file="components/navBarComponent.jsp" %>
+        </header>
+
         <div class="container my-3">
             <table class="row" border="1" style="min-width: 60%;">
                 <thead>

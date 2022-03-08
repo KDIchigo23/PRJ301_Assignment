@@ -5,21 +5,18 @@
  */
 package controller;
 
-import dao.AccountDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
 
 /**
  *
  * @author ADMIN
  */
-public class LoginController extends HttpServlet {
+public class CreateProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +29,8 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
+        request.getRequestDispatcher("CreateProduct.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,20 +45,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        Cookie arr[] = request.getCookies();
-        if (arr != null) {
-            for (Cookie cookie : arr) {
-                if (cookie.getName().equals("userC")) {
-                    request.setAttribute("username", cookie.getValue());
-                }
-                if (cookie.getName().equals("passC")) {
-                    request.setAttribute("password", cookie.getValue());
-                }
-            }
-        }
-
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -74,36 +59,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-
-        Account account = new AccountDAO().login(username, password);
-
-        if (account == null) {
-            request.setAttribute("classAlert", "alert alert-danger");
-            request.setAttribute("strongAlert", "Error");
-            request.setAttribute("alert", "Wrong username or password");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        } else {
-            session.setAttribute("account", account);
-            request.setAttribute("account", account);
-
-            Cookie user = new Cookie("userC", username);
-            Cookie pass = new Cookie("passC", password);
-            user.setMaxAge(30 * 60);
-
-            if (remember != null) {
-                pass.setMaxAge(30 * 60);
-            } else {
-                pass.setMaxAge(0);
-            }
-            response.addCookie(user);
-            response.addCookie(pass);
-
-            response.sendRedirect("home-controller");
-        }
+        processRequest(request, response);
     }
 
     /**

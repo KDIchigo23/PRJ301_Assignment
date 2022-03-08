@@ -147,7 +147,7 @@
                                             <td class="ext-center" style="width: 100%">Customer</td>
                                         </tr>
                                     </c:if>
-                                    <td><a href="logout-controller" class="btn btn-outline-danger ms-lg-2 mt-2"
+                                    <td><a href="logout" class="btn btn-outline-danger ms-lg-2 mt-2"
                                            style="padding: 6px 34px 6px 34px !important">Logout</a></td>
                                 </table>
                             </a>
@@ -170,7 +170,7 @@
                         &nbsp;&nbsp;
                         <span class="card-text" style="font-size: 20px;"><span style="font-weight: bold">No.</span>${P.pNo}</span><br/>
                         <p class="card-text" style="font-size: 20px;"><span style="font-weight: bold">Achievement: </span>${P.pAchievement}</p>
-                        <a href="#" class="btn btn-primary">See Profile</a>
+                        <a href="pdetail-controller?playerId=${P.pId}" class="btn btn-primary">See Profile</a>
                     </div>
                 </div>
             </c:forEach>

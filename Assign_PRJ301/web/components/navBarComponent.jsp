@@ -32,6 +32,12 @@
                         <c:forEach items="${sessionScope.listCategories}" var="CT">
                             <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
                             </c:forEach>
+                            <c:if test="${sessionScope.account.isSell == 1}">
+                            <li>
+                                <hr class="dropdown-divider" style="color: #d8e3e887;" />
+                            </li>
+                            <li><a class="dropdown-item text-white bg-color-grey-hover" href="create-product">Create product</a></li>
+                            </c:if>
                     </ul>
                 </li>
             </ul>
@@ -60,17 +66,19 @@
                                     <td scope="col" class="col-1 my-3" style="color: red; float: left">$${C.value.product.proPrice}</td>
                                     </tr>
                                 </c:forEach>
-                                <tr><td><a href="cart-controller" class="btn btn-outline-success flex-shrink-0 my-2" 
-                                           style="float: right; border: 1px solid #198754 !important;">Go to Cart</a></td></tr>
-                                    </c:otherwise>
-                                </c:choose>
+                                <tr>
+                                    <td><a href="cart-controller" class="btn btn-outline-success flex-shrink-0 my-2" 
+                                           style="float: right; border: 1px solid #198754 !important;">Go to Cart</a></td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
 
                     </table>
                 </a>
             </form>
             <c:choose>
                 <c:when test="${sessionScope.account == null}">
-                    <a href="Login.jsp"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
+                    <a href="login"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
                 </c:when>
                 <c:when test="${sessionScope.account != null}">
                     <a class="btn ms-1 pb-1 account-div">
@@ -99,7 +107,7 @@
                                     <td class="ext-center" style="width: 100%">Customer</td>
                                 </tr>
                             </c:if>
-                            <td><a href="logout-controller" class="btn btn-outline-danger ms-lg-2 mt-2"
+                            <td><a href="logout" class="btn btn-outline-danger ms-lg-2 mt-2"
                                    style="padding: 6px 34px 6px 34px !important">Logout</a></td>
                         </table>
                     </a>

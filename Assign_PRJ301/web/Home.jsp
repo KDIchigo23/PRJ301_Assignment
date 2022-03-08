@@ -26,11 +26,12 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
 
-    <header>
-        <%@include file="components/navBarComponent.jsp" %>
-    </header>
 
     <body style="margin: 66px 10px 0px 10px !important; background-color: lightgoldenrodyellow;">
+        <header>
+            <%@include file="components/navBarComponent.jsp" %>
+        </header>
+
         <!-- Carousel -->
         <div id="demo" class="carousel slide" data-bs-ride="carousel">
 
