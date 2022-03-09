@@ -147,8 +147,14 @@
                                             <td class="ext-center" style="width: 100%">Customer</td>
                                         </tr>
                                     </c:if>
-                                    <td><a href="logout" class="btn btn-outline-danger ms-lg-2 mt-2"
-                                           style="padding: 6px 34px 6px 34px !important">Logout</a></td>
+                                    <tr>
+                                        <td><a href="cart-history?accountUser=${sessionScope.account.getaUsername()}" class="btn btn-outline-dark ms-lg-2 mt-2"
+                                               style="padding: 6px 34px 6px 34px !important">History</a></td>   
+                                    </tr>
+                                    <tr>
+                                        <td><a href="logout" class="btn btn-outline-danger ms-lg-2 mt-2"
+                                               style="padding: 6px 34px 6px 34px !important">Logout</a></td>
+                                    </tr>
                                 </table>
                             </a>
                         </c:when>

@@ -88,11 +88,13 @@
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a href="checkout-controller" class="text-decoration-none text-light">
-                                <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px">
-                                    Check out
-                                </button>
-                            </a>
+                            <form action="checkout-controller" method="POST">
+                                <a href="checkout-controller?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="text-decoration-none text-light">
+                                    <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px">
+                                        Check out
+                                    </button>
+                                </a>
+                            </form>
                         </c:otherwise>
                     </c:choose>
                     <!-- The Modal -->

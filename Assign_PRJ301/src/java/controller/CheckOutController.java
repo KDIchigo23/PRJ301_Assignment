@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.AccountDAO;
 import dao.CategoryDAO;
 import dao.OrderDAO;
 import dao.OrderDetailDAO;
@@ -43,6 +44,12 @@ public class CheckOutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String accountUser = request.getParameter("accountUser");
+        String accountPass = request.getParameter("accountPass");
+        session.setAttribute("accountUser", accountUser);
+        session.setAttribute("accountPass", accountPass);
+
+        int accountId = new AccountDAO().getAccountIdByAccountUser(accountUser);
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();
@@ -94,11 +101,13 @@ public class CheckOutController extends HttpServlet {
 //        processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String note = request.getParameter("note");
 
+//        String accountUser= request.getParameter("accountUser");
         //lưu vào database
         //Lưu Shipping
         Shipping shipping = Shipping.builder()
@@ -108,7 +117,7 @@ public class CheckOutController extends HttpServlet {
                 .build();
         int shippingId = new ShippingDAO().createReturnId(shipping); //trả về id tự tăng của bản ghi vừa lưu vào database
         //Lưu Order
-        HttpSession session = request.getSession();
+
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();
@@ -120,12 +129,17 @@ public class CheckOutController extends HttpServlet {
             Integer productId = entry.getKey();
             Cart cart = entry.getValue();
 
-             totalPrice += cart.getQuantity() * cart.getProduct().getProPrice();
+            totalPrice += cart.getQuantity() * cart.getProduct().getProPrice();
 
         }
 
+        String accountUser = session.getAttribute("accountUser").toString();
+        String accountPass = session.getAttribute("accountPass").toString();
+        int accountId = new AccountDAO().getAccountIdByUserAndPass(accountUser, accountPass);
+        session.setAttribute("accountId", accountId);
+
         Order order = Order.builder()
-                .aId(1)
+                .aId(accountId)
                 .oTotalPrice(shippingId)
                 .oTotalPrice(totalPrice)
                 .oNote(note)

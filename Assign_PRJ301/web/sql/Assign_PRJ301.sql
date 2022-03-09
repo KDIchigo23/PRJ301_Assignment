@@ -359,7 +359,5 @@ INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPh
 INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('dung', 'dung', 'Dung', '', '', '', 0, 1)
 INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('kdichigo', 'kdichigo', 'KDIchigo', '', '', '', 1, 1)
 INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)
-INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)
-
 
 

@@ -52,7 +52,7 @@
                     <i class="bi-cart-fill me-1"></i>
                     Cart
                     <span class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
-                    <table class="text-dark cart-table row pe-2 ps-1" style="border: 1px solid gray;">
+                    <table class="text-dark cart-table row pe-3" style="border: 1px solid gray;">
                         <c:choose>
                             <c:when test="${carts==null || carts.size()==0}">
                                 <tr><td class="not-founds">Not founds</td></tr>
@@ -76,6 +76,7 @@
                     </table>
                 </a>
             </form>
+
             <c:choose>
                 <c:when test="${sessionScope.account == null}">
                     <a href="login"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
@@ -107,8 +108,14 @@
                                     <td class="ext-center" style="width: 100%">Customer</td>
                                 </tr>
                             </c:if>
-                            <td><a href="logout" class="btn btn-outline-danger ms-lg-2 mt-2"
-                                   style="padding: 6px 34px 6px 34px !important">Logout</a></td>
+                            <tr>
+                                <td><a href="cart-history?accountUser=${sessionScope.account.getaUsername()}" class="btn btn-outline-dark ms-lg-2 mt-2"
+                                       style="padding: 6px 34px 6px 34px !important">History</a></td>   
+                            </tr>
+                            <tr>
+                                <td><a href="logout" class="btn btn-outline-danger ms-lg-2 mt-2"
+                                       style="padding: 6px 34px 6px 34px !important">Logout</a></td>
+                            </tr>
                         </table>
                     </a>
                 </c:when>

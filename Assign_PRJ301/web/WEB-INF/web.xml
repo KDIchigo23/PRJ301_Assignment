@@ -80,6 +80,10 @@
         <servlet-name>CreateProductController</servlet-name>
         <servlet-class>controller.CreateProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartHistoryController</servlet-name>
+        <servlet-class>controller.CartHistoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
         <url-pattern>/allstar-controller</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>CreateProductController</servlet-name>
         <url-pattern>/create-product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartHistoryController</servlet-name>
+        <url-pattern>/cart-history</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
