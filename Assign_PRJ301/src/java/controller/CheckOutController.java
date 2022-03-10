@@ -49,7 +49,6 @@ public class CheckOutController extends HttpServlet {
         session.setAttribute("accountUser", accountUser);
         session.setAttribute("accountPass", accountPass);
 
-        int accountId = new AccountDAO().getAccountIdByAccountUser(accountUser);
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();

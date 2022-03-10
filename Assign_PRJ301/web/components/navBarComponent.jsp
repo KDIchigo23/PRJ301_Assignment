@@ -83,7 +83,7 @@
                 </c:when>
                 <c:when test="${sessionScope.account != null}">
                     <a class="btn ms-1 pb-1 account-div">
-                        <i class="bi bi-person-circle text-white me-2 account-img py-5"></i><span class="text-white">${sessionScope.account.aDisplayName}</span>
+                        <i class="bi bi-person-circle text-white me-2 py-5"></i><span class="text-white">${sessionScope.account.aDisplayName}</span>
                         <table class="text-dark cart-table row account-table" style="border: 1px solid gray;">
                             <c:if test="${sessionScope.account.isSell == 1 && sessionScope.account.isAdmin == 1}">
                                 <tr>
@@ -109,7 +109,11 @@
                                 </tr>
                             </c:if>
                             <tr>
-                                <td><a href="cart-history?accountUser=${sessionScope.account.getaUsername()}" class="btn btn-outline-dark ms-lg-2 mt-2"
+                                <td><a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountId=${sessionScope.account.getaId()}&accountPass=${sessionScope.account.getaPassword()}" 
+                                       class="btn btn-outline-secondary ms-lg-2 mt-2" style="padding: 6px 17px 6px 17px !important">Information</a></td>   
+                            </tr>
+                            <tr>
+                                <td><a href="cart-history?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="btn btn-outline-dark ms-lg-2 mt-2"
                                        style="padding: 6px 34px 6px 34px !important">History</a></td>   
                             </tr>
                             <tr>

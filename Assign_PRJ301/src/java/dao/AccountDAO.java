@@ -114,22 +114,6 @@ public class AccountDAO {
         }
     }
 
-    public int getAccountIdByAccountUser(String accountUser) {
-        try {
-            String sql = "select aId from Account where aUsername = ? ";
-            Connection conn = new DBContext().getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, accountUser);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-    }
-
     public int getAccountIdByUserAndPass(String accountUser, String accountPass) {
         try {
             String sql = "select aId from Account where aUsername = ? and aPassword = ?";
@@ -145,5 +129,27 @@ public class AccountDAO {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+
+    public String updateUser(String name, int accountId) {
+        String sql = "UPDATE [Assign_PRJ301].[dbo].[Account]\n"
+                + "   SET [aUsername] = ?\n"
+                + " WHERE aId = ?";
+        try {
+
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, accountId);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

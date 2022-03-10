@@ -49,7 +49,7 @@
             <div class="container" style="min-height: 300px">
                 <table class="row table" border="1" style="min-width: 60%; margin: 0px !important">
                     <c:choose>
-                        <c:when test="${listOrders == null}">
+                        <c:when test="${listOrders == null || listOrders.size() == 0}">
                             <h1>List Order is Empty</h1>
                         </c:when>
                         <c:otherwise>

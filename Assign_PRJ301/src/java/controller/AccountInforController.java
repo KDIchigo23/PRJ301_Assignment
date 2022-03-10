@@ -6,22 +6,20 @@
 package controller;
 
 import dao.AccountDAO;
-import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Order;
+import model.Account;
 
 /**
  *
  * @author ADMIN
  */
-public class CartHistoryController extends HttpServlet {
+public class AccountInforController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +33,9 @@ public class CartHistoryController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        String accountUser = request.getParameter("accountUser");
-        String accountPass = request.getParameter("accountPass");
-        int accountId = new AccountDAO().getAccountIdByUserAndPass(accountUser, accountPass);
+        
 
-        List<Order> listOrders = new OrderDAO().getOrderByAccountId(accountId);
-
-        request.setAttribute("listOrders", listOrders);
-        session.setAttribute("listOrders", listOrders);
-
-        request.getRequestDispatcher("CartHistory.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,7 +50,7 @@ public class CartHistoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("AccountInfor.jsp").forward(request, response);
     }
 
     /**
@@ -74,7 +64,22 @@ public class CartHistoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String value = request.getParameter("value");
+        if (value.equals("user")) {
+            String accountUser = request.getParameter("accountUser");
+            String accountPass = request.getParameter("accountPass");
+            int accountId = Integer.parseInt(request.getParameter("accountId"));
+            String user = request.getParameter("user");
+            Account checkAccountExist = new AccountDAO().checkAccountExist(accountUser);
+            if (checkAccountExist == null) {     
+                String username = new AccountDAO().updateUser(user, accountId);
+                
+                Account account = new AccountDAO().login(accountUser, accountPass);
+                session.setAttribute("account", account);
+                response.sendRedirect("AccountInfor.jsp");
+            }
+        }
     }
 
     /**

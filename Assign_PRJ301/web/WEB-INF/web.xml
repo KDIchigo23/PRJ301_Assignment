@@ -84,6 +84,10 @@
         <servlet-name>CartHistoryController</servlet-name>
         <servlet-class>controller.CartHistoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountInforController</servlet-name>
+        <servlet-class>controller.AccountInforController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
         <url-pattern>/allstar-controller</url-pattern>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>CartHistoryController</servlet-name>
         <url-pattern>/cart-history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountInforController</servlet-name>
+        <url-pattern>/account-infor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

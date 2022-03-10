@@ -26,22 +26,7 @@ import model.Category;
 public class CartController extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and
-     * <code>POST</code>HttpSession session = request.getSession();
-     * Map<Integer, Cart> carts = (Map<Integer, Cart>)
-     * session.getAttribute("carts"); if (carts == null) { carts = new
-     * LinkedHashMap<>(); }
-     *
-     * //tinh tong tien double totalMoney = 0; for (Map.Entry<Integer, Cart>
-     * entry : carts.entrySet()) { Integer productId = entry.getKey(); Cart cart
-     * = entry.getValue();
-     *
-     * totalMoney += cart.getQuantity() * cart.getProduct().getProPrice(); }
-     *
-     *
-     * request.setAttribute("totalMoney", totalMoney);
-     * request.setAttribute("carts", carts);
-     * request.getRequestDispatcher("Cart.jsp").forward(request, response);
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
