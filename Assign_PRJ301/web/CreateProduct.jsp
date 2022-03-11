@@ -49,7 +49,7 @@
                     <input type="text" class="form-control" id="pName" name="pName" placeholder="Player Name">
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="pDescription" name="pDescription" rows="3" placeholder="Player Description"></textarea>
+                    <textarea class="form-control" id="proDescription" name="proDescription" rows="3" placeholder="Product Description"></textarea>
                 </div>
                 <div class="mb-3">
                     <input type="text" class="form-control" id="proQuantity" name="proQuantity" placeholder="Product Quantity">

@@ -77,8 +77,8 @@
         <servlet-class>controller.PlayerDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateProductController</servlet-name>
-        <servlet-class>controller.CreateProductController</servlet-class>
+        <servlet-name>CreateProduct</servlet-name>
+        <servlet-class>controller.productCRUD.CreateProductController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartHistoryController</servlet-name>
@@ -87,6 +87,18 @@
     <servlet>
         <servlet-name>AccountInforController</servlet-name>
         <servlet-class>controller.AccountInforController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreatePlayer</servlet-name>
+        <servlet-class>controller.playerCRUD.CreatePlayer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePlayer</servlet-name>
+        <servlet-class>controller.playerCRUD.DeletePlayer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePlayer</servlet-name>
+        <servlet-class>controller.playerCRUD.UpdatePlayer</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
@@ -165,7 +177,7 @@
         <url-pattern>/pdetail-controller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreateProductController</servlet-name>
+        <servlet-name>CreateProduct</servlet-name>
         <url-pattern>/create-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -175,6 +187,18 @@
     <servlet-mapping>
         <servlet-name>AccountInforController</servlet-name>
         <url-pattern>/account-infor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePlayer</servlet-name>
+        <url-pattern>/create-player</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePlayer</servlet-name>
+        <url-pattern>/delete-player</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePlayer</servlet-name>
+        <url-pattern>/update-player</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

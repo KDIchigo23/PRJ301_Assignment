@@ -129,21 +129,17 @@
                             <span class="lead" style="font-size: 20px">${Pd.proDescription}</span>
                             <div class="mt-2">
                                 <input class="form-control text-center ms-1" id="inputQuantity" type="num" value="${Pd.proQuantity}"
-                                       style="max-width: 4rem; float: right;  font-size: 20px; float: left"/>
+                                       style="max-width: 4rem; float: right; font-size: 20px; float: left" readonly=""/>
                                 <a href="add-to-cart?productId=${Pd.proId}" class="btn btn-outline-dark flex-shrink-0 mx-2" type="button" style="padding: 8px;">
                                     <i class="bi-cart-fill me-1"></i>
                                     Add to Card
                                 </a>
-                                <a class="btn btn-outline-success flex-shrink-0" type="button" style="padding: 8px;">
+                                <a href="checkout-controller?productId=${Pd.proId}" class="btn btn-outline-success flex-shrink-0" type="button" style="padding: 8px;">
                                     <i class="bi-cart-fill me-1"></i>
                                     Buy now
                                 </a>
                             </div>
                         </div>
-                        <!--                             Product actions
-                                                    <div class="row pt-0 border-top-0 bg-transparent">
-                                                                           
-                                                    </div>-->
                     </c:forEach> 
                 </div>
             </div>

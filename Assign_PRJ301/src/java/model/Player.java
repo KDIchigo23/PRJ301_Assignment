@@ -22,6 +22,7 @@ public class Player {
     private String pName;
     private String pDob;
     private String pPosition;
+    private String pHeight;
     private int pNo;
     private int tId;
     private String tName;
@@ -31,11 +32,12 @@ public class Player {
     public Player() {
     }
 
-    public Player(int pId, String pName, String pDob, String pPosition, int pNo, int tId, String tName, String pAchievement, String pImg_url) {
+    public Player(int pId, String pName, String pDob, String pPosition, String pHeight, int pNo, int tId, String tName, String pAchievement, String pImg_url) {
         this.pId = pId;
         this.pName = pName;
         this.pDob = pDob;
         this.pPosition = pPosition;
+        this.pHeight = pHeight;
         this.pNo = pNo;
         this.tId = tId;
         this.tName = tName;
@@ -73,6 +75,14 @@ public class Player {
 
     public void setpPosition(String pPosition) {
         this.pPosition = pPosition;
+    }
+
+    public String getpHeight() {
+        return pHeight;
+    }
+
+    public void setpHeight(String pHeight) {
+        this.pHeight = pHeight;
     }
 
     public int getpNo() {
@@ -115,6 +125,4 @@ public class Player {
         this.pImg_url = pImg_url;
     }
 
-    
-    
 }

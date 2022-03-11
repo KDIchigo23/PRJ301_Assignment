@@ -64,6 +64,8 @@ public class FilterCategoryController extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("categoryId", categoryId);
+        session.setAttribute("categoryId", categoryId);
+        session.setAttribute("urlHistory", "filter-category?categoryId=" + categoryId);
         request.setAttribute("pagination_url", "filter-category?categoryId=" + categoryId + "&");
 
         request.getRequestDispatcher("Products.jsp").forward(request, response);

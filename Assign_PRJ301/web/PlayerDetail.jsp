@@ -50,27 +50,96 @@
                             <h1 class="display-5 fw-bolder">${P.pName}</h1>
                             <div class="mb-1">
                                 <span class="me-1" style="font-size: 24px">Date of birth:</span>
-                                <span style="font-size: 28px">${P.pDob}</span>
+                                <span style="font-size: 28px">
+                                    <c:choose>
+                                        <c:when test="${P.pDob == null}">
+                                            Updating
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${P.pDob}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </div>
                             <div class="mb-1">
                                 <span class="me-1" style="font-size: 24px">Team:</span>
-                                <span style="font-size: 28px">${P.tName}</span>
+                                <span style="font-size: 28px">
+                                    <c:choose>
+                                        <c:when test="${P.tName == null}">
+                                            Updating
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${P.tName}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </div>
                             <div class="mb-1">
                                 <span class="me-1" style="font-size: 24px">Position:</span>
-                                <span style="font-size: 28px">${P.pPosition}</span>
+                                <span style="font-size: 28px">
+                                    <c:choose>
+                                        <c:when test="${P.pPosition == null}">
+                                            Updating
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${P.pPosition}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
+                            </div>
+                            <div class="mb-1">
+                                <span class="me-1" style="font-size: 24px">Height:</span>
+                                <span style="font-size: 28px">
+                                    <c:choose>
+                                        <c:when test="${P.pHeight == null}">
+                                            Updating
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${P.pHeight}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </div>
                             <div class="mb-1">
                                 <span class="me-1" style="font-size: 24px">Jersey number:</span>
-                                <span style="font-size: 28px">${P.pNo}</span>
+                                <span style="font-size: 28px">
+                                    <c:choose>
+                                        <c:when test="${P.pNo == null}">
+                                            Updating
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${P.pNo}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </div>
                             <div class="mb-1">
                                 <span class="me-1" style="font-size: 24px">Achievement:</span>
-                                <span style="font-size: 28px">${P.pAchievement}</span>
+                                <span style="font-size: 28px">
+                                    <c:choose>
+                                        <c:when test="${P.pAchievement == null}">
+                                            Updating
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${P.pAchievement}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </div>
                             <div class="mb-1">
                             </div>
+                            <c:if test="${sessionScope.account.isSell == 1}">
+                                <a href="update-player?playerId=${P.pId}" class="btn btn-outline-success mt-2 me-2" type="button">
+                                    <i class="bi bi-arrow-up-circle"></i>
+                                    Update Player
+                                </a>
+                                <a href="delete-player?playerId=${P.pId}" class="btn btn-outline-danger mt-2" type="button">
+                                    <i class="bi bi-trash"></i>
+                                    Delete Player
+                                </a>
+                            </c:if>
                         </c:forEach> 
+
                     </div>
                 </div>
             </div>

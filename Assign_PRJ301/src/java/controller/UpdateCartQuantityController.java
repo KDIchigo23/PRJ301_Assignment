@@ -44,6 +44,7 @@ public class UpdateCartQuantityController extends HttpServlet {
             carts = new LinkedHashMap<>();
         }
         int proQuantity = new ProductDAO().getProQuantityByProId(proId);
+        session.setAttribute("chechProQuantity", proQuantity);
         if (quantity <= proQuantity && quantity >= 0) {
             if (carts.containsKey(proId)) {
                 carts.get(proId).setQuantity(quantity);
@@ -55,9 +56,13 @@ public class UpdateCartQuantityController extends HttpServlet {
             if (quantity < 0) {
                 session.setAttribute("classAlert", "alert alert-danger");
                 session.setAttribute("alert", "Can't reduce quantity");
+                session.setAttribute("lessProId", proId);
+                session.setAttribute("checkqQuantity", quantity);
             } else {
                 session.setAttribute("classAlert", "alert alert-danger");
                 session.setAttribute("alert", "Over Quantity in shop");
+                session.setAttribute("overProId", proId);
+                session.setAttribute("checkQuantity", quantity);
             }
 
         }

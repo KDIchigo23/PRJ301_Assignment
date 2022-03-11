@@ -37,8 +37,8 @@ public class AddToCartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int productId = Integer.parseInt(request.getParameter("productId"));
-
         HttpSession session = request.getSession();
+
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();
@@ -54,8 +54,20 @@ public class AddToCartController extends HttpServlet {
         //lưu carts lên session
         session.setAttribute("carts", carts);
         String urlHistory = (String) session.getAttribute("urlHistory");
-        if (urlHistory == null) {
+        if (urlHistory == "product-controller") {
             urlHistory = "product-controller";
+        }
+        if (urlHistory.startsWith("filter-proteam?teamId=")) {
+            int teamId = (int) session.getAttribute("teamId");
+            urlHistory = "filter-proteam?teamId=" + teamId;
+        }
+        if (urlHistory.startsWith("product-detail?productId=")) {
+            int proId = (int) session.getAttribute("productId");
+            urlHistory = "product-detail?productId=" + proId;
+        }
+        if (urlHistory.startsWith("filter-category?categoryId=")) {
+            int categoryId = (int) session.getAttribute("categoryId");
+            urlHistory = "filter-category?categoryId=" + categoryId;
         }
 
         response.sendRedirect(urlHistory);

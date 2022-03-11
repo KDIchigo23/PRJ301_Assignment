@@ -38,14 +38,18 @@ public class PlayerDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         int playerId = Integer.parseInt(request.getParameter("playerId"));
-        
+
+        int teamId = new PlayerDAO().getTeamIdByPlayerId(playerId);
+        Player onlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
         List<Player> playerDetail = new PlayerDAO().getPlayerByPlayerId(playerId);
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-        
 
         session.setAttribute("listCategories", listCategories);
+        session.setAttribute("checkPlayerId", playerId);
+        session.setAttribute("checkTeamId", teamId);
+        session.setAttribute("onlyPlayerByPlayerId", onlyPlayerByPlayerId);
         request.setAttribute("playerDetail", playerDetail);
-        
+
         request.getRequestDispatcher("PlayerDetail.jsp").forward(request, response);
     }
 

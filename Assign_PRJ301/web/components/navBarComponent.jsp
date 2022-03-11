@@ -31,13 +31,13 @@
                         </li>
                         <c:forEach items="${sessionScope.listCategories}" var="CT">
                             <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
-                            </c:forEach>
                             <c:if test="${sessionScope.account.isSell == 1}">
                             <li>
                                 <hr class="dropdown-divider" style="color: #d8e3e887;" />
                             </li>
-                            <li><a class="dropdown-item text-white bg-color-grey-hover" href="create-product">Create product</a></li>
+                            <li><a class="dropdown-item text-white bg-color-grey-hover" href="create-product">Create Player</a></li>
                             </c:if>
+                            </c:forEach>
                     </ul>
                 </li>
             </ul>

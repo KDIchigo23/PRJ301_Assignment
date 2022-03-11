@@ -42,21 +42,4 @@ public class TeamDAO {
         return list;
     }
 
-//    public List<Team> getAllTeamsEast() {
-//        List<Team> list = new ArrayList<>();
-//        try {
-//            String sql = "select * from Team t where t.gId = 2";
-//            Connection conn = new DBContext().getConnection();
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()) {
-//                Team team = new Team(rs.getInt(1), rs.getString(2), rs.getInt(3));
-//                list.add(team);
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(TeamDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return list;
-//    }
-    
 }

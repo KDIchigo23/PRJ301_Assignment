@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.playerCRUD;
 
-import dao.CategoryDAO;
-import dao.ProductDAO;
+import dao.PlayerDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
-import model.Product;
+import model.Player;
 
 /**
  *
  * @author ADMIN
  */
-public class ProductDetailController extends HttpServlet {
+public class UpdatePlayer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,20 +35,26 @@ public class ProductDetailController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        int productId = Integer.parseInt(request.getParameter("productId"));
-
-        List<Product> productDetail = new ProductDAO().getProductByProductId(productId);
-        List<Product> listProducts = new ProductDAO().getAllProducts();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
         
-
-        session.setAttribute("listCategories", listCategories);
-        request.setAttribute("productDetail", productDetail);
-        request.getSession().setAttribute("listProducts", listProducts);
-        session.setAttribute("productId", productId);
-        session.setAttribute("urlHistory", "product-detail?productId=" + productId);
-
-        request.getRequestDispatcher("ProductDetail.jsp").forward(request, response);
+        int playerId = (int) session.getAttribute("checkPlayerId");
+        String pImg_url = request.getParameter("pImg_url");
+        int teamId = Integer.parseInt(request.getParameter("team"));
+        String pName = request.getParameter("pName");
+        String pHeight = request.getParameter("pHeight");
+        String pDob = request.getParameter("pDob");
+        String pPosition = request.getParameter("pPosition");
+        int pNo = Integer.parseInt(request.getParameter("pNo"));
+        String pAchievement = request.getParameter("pAchievement");
+        
+        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
+        if(checkPlayerExist == null){
+            new PlayerDAO().updatePlayer(playerId, pImg_url, teamId, pName, pHeight, pDob, pPosition, pNo, pAchievement);
+            Player newOnlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
+            session.setAttribute("checkTeamId", teamId);
+            session.setAttribute("onlyPlayerByPlayerId", newOnlyPlayerByPlayerId);
+        }
+        
+        request.getRequestDispatcher("UpdatePlayer.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,7 +69,7 @@ public class ProductDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("UpdatePlayer.jsp").forward(request, response);
     }
 
     /**

@@ -74,31 +74,33 @@ public class AccountInforController extends HttpServlet {
         String accountUser = account.getaUsername();
         String accountPass = account.getaPassword();
         int accountId = account.getaId();
-        Account checkAccountExist = new AccountDAO().checkAccountExist(username);
-        if (checkAccountExist == null) {
-            new AccountDAO().updateUser(accountId, username);
-            Cookie[] cookies = request.getCookies();
-            for (Cookie cooky : cookies) {
-                if (cooky.getName().equals("accountUser")) {
-                    cooky.setMaxAge(0);
-                    response.addCookie(cooky);
-                }
-                if (cooky.getName().equals("accountPass")) {
-                    cooky.setMaxAge(0);
-                    response.addCookie(cooky);
-                }
-            }
-            Account newAccount = new AccountDAO().login(username, password);
-            Cookie usernameCookie = new Cookie("username", username);
-            usernameCookie.setMaxAge(60 * 60 * 24 * 2);
-            Cookie passwordCookie = new Cookie("password", password);
-            passwordCookie.setMaxAge(60 * 60 * 24 * 2);
-            response.addCookie(usernameCookie);
-            response.addCookie(passwordCookie);
-            request.getSession().setAttribute("account", newAccount);
-            
-            request.getRequestDispatcher("AccountInfor.jsp").forward(request, response);
-        }
+//        String str = "^(?=.*?[0-9]).{9,11}$";
+
+//        Account checkAccountExist = new AccountDAO().checkAccountExist(username);
+//        if (checkAccountExist == null) {
+//            new AccountDAO().updateUser(accountId, username);
+//            Cookie[] cookies = request.getCookies();
+//            for (Cookie cooky : cookies) {
+//                if (cooky.getName().equals("accountUser")) {
+//                    cooky.setMaxAge(0);
+//                    response.addCookie(cooky);
+//                }
+//                if (cooky.getName().equals("accountPass")) {
+//                    cooky.setMaxAge(0);
+//                    response.addCookie(cooky);
+//                }
+//            }
+//            Account newAccount = new AccountDAO().login(username, password);
+//            Cookie usernameCookie = new Cookie("username", username);
+//            usernameCookie.setMaxAge(60 * 60 * 24 * 2);
+//            Cookie passwordCookie = new Cookie("password", password);
+//            passwordCookie.setMaxAge(60 * 60 * 24 * 2);
+//            response.addCookie(usernameCookie);
+//            response.addCookie(passwordCookie);
+//            request.getSession().setAttribute("account", newAccount);
+//            
+//            request.getRequestDispatcher("AccountInfor.jsp").forward(request, response);
+//        }
         new AccountDAO().updateAccount(accountId, password, displayname, address, email, phone);
             Cookie[] cookies = request.getCookies();
             for (Cookie cooky : cookies) {

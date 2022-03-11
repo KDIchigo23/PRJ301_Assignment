@@ -62,8 +62,10 @@ public class FilterProductTeamController extends HttpServlet {
         session.setAttribute("listCategories", listCategories);
         request.setAttribute("listProducts", listProducts);       
         session.setAttribute("listTeams", listTeams);
+        session.setAttribute("teamId", teamId);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
+        session.setAttribute("urlHistory", "filter-proteam?teamId=" + teamId);
         request.setAttribute("pagination_url", "filter-proteam?teamId=" + teamId + "&");
         
         request.getRequestDispatcher("Products.jsp").forward(request, response);

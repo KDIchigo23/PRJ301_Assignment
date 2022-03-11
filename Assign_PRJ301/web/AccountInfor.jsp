@@ -38,7 +38,7 @@
                 <form action="account-infor" method="POST">
                     <div class="mb-3 row">
                         <label for="username" class="form-label col-2">Username</label>
-                        <input type="text" class="col-9" name="username" value="${sessionScope.account.getaUsername()}">
+                        <input type="text" class="col-9" name="username" value="${sessionScope.account.getaUsername()}" readonly>
                     </div>
                     <div class="mb-3 row">
                         <label for="password" class="form-label col-2">Password</label>

@@ -3,25 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.playerCRUD;
 
-import dao.CategoryDAO;
-import dao.ProductDAO;
+import dao.PlayerDAO;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Category;
-import model.Product;
 
 /**
  *
  * @author ADMIN
  */
-public class ProductDetailController extends HttpServlet {
+public class DeletePlayer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,21 +31,12 @@ public class ProductDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        int productId = Integer.parseInt(request.getParameter("productId"));
-
-        List<Product> productDetail = new ProductDAO().getProductByProductId(productId);
-        List<Product> listProducts = new ProductDAO().getAllProducts();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
         
-
-        session.setAttribute("listCategories", listCategories);
-        request.setAttribute("productDetail", productDetail);
-        request.getSession().setAttribute("listProducts", listProducts);
-        session.setAttribute("productId", productId);
-        session.setAttribute("urlHistory", "product-detail?productId=" + productId);
-
-        request.getRequestDispatcher("ProductDetail.jsp").forward(request, response);
+        int playerId = Integer.parseInt(request.getParameter("playerId"));
+        
+        new PlayerDAO().deletePlayerByPlayerId(playerId);
+        
+        response.sendRedirect("player-controller");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -38,6 +38,12 @@
                 <div class="dropdown dropend team-hover mb-4">
                     <a href="player-controller" class="text-dark text-decoration-none">All Players in NBA</a>    
                 </div>
+                <c:if test="${sessionScope.account.isSell == 1}">
+                    <div class="dropdown dropend team-hover mb-4">
+                        <a href="create-player" class="text-dark text-decoration-none">Create Player</a>    
+                    </div>
+                </c:if>
+
                 <h4 class="text-dark">West</h4>
                 <c:forEach begin="0" end="3" items="${sessionScope.listTeams}" var="T">
                     <div class="dropdown dropend team-hover">
@@ -80,6 +86,12 @@
                                 <c:forEach items="${sessionScope.listCategories}" var="CT">
                                     <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
                                     </c:forEach>
+                                    <c:if test="${sessionScope.account.isSell == 1}">
+                                    <li>
+                                        <hr class="dropdown-divider" style="color: #d8e3e887;" />
+                                    </li>
+                                    <li><a class="dropdown-item text-white bg-color-grey-hover" href="create-product">Create product</a></li>
+                                    </c:if>
 
                             </ul>
                         </li>
@@ -147,6 +159,10 @@
                                             <td class="ext-center" style="width: 100%">Customer</td>
                                         </tr>
                                     </c:if>
+                                    <tr>
+                                        <td><a href="AccountInfor.jsp" 
+                                               class="btn btn-outline-secondary ms-lg-2 mt-2" style="padding: 6px 17px 6px 17px !important">Information</a></td>   
+                                    </tr>
                                     <tr>
                                         <td><a href="cart-history?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="btn btn-outline-dark ms-lg-2 mt-2"
                                                style="padding: 6px 34px 6px 34px !important">History</a></td>   

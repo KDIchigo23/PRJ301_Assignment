@@ -66,9 +66,16 @@
                                     <td scope="col" class="col-1">$${C.value.product.proPrice}</td>
                                     <td scope="col" class="col-2"><input onchange="this.form.submit()" type="number" name="quantity"
                                                                          value="${C.value.quantity}" style="width: 48px"/>
-                                        <div class="${classAlert}">
-                                            ${alert}
-                                        </div>
+                                        <c:if test="${sessionScope.checkqQuantity < 0}">
+                                            <div class="${classAlert}">
+                                                ${alert}
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${sessionScope.checkqQuantity > sessionScope.chechProQuantity}">
+                                            <div class="${classAlert}">
+                                                ${alert}
+                                            </div>
+                                        </c:if>
                                     </td>
                                     <td scope="col" class="col-2">$${C.value.product.proPrice*C.value.quantity}</td>
                                     <td scope="col" class="col-2"><a href="delete-cart?productId=${C.value.product.proId}" 
