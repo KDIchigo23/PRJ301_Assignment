@@ -109,7 +109,7 @@
                                 </tr>
                             </c:if>
                             <tr>
-                                <td><a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountId=${sessionScope.account.getaId()}&accountPass=${sessionScope.account.getaPassword()}" 
+                                <td><a href="AccountInfor.jsp" 
                                        class="btn btn-outline-secondary ms-lg-2 mt-2" style="padding: 6px 17px 6px 17px !important">Information</a></td>   
                             </tr>
                             <tr>

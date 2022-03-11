@@ -64,8 +64,12 @@
                                     <td scope="col" class="col-2"><img src="${C.value.product.proImg_url}" width="100"/></td>
                                     <td scope="col" class="col-2">${C.value.product.proName}</td>
                                     <td scope="col" class="col-1">$${C.value.product.proPrice}</td>
-                                    <td scope="col" class="col-2"><input onchange="this.form.submit()" type="number" name="quantity" 
-                                                                         value="${C.value.quantity}" style="width: 48px"/></td>
+                                    <td scope="col" class="col-2"><input onchange="this.form.submit()" type="number" name="quantity"
+                                                                         value="${C.value.quantity}" style="width: 48px"/>
+                                        <div class="${classAlert}">
+                                            ${alert}
+                                        </div>
+                                    </td>
                                     <td scope="col" class="col-2">$${C.value.product.proPrice*C.value.quantity}</td>
                                     <td scope="col" class="col-2"><a href="delete-cart?productId=${C.value.product.proId}" 
                                                                      class="btn btn-outline-danger"><i class="bi bi-trash"></i>Delete</a></td>
@@ -117,12 +121,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="d-flex">
-                        <button class="px-3 py-1" value="-" style="font-size: 15px; background-color: white; border: 1px solid black; border-right: none !important">-</button>
-                        <input value="1" style="width: 30px">
-                        <button class="px-3 py-1" value="+" style="font-size: 15px; background-color: white; border: 1px solid black; border-left: none !important">+</button>
                     </div>
                 </div>
             </div>

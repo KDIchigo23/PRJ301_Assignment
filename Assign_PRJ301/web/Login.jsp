@@ -50,8 +50,8 @@
                                     <form action="login" method="POST">
                                         <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                                         <p class="text-white-50 mb-5">Please enter your login and password!</p>
-                                        <div class="${classAlert}">
-                                            <strong>${strongAlert}</strong> ${alert}
+                                        <div class="${classAlerts}">
+                                            <strong>${strongAlerts}</strong> ${alerts}
                                         </div>
                                         <input type="text" id="typeText" name="username" class="form-control form-control-lg bg-dark text-white"
                                                value="${username}" placeholder="Enter your Username">

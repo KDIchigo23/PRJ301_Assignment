@@ -152,4 +152,54 @@ public class AccountDAO {
         }
         return null;
     }
+
+    public void updateUser(int accountId, String username) {
+        String sql = "UPDATE [Assign_PRJ301].[dbo].[Account]\n"
+                + "   SET [aUsername] = ? \n"
+                + " WHERE aId = ? ";
+        try {
+
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setInt(2, accountId);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateAccount(int accountId, String password, String displayname, String address, String email, String phone) {
+        String sql = "UPDATE [Assign_PRJ301].[dbo].[Account]\n"
+                + "   SET [aPassword] = ?\n"
+                + "      ,[aDisplayName] = ?\n"
+                + "      ,[aAddress] = ?\n"
+                + "      ,[aEmail] = ?\n"
+                + "      ,[aPhone] = ?\n"
+                + " WHERE aId = ?";
+        try {
+
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, password);
+            ps.setString(2, displayname);
+            ps.setString(3, address);
+            ps.setString(4, email);
+            ps.setString(5, phone);
+            ps.setInt(6, accountId);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

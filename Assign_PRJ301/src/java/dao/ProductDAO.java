@@ -461,4 +461,35 @@ public class ProductDAO {
         return 0;
     }
 
+    public int getProQuantityByProId(int proId) {
+        try {
+            String sql = "select proQuantity from Products where proId = ?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, proId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public void updateQuantityByProId(int updateQuantity, int proId) {
+        try {
+            String sql = "update Products set proQuantity = ? where proId = ?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, updateQuantity);
+            ps.setInt(2, proId);
+            ps.executeUpdate();
+          
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
 }

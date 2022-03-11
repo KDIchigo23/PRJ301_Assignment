@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
@@ -34,7 +35,7 @@ public class UpdateCartQuantityController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int productId = Integer.parseInt(request.getParameter("productId"));
+        int proId = Integer.parseInt(request.getParameter("productId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
         HttpSession session = request.getSession();
@@ -42,9 +43,23 @@ public class UpdateCartQuantityController extends HttpServlet {
         if (carts == null) {
             carts = new LinkedHashMap<>();
         }
+        int proQuantity = new ProductDAO().getProQuantityByProId(proId);
+        if (quantity <= proQuantity && quantity >= 0) {
+            if (carts.containsKey(proId)) {
+                carts.get(proId).setQuantity(quantity);
+            }
+            session.setAttribute("classAlert", "");
+            session.setAttribute("strongAlert", "");
+            session.setAttribute("alert", "");
+        } else {
+            if (quantity < 0) {
+                session.setAttribute("classAlert", "alert alert-danger");
+                session.setAttribute("alert", "Can't reduce quantity");
+            } else {
+                session.setAttribute("classAlert", "alert alert-danger");
+                session.setAttribute("alert", "Over Quantity in shop");
+            }
 
-        if (carts.containsKey(productId)) {
-            carts.get(productId).setQuantity(quantity);
         }
 
         session.setAttribute("carts", carts);

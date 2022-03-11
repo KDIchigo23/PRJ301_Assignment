@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Cart;
 /**
  *
@@ -46,4 +47,6 @@ public class OrderDetailDAO {
             Logger.getLogger(ShippingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+
 }

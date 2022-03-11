@@ -48,18 +48,43 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        Cookie arr[] = request.getCookies();
-        if (arr != null) {
-            for (Cookie cookie : arr) {
-                if (cookie.getName().equals("userC")) {
-                    request.setAttribute("username", cookie.getValue());
-                }
-                if (cookie.getName().equals("passC")) {
-                    request.setAttribute("password", cookie.getValue());
-                }
+//        Cookie arr[] = request.getCookies();
+//        if (arr != null) {
+//            for (Cookie cookie : arr) {
+//                if (cookie.getName().equals("userC")) {
+//                    request.setAttribute("username", cookie.getValue());
+//                }
+//                if (cookie.getName().equals("passC")) {
+//                    request.setAttribute("password", cookie.getValue());
+//                }
+//            }
+//        }
+//
+//        request.getRequestDispatcher("Login.jsp").forward(request, response);
+
+        Cookie[] cookies = request.getCookies();
+        String username = null;
+        String password = null;
+        for (Cookie cooky : cookies) {
+            if (cooky.getName().equals("username")) {
+                username = cooky.getValue();
+            }
+            if (cooky.getName().equals("password")) {
+                password = cooky.getValue();
+            }
+            if (username != null && password != null) {
+                break;
             }
         }
 
+        if (username != null && password != null) {
+            Account account = new AccountDAO().login(username, password);
+            if (account != null) { //cookie hợp lệ
+                request.getSession().setAttribute("account", account);
+                response.sendRedirect("home-controller");
+                return;
+            }
+        }
         request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
@@ -75,34 +100,61 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+//        String username = request.getParameter("username");
+//        String password = request.getParameter("password");
+//        String remember = request.getParameter("remember");
+//
+//        Account account = new AccountDAO().login(username, password);
+//
+//        if (account == null) {
+//            request.setAttribute("classAlert", "alert alert-danger");
+//            request.setAttribute("strongAlert", "Error");
+//            request.setAttribute("alert", "Wrong username or password");
+//            request.getRequestDispatcher("Login.jsp").forward(request, response);
+//        } else {
+//            session.setAttribute("account", account);
+//            request.setAttribute("account", account);
+//
+//            Cookie user = new Cookie("userC", username);
+//            Cookie pass = new Cookie("passC", password);
+//            user.setMaxAge(30 * 60);
+//
+//            if (remember != null) {
+//                pass.setMaxAge(30 * 60);
+//            } else {
+//                pass.setMaxAge(0);
+//            }
+//            response.addCookie(user);
+//            response.addCookie(pass);
+//
+//            response.sendRedirect("home-controller");
+//        }
+        //Check login
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
 
+        // check username, password
         Account account = new AccountDAO().login(username, password);
 
-        if (account == null) {
-            request.setAttribute("classAlert", "alert alert-danger");
-            request.setAttribute("strongAlert", "Error");
-            request.setAttribute("alert", "Wrong username or password");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        } else {
-            session.setAttribute("account", account);
-            request.setAttribute("account", account);
-
-            Cookie user = new Cookie("userC", username);
-            Cookie pass = new Cookie("passC", password);
-            user.setMaxAge(30 * 60);
-
+        if (account != null) { //hợp lệ -> lưu lên session
+            //remember
             if (remember != null) {
-                pass.setMaxAge(30 * 60);
-            } else {
-                pass.setMaxAge(0);
+                Cookie usernameCookie = new Cookie("username", username);
+                usernameCookie.setMaxAge(60 * 60 * 24 * 2);
+                Cookie passwordCookie = new Cookie("password", password);
+                passwordCookie.setMaxAge(60 * 60 * 24 * 2);
+                response.addCookie(usernameCookie);
+                response.addCookie(passwordCookie);
             }
-            response.addCookie(user);
-            response.addCookie(pass);
-
+            request.getSession().setAttribute("account", account);
             response.sendRedirect("home-controller");
+            //không remember
+        } else {//Không hợp lệ -> trả về lỗi
+            request.setAttribute("classAlerts", "alert alert-danger");
+            request.setAttribute("strongAlerts", "Error");
+            request.setAttribute("alerts", "Wrong username or password");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
     }
 

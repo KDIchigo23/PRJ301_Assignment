@@ -9,6 +9,7 @@ import dao.AccountDAO;
 import dao.CategoryDAO;
 import dao.OrderDAO;
 import dao.OrderDetailDAO;
+import dao.ProductDAO;
 import dao.ShippingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,9 +21,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Cart;
 import model.Category;
 import model.Order;
+import model.Product;
 import model.Shipping;
 
 /**
@@ -121,6 +124,8 @@ public class CheckOutController extends HttpServlet {
         if (carts == null) {
             carts = new LinkedHashMap<>();
         }
+        
+        
 
         //tinh tong tien
         double totalPrice = 0;
@@ -132,19 +137,32 @@ public class CheckOutController extends HttpServlet {
 
         }
 
+        Account account = (Account) session.getAttribute("account");
         String accountUser = session.getAttribute("accountUser").toString();
         String accountPass = session.getAttribute("accountPass").toString();
         int accountId = new AccountDAO().getAccountIdByUserAndPass(accountUser, accountPass);
         session.setAttribute("accountId", accountId);
 
         Order order = Order.builder()
-                .aId(accountId)
+                .aId(account.getaId())
                 .oTotalPrice(shippingId)
                 .oTotalPrice(totalPrice)
                 .oNote(note)
                 .sId(shippingId)
                 .build();
         int orderId = new OrderDAO().createReturnId(order);
+        
+        //Thay đổi giá trị quantity
+        List<Product> listProducts = new ProductDAO().getAllProducts();
+        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+            Integer productId = entry.getKey();
+            Cart cart = entry.getValue();
+            int quantity = cart.getQuantity();
+            int proId = cart.getProduct().getProId();
+            int proQuantity = new ProductDAO().getProQuantityByProId(proId);
+            int updateQuantity = proQuantity - quantity;
+            new ProductDAO().updateQuantityByProId(updateQuantity, proId);
+        }
         //Lưu OrderDetail
 
         new OrderDetailDAO().saveCart(orderId, carts);

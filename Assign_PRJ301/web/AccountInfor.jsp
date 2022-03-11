@@ -34,43 +34,35 @@
         <div class="row" style="margin-bottom: 50px">
             <h1>Account Information</h1>
             <div class="col-6 mx-auto mt-2" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
-                
+
                 <form action="account-infor" method="POST">
                     <div class="mb-3 row">
                         <label for="username" class="form-label col-2">Username</label>
-                        <input type="text" class="col-7" name="user" value="${sessionScope.account.getaUsername()}" readonly>
-                        <a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}&accountId=${sessionScope.account.getaId()}&value=user"
-                           class="btn btn-outline-success col-2 ms-2" style="padding: 6px 17px 6px 17px !important">Update</a>
+                        <input type="text" class="col-9" name="username" value="${sessionScope.account.getaUsername()}">
                     </div>
                     <div class="mb-3 row">
                         <label for="password" class="form-label col-2">Password</label>
-                        <input type="password" class="col-7" name="password" value="${sessionScope.account.getaPassword()}" readonly>
-                        <a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}&accountId=${sessionScope.account.getaId()}&value=pass"  
-                           class="btn btn-outline-success col-2 ms-2" style="padding: 6px 17px 6px 17px !important">Update</a>
+                        <input type="password" class="col-9" name="password" value="${sessionScope.account.getaPassword()}">
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="displayname" class="form-label col-2">Display Name</label>
+                        <input type="text" class="col-9" name="displayname" value="${sessionScope.account.getaDisplayName()}">
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="address" class="form-label col-2">Address</label>
+                        <input type="text" class="col-9" name="address" value="${sessionScope.account.getaAddress()}">
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="email" class="form-label col-2">Email</label>
+                        <input type="email" class="col-9" name="email" value="${sessionScope.account.getaEmail()}">
                     </div>
                     <div class="mb-3 row">
                         <label for="phone" class="form-label col-2">Phone</label>
-                        <input type="" class="col-7" name="phone">
-                        <a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" 
-                           class="btn btn-outline-success col-2 ms-2" style="padding: 6px 17px 6px 17px !important">Update</a>
+                        <input type="text" class="col-9" name="phone" value="${sessionScope.account.getaPhone()}">
                     </div>
-                    <div class="mb-3 row">
-                        <label for="phone" class="form-label col-2">Phone</label>
-                        <input type="text" class="col-7" name="phone">
-                        <a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" 
-                           class="btn btn-outline-success col-2 ms-2" style="padding: 6px 17px 6px 17px !important">Update</a>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="phone" class="form-label col-2">Phone</label>
-                        <input type="text" class="col-7" name="phone">
-                        <a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" 
-                           class="btn btn-outline-success col-2 ms-2" style="padding: 6px 17px 6px 17px !important">Update</a>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="phone" class="form-label col-2">Phone</label>
-                        <input type="text" class="col-7" name="phone">
-                        <a href="account-infor?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" 
-                           class="btn btn-outline-success col-2 ms-2" style="padding: 6px 17px 6px 17px !important">Update</a>
+                    <div class="mb-3 row pt-2">
+                        <button
+                            class="btn btn-outline-success col-2 ms-2" style="margin: auto !important">Update</button>
                     </div>
                 </form>
             </div>

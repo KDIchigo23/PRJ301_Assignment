@@ -9,6 +9,7 @@ import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,9 +34,7 @@ public class AccountInforController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
 
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,21 +64,63 @@ public class AccountInforController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String value = request.getParameter("value");
-        if (value.equals("user")) {
-            String accountUser = request.getParameter("accountUser");
-            String accountPass = request.getParameter("accountPass");
-            int accountId = Integer.parseInt(request.getParameter("accountId"));
-            String user = request.getParameter("user");
-            Account checkAccountExist = new AccountDAO().checkAccountExist(accountUser);
-            if (checkAccountExist == null) {     
-                String username = new AccountDAO().updateUser(user, accountId);
-                
-                Account account = new AccountDAO().login(accountUser, accountPass);
-                session.setAttribute("account", account);
-                response.sendRedirect("AccountInfor.jsp");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String displayname = request.getParameter("displayname");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        Account account = (Account) session.getAttribute("account");
+        String accountUser = account.getaUsername();
+        String accountPass = account.getaPassword();
+        int accountId = account.getaId();
+        Account checkAccountExist = new AccountDAO().checkAccountExist(username);
+        if (checkAccountExist == null) {
+            new AccountDAO().updateUser(accountId, username);
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cooky : cookies) {
+                if (cooky.getName().equals("accountUser")) {
+                    cooky.setMaxAge(0);
+                    response.addCookie(cooky);
+                }
+                if (cooky.getName().equals("accountPass")) {
+                    cooky.setMaxAge(0);
+                    response.addCookie(cooky);
+                }
             }
+            Account newAccount = new AccountDAO().login(username, password);
+            Cookie usernameCookie = new Cookie("username", username);
+            usernameCookie.setMaxAge(60 * 60 * 24 * 2);
+            Cookie passwordCookie = new Cookie("password", password);
+            passwordCookie.setMaxAge(60 * 60 * 24 * 2);
+            response.addCookie(usernameCookie);
+            response.addCookie(passwordCookie);
+            request.getSession().setAttribute("account", newAccount);
+            
+            request.getRequestDispatcher("AccountInfor.jsp").forward(request, response);
         }
+        new AccountDAO().updateAccount(accountId, password, displayname, address, email, phone);
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cooky : cookies) {
+                if (cooky.getName().equals("accountUser")) {
+                    cooky.setMaxAge(0);
+                    response.addCookie(cooky);
+                }
+                if (cooky.getName().equals("accountPass")) {
+                    cooky.setMaxAge(0);
+                    response.addCookie(cooky);
+                }
+            }
+            Account newAccount = new AccountDAO().login(username, password);
+            Cookie usernameCookie = new Cookie("username", username);
+            usernameCookie.setMaxAge(60 * 60 * 24 * 2);
+            Cookie passwordCookie = new Cookie("password", password);
+            passwordCookie.setMaxAge(60 * 60 * 24 * 2);
+            response.addCookie(usernameCookie);
+            response.addCookie(passwordCookie);
+            request.getSession().setAttribute("account", newAccount);
+            
+            request.getRequestDispatcher("AccountInfor.jsp").forward(request, response);
     }
 
     /**
