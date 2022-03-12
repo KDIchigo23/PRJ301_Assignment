@@ -145,7 +145,7 @@
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="add-to-cart?productId=${Pro.proId}">Add to cart</a>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" onclick="addToCartAsync(${Pro.proId})">Add to cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -206,5 +206,20 @@
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+                                                function addToCartAsync(productId) {
+                                                    axios.get('add-to-cart-async', {
+                                                        params: {
+                                                            productId: productId
+                                                        }
+                                                    }).then((response) => {
+                                                        //lấy data thanh công
+                                                        document.getElementById("cart_number").innerHTML = response.data;
+
+                                                        //Cập nhật view
+                                                    })
+                                                }
+    </script>
 
 </html>

@@ -21,17 +21,15 @@
         <link href="css/styles.css" rel="stylesheet"/>        
     </head>
 
-
-
     <body style="margin: 100px 10px 0px 10px !important">
         <header>
             <%@include file="components/navBarComponent.jsp" %>
         </header>
 
     <center>
-        <div style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem; width: 40%" class="my-5">
+        <div class="my-5" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem; width: 40%">
             <h3>Add New Player</h3>
-            <form action="create-player" method="POST" class="container">
+            <form action="/admin/create-player" method="POST" class="container">
                 <div class="mb-3">
                     <input type="text" class="form-control" id="pImg_url" name="pImg_url" placeholder="Player Img_url Link">
                 </div>

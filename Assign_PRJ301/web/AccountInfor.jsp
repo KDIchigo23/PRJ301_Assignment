@@ -60,6 +60,10 @@
                         <label for="phone" class="form-label col-2">Phone</label>
                         <input type="text" class="col-9" name="phone" value="${sessionScope.account.getaPhone()}">
                     </div>
+                    <div class="mb-3 row">
+                        <label for="role" class="form-label col-2">Role</label>
+                        <input type="text" class="col-9" name="role" value="${sessionScope.account.getaRole()}" readonly>
+                    </div>
                     <div class="mb-3 row pt-2">
                         <button
                             class="btn btn-outline-success col-2 ms-2" style="margin: auto !important">Update</button>

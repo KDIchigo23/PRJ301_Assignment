@@ -31,7 +31,7 @@
     <center>
         <div style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem; width: 40%" class="my-5">
             <h3>Update Player ${sessionScope.onlyPlayerByPlayerId.getpName()}</h3>
-            <form action="update-player" method="POST" class="container">
+            <form action="/admin/update-player" method="POST" class="container">
                 <div class="mb-3">
                     <input type="text" class="form-control" id="pImg_url" name="pImg_url" placeholder="Player Img_url Link"
                            value="${sessionScope.onlyPlayerByPlayerId.getpImg_url()}">

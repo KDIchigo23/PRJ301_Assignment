@@ -40,8 +40,7 @@ public class AccountDAO {
                         .aAddress(rs.getString(5))
                         .aEmail(rs.getString(6))
                         .aPhone(rs.getString(7))
-                        .isSell(rs.getInt(8))
-                        .isAdmin(rs.getInt(9))
+                        .aRole(rs.getString(8))
                         .build();
             }
 
@@ -68,14 +67,14 @@ public class AccountDAO {
             while (rs.next()) {
                 return Account.builder()
                         .aId(rs.getInt(1))
+                        .aId(rs.getInt(1))
                         .aUsername(rs.getString(2))
                         .aPassword(rs.getString(3))
                         .aDisplayName(rs.getString(4))
                         .aAddress(rs.getString(5))
                         .aEmail(rs.getString(6))
                         .aPhone(rs.getString(7))
-                        .isSell(rs.getInt(8))
-                        .isAdmin(rs.getInt(9))
+                        .aRole(rs.getString(8))
                         .build();
             }
 
@@ -93,10 +92,9 @@ public class AccountDAO {
                 + "           ,[aAddress]\n"
                 + "           ,[aEmail]\n"
                 + "           ,[aPhone]\n"
-                + "           ,[isSell]\n"
-                + "           ,[isAdmin])\n"
+                + "           ,[aRole]\n"
                 + "     VALUES\n"
-                + "           (?, ?, ?, '', '', '', 0, 0)";
+                + "           (?, ?, ?, '', '', '', 'USER')";
         try {
 
             //Mở kết nối với sql server

@@ -3,25 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.sync;
 
-import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Cart;
 
 /**
  *
  * @author ADMIN
  */
-public class UpdateCartQuantityController extends HttpServlet {
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,40 +32,23 @@ public class UpdateCartQuantityController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int proId = Integer.parseInt(request.getParameter("productId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-
-        HttpSession session = request.getSession();
-        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
-        if (carts == null) {
-            carts = new LinkedHashMap<>();
-        }
-        int proQuantity = new ProductDAO().getProQuantityByProId(proId);
-        session.setAttribute("chechProQuantity", proQuantity);
-        if (quantity <= proQuantity && quantity >= 0) {
-            if (carts.containsKey(proId)) {
-                carts.get(proId).setQuantity(quantity);
+//        HttpSession session = request.getSession();
+//        session.removeAttribute("account");
+//        response.sendRedirect("home-controller");
+        request.getSession().removeAttribute("account");
+        //Xóa cookie
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cooky : cookies) {
+            if (cooky.getName().equals("username")) {
+                cooky.setMaxAge(0);
+                response.addCookie(cooky);
             }
-            session.setAttribute("classAlert", "");
-            session.setAttribute("strongAlert", "");
-            session.setAttribute("alert", "");
-        } else {
-            if (quantity < 0) {
-                session.setAttribute("classAlert", "alert alert-danger");
-                session.setAttribute("alert", "Can't reduce quantity");
-                session.setAttribute("lessProId", proId);
-                session.setAttribute("checkqQuantity", quantity);
-            } else {
-                session.setAttribute("classAlert", "alert alert-danger");
-                session.setAttribute("alert", "Over Quantity in shop");
-                session.setAttribute("overProId", proId);
-                session.setAttribute("checkQuantity", quantity);
+            if (cooky.getName().equals("password")) {
+                cooky.setMaxAge(0);
+                response.addCookie(cooky);
             }
-
         }
-
-        session.setAttribute("carts", carts);
-        response.sendRedirect("cart-controller");
+        response.sendRedirect("login");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -128,12 +128,12 @@
                             </div>
                             <div class="mb-1">
                             </div>
-                            <c:if test="${sessionScope.account.isSell == 1}">
-                                <a href="update-player?playerId=${P.pId}" class="btn btn-outline-success mt-2 me-2" type="button">
+                            <c:if test="${sessionScope.account.getaRole() eq (Account.ADMIN)}">
+                                <a href="/admin/update-player?playerId=${P.pId}" class="btn btn-outline-success mt-2 me-2" type="button">
                                     <i class="bi bi-arrow-up-circle"></i>
                                     Update Player
                                 </a>
-                                <a href="delete-player?playerId=${P.pId}" class="btn btn-outline-danger mt-2" type="button">
+                                <a href="/admin/delete-player?playerId=${P.pId}" class="btn btn-outline-danger mt-2" type="button">
                                     <i class="bi bi-trash"></i>
                                     Delete Player
                                 </a>

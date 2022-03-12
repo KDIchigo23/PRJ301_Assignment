@@ -3,28 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.playerCRUD;
+package controller.sync;
 
-import dao.CategoryDAO;
-import dao.PlayerDAO;
-import dao.TeamDAO;
+import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
-import model.Player;
-import model.Team;
+import model.Cart;
 
 /**
  *
  * @author ADMIN
  */
-public class UpdatePlayer extends HttpServlet {
+public class UpdateCartQuantityController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,33 +35,40 @@ public class UpdatePlayer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        int proId = Integer.parseInt(request.getParameter("productId"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+
         HttpSession session = request.getSession();
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
+        int proQuantity = new ProductDAO().getProQuantityByProId(proId);
+        session.setAttribute("chechProQuantity", proQuantity);
+        if (quantity <= proQuantity && quantity >= 0) {
+            if (carts.containsKey(proId)) {
+                carts.get(proId).setQuantity(quantity);
+            }
+            session.setAttribute("classAlert", "");
+            session.setAttribute("strongAlert", "");
+            session.setAttribute("alert", "");
+        } else {
+            if (quantity < 0) {
+                session.setAttribute("classAlert", "alert alert-danger");
+                session.setAttribute("alert", "Can't reduce quantity");
+                session.setAttribute("lessProId", proId);
+                session.setAttribute("checkqQuantity", quantity);
+            } else {
+                session.setAttribute("classAlert", "alert alert-danger");
+                session.setAttribute("alert", "Over Quantity in shop");
+                session.setAttribute("overProId", proId);
+                session.setAttribute("checkQuantity", quantity);
+            }
 
-        int playerId = (int) session.getAttribute("checkPlayerId");
-        String pImg_url = request.getParameter("pImg_url");
-        int teamId = Integer.parseInt(request.getParameter("team"));
-        String pName = request.getParameter("pName");
-        String pHeight = request.getParameter("pHeight");
-        String pDob = request.getParameter("pDob");
-        String pPosition = request.getParameter("pPosition");
-        int pNo = Integer.parseInt(request.getParameter("pNo"));
-        String pAchievement = request.getParameter("pAchievement");
-
-        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
-        if (checkPlayerExist == null) {
-            new PlayerDAO().updatePlayer(playerId, pImg_url, teamId, pName, pHeight, pDob, pPosition, pNo, pAchievement);
-            Player newOnlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
-            session.setAttribute("checkTeamId", teamId);
-            session.setAttribute("onlyPlayerByPlayerId", newOnlyPlayerByPlayerId);
         }
 
-        List<Team> listTeams = new TeamDAO().getAllTeams();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-        session.setAttribute("listTeams", listTeams);
-        session.setAttribute("listCategories", listCategories);
-
-        request.getRequestDispatcher("UpdatePlayer.jsp").forward(request, response);
+        session.setAttribute("carts", carts);
+        response.sendRedirect("cart-controller");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,7 +83,7 @@ public class UpdatePlayer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../UpdatePlayer.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

@@ -87,8 +87,7 @@ CREATE TABLE [dbo].[Account](
 	[aAddress] [nvarchar](255) NULL,
 	[aEmail] [nvarchar](255) NULL,
 	[aPhone] [nvarchar](255) NULL,
-	[isSell] [bit] NULL,
-	[isAdmin] [bit] NULL,
+	[aRole] [nvarchar](255) NULL,
 )
 
 GO
@@ -355,9 +354,10 @@ INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, pro
 
 
 
-INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)
-INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('dung', 'dung', 'Dung', '', '', '', 0, 1)
-INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('kdichigo', 'kdichigo', 'KDIchigo', '', '', '', 1, 1)
-INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, isSell, isAdmin) VALUES('abc', '12345', 'ABC', '', '', '', 0, 0)
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('user', '123456', 'USER', '', '', '', 'USER')
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('seller', '123456', 'SELL', '', '', '', 'SELLER')
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('admin', '123456', 'KDIchigo', '', '', '', 'ADMIN')
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('admin2', '123456', 'KDIchigo2', '', '', '', 'SELLER')
+
 
 

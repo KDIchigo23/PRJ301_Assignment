@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.sync;
 
 import dao.CategoryDAO;
-import dao.PlayerDAO;
+import dao.ProductDAO;
 import dao.TeamDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,17 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Category;
-import model.Player;
+import model.Product;
 import model.Team;
 
 /**
  *
  * @author ADMIN
  */
-public class PlayerController extends HttpServlet {
+public class ProductController extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * PSrocesses requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
@@ -37,6 +36,10 @@ public class PlayerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+//        int teamId = Integer.getInteger("teamId");
+        HttpSession session = request.getSession();
+        
         final int PAGE_SIZE = 12;
         int page = 1;
         String pageStr = request.getParameter("page");
@@ -44,26 +47,29 @@ public class PlayerController extends HttpServlet {
             page = Integer.parseInt(pageStr);
         }
 
-        int totalPlayers = new PlayerDAO().getTotalPlayers();
-        int totalPage = totalPlayers / PAGE_SIZE;
-        if (totalPlayers % PAGE_SIZE != 0) {
+        int totalProducts = new ProductDAO().getTotalProducts();
+        int totalPage = totalProducts / PAGE_SIZE;
+        if (totalProducts % PAGE_SIZE != 0) {
             totalPage += 1;
         }
-        HttpSession session = request.getSession();
 
-        List<Player> listPlayers = new PlayerDAO().getPlayerWithPagging(page, PAGE_SIZE);
+//        List<Player> listPlayersByTeamId = new PlayerDAO().getPlayersByTeamId(teamId);
+        List<Product> listProducts = new ProductDAO().getProductsWithPagging(page, PAGE_SIZE);
+        List<Product> listPlayers = new ProductDAO().getAllProducts();
         List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-
         
+
         session.setAttribute("listCategories", listCategories);
-        session.setAttribute("listTeams", listTeams);
+        request.setAttribute("listProducts", listProducts);
         request.setAttribute("listPlayers", listPlayers);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
-        request.setAttribute("pagination_url", "player-controller?");
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("urlHistory", "product-controller");
+        request.setAttribute("pagination_url", "product-controller?");
 
-        request.getRequestDispatcher("Players.jsp").forward(request, response);
+        request.getRequestDispatcher("Products.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

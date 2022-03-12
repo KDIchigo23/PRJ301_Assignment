@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.sync;
 
 import dao.AccountDAO;
 import dao.CategoryDAO;
@@ -182,7 +182,7 @@ public class CheckOutController extends HttpServlet {
         new OrderDetailDAO().saveCart(orderId, carts);
 
         session.removeAttribute("carts");
-        response.sendRedirect("home-controller");
+        response.sendRedirect("successfull");
     }
 
     /**

@@ -2,91 +2,91 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>AllStarController</servlet-name>
-        <servlet-class>controller.AllStarController</servlet-class>
+        <servlet-class>controller.sync.AllStarController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PlayerController</servlet-name>
-        <servlet-class>controller.PlayerController</servlet-class>
+        <servlet-class>controller.sync.PlayerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FilterTeamController</servlet-name>
-        <servlet-class>controller.FilterTeamController</servlet-class>
+        <servlet-class>controller.sync.FilterTeamController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductController</servlet-name>
-        <servlet-class>controller.ProductController</servlet-class>
+        <servlet-class>controller.sync.ProductController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FilterCategoryController</servlet-name>
-        <servlet-class>controller.FilterCategoryController</servlet-class>
+        <servlet-class>controller.sync.FilterCategoryController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
-        <servlet-class>controller.HomeController</servlet-class>
+        <servlet-class>controller.sync.HomeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>controller.LoginController</servlet-class>
+        <servlet-class>controller.sync.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchProductController</servlet-name>
-        <servlet-class>controller.SearchProductController</servlet-class>
+        <servlet-class>controller.sync.SearchProductController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductDetailController</servlet-name>
-        <servlet-class>controller.ProductDetailController</servlet-class>
+        <servlet-class>controller.sync.ProductDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToCartController</servlet-name>
-        <servlet-class>controller.AddToCartController</servlet-class>
+        <servlet-class>controller.sync.AddToCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartController</servlet-name>
-        <servlet-class>controller.CartController</servlet-class>
+        <servlet-class>controller.sync.CartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCartController</servlet-name>
-        <servlet-class>controller.DeleteCartController</servlet-class>
+        <servlet-class>controller.sync.DeleteCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateCartQuantityController</servlet-name>
-        <servlet-class>controller.UpdateCartQuantityController</servlet-class>
+        <servlet-class>controller.sync.UpdateCartQuantityController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchPlayerController</servlet-name>
-        <servlet-class>controller.SearchPlayerController</servlet-class>
+        <servlet-class>controller.sync.SearchPlayerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FilterProductTeamController</servlet-name>
-        <servlet-class>controller.FilterProductTeamController</servlet-class>
+        <servlet-class>controller.sync.FilterProductTeamController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CheckOutController</servlet-name>
-        <servlet-class>controller.CheckOutController</servlet-class>
+        <servlet-class>controller.sync.CheckOutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.LogoutController</servlet-class>
+        <servlet-class>controller.sync.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignUpController</servlet-name>
-        <servlet-class>controller.SignUpController</servlet-class>
+        <servlet-class>controller.sync.SignUpController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PlayerDetailController</servlet-name>
-        <servlet-class>controller.PlayerDetailController</servlet-class>
+        <servlet-class>controller.sync.PlayerDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateProduct</servlet-name>
-        <servlet-class>controller.productCRUD.CreateProductController</servlet-class>
+        <servlet-class>controller.productCRUD.CreateProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartHistoryController</servlet-name>
-        <servlet-class>controller.CartHistoryController</servlet-class>
+        <servlet-class>controller.sync.CartHistoryController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccountInforController</servlet-name>
-        <servlet-class>controller.AccountInforController</servlet-class>
+        <servlet-class>controller.sync.AccountInforController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreatePlayer</servlet-name>
@@ -99,6 +99,22 @@
     <servlet>
         <servlet-name>UpdatePlayer</servlet-name>
         <servlet-class>controller.playerCRUD.UpdatePlayer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SuccessfulController</servlet-name>
+        <servlet-class>controller.sync.SuccessfulController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCartAsyncController</servlet-name>
+        <servlet-class>controller.async.AddToCartAsyncController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProduct</servlet-name>
+        <servlet-class>controller.productCRUD.DeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreatePlayerIdByTeamIdAsync</servlet-name>
+        <servlet-class>controller.async.CreatePlayerIdByTeamIdAsync</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
@@ -190,15 +206,43 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreatePlayer</servlet-name>
-        <url-pattern>/create-player</url-pattern>
+        <url-pattern>/admin/create-player</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeletePlayer</servlet-name>
-        <url-pattern>/delete-player</url-pattern>
+        <url-pattern>/admin/delete-player</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePlayer</servlet-name>
-        <url-pattern>/update-player</url-pattern>
+        <url-pattern>/admin/update-player</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuccessfulController</servlet-name>
+        <url-pattern>/successful</url-pattern>
+    </servlet-mapping>
+    <filter-mapping>
+        <filter-name>AunthenticationFilter</filter-name>
+        <url-pattern/>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorizationSellerFilter</filter-name>
+        <url-pattern/>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorizationAdminFilter</filter-name>
+        <url-pattern/>
+    </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartAsyncController</servlet-name>
+        <url-pattern>/add-to-cart-async</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProduct</servlet-name>
+        <url-pattern>/delete-product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePlayerIdByTeamIdAsync</servlet-name>
+        <url-pattern>/create-pTeamId-async</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

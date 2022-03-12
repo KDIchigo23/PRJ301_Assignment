@@ -3,22 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.sync;
 
-import dao.AccountDAO;
+import dao.CategoryDAO;
+import dao.ProductDAO;
+import dao.TeamDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
+import javax.servlet.http.HttpSession;
+import model.Category;
+import model.Product;
+import model.Team;
 
 /**
  *
  * @author ADMIN
  */
-public class SignUpController extends HttpServlet {
+public class FilterCategoryController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,21 +37,39 @@ public class SignUpController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String displayname = request.getParameter("displayname");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String re_password = request.getParameter("re_password");
-        if (!password.equals(re_password)) {
-            response.sendRedirect("Sign-up.jsp");
-        } else {
-            Account checkAccountExist = new AccountDAO().checkAccountExist(username);
-            if (checkAccountExist == null) {
-                new AccountDAO().signup(username, password, displayname);
-                response.sendRedirect("Login.jsp");
-            } else {
-                response.sendRedirect("Sign-up.jsp");
-            }
+        /* TODO output your page here. You may use following sample code. */
+        HttpSession session = request.getSession();
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        final int PAGE_SIZE = 12;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
         }
+
+        int totalProducts = new ProductDAO().getTotalProductsByCategoryId(categoryId);
+        int totalPage = totalProducts / PAGE_SIZE;
+        if (totalProducts % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+
+        List<Product> listProducts = new ProductDAO().getProductByCategoryIdAndPagging(categoryId, page, PAGE_SIZE);
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        session.setAttribute("listCategories", listCategories);
+        request.setAttribute("listProducts", listProducts);
+        session.setAttribute("listTeams", listTeams);
+        request.setAttribute("page", page);
+        session.setAttribute("checkPage", page);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("categoryId", categoryId);
+        session.setAttribute("checkCategoryId", categoryId);
+        session.setAttribute("urlHistory", "filter-category?categoryId=" + categoryId);
+        request.setAttribute("pagination_url", "filter-category?categoryId=" + categoryId + "&");
+
+        request.getRequestDispatcher("Products.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

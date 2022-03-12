@@ -35,8 +35,6 @@ public class ProductDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-//                Product product = new Product(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
-//                        rs.getInt(6), rs.getFloat(7), rs.getString(8), rs.getInt(9), rs.getString(10));
                 Product product = Product.builder()
                         .proId(rs.getInt(1))
                         .pId(rs.getInt(2))
@@ -485,11 +483,95 @@ public class ProductDAO {
             ps.setInt(1, updateQuantity);
             ps.setInt(2, proId);
             ps.executeUpdate();
-          
+
         } catch (Exception ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public Product checkProductExist(String proName) {
+        String sql = "select * from Products where proName = ?";
+        try {
+
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, proName);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ResultSet rs = ps.executeQuery();
+
+            //Lặp rs để lấy data
+            while (rs.next()) {
+                return Product.builder()
+                        .proId(rs.getInt(1))
+                        .pId(rs.getInt(2))
+                        .proName(rs.getString(3))
+                        .proDescription(rs.getString(4))
+                        .proQuantity(rs.getInt(5))
+                        .proPrice(rs.getFloat(6))
+                        .proImg_url(rs.getString(7))
+                        .ctId(rs.getInt(8))
+                        .build();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(PlayerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void createProduct(String proImg_url, String proName, int teamId, int playerId, String proDescription, int proQuantity, float proPrice, int categoryId) {
+        String sql = "INSERT INTO [Assign_PRJ301].[dbo].[Products]\n"
+                + "           ([pId]\n"
+                + "           ,[proName]\n"
+                + "           ,[proDescription]\n"
+                + "           ,[proQuantity]\n"
+                + "           ,[proPrice]\n"
+                + "           ,[proImg_url]\n"
+                + "           ,[ctId])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?)";
+        try {
+
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, playerId);
+            ps.setString(2, proName);
+            ps.setString(3, proDescription);
+            ps.setInt(4, proQuantity);
+            ps.setFloat(5, proPrice);
+            ps.setString(6, proImg_url);
+            ps.setInt(7, categoryId);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteProductByProductId(int productId) {
+        String sql = "DELETE FROM [Assign_PRJ301].[dbo].[Products]\n"
+                + "      WHERE proId = ? ";
+        try {
+
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productId);
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

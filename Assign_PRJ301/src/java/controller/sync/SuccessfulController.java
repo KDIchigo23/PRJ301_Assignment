@@ -3,26 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.sync;
 
-import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Cart;
-import model.Product;
 
 /**
  *
  * @author ADMIN
  */
-public class AddToCartController extends HttpServlet {
+public class SuccessfulController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,41 +30,7 @@ public class AddToCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        HttpSession session = request.getSession();
-
-        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
-        if (carts == null) {
-            carts = new LinkedHashMap<>();
-        }
-
-        if (carts.containsKey(productId)) {//sản phẩm đã có trên giỏ hàng
-            int oldQuantity = carts.get(productId).getQuantity();
-            carts.get(productId).setQuantity(oldQuantity + 1);
-        } else {//sản phẩm chưa có trên giỏ hàng
-            Product product = new ProductDAO().getProductByProId(productId);
-            carts.put(productId, Cart.builder().product(product).quantity(1).build());
-        }
-        //lưu carts lên session
-        session.setAttribute("carts", carts);
-        String urlHistory = (String) session.getAttribute("urlHistory");
-        if (urlHistory == "product-controller") {
-            urlHistory = "product-controller";
-        }
-        if (urlHistory.startsWith("filter-proteam?teamId=")) {
-            int teamId = (int) session.getAttribute("teamId");
-            urlHistory = "filter-proteam?teamId=" + teamId;
-        }
-        if (urlHistory.startsWith("product-detail?productId=")) {
-            int proId = (int) session.getAttribute("productId");
-            urlHistory = "product-detail?productId=" + proId;
-        }
-        if (urlHistory.startsWith("filter-category?categoryId=")) {
-            int categoryId = (int) session.getAttribute("categoryId");
-            urlHistory = "filter-category?categoryId=" + categoryId;
-        }
-
-        response.sendRedirect(urlHistory);
+        request.getRequestDispatcher("Successful.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

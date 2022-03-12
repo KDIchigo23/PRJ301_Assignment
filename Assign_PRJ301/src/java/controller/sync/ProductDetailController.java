@@ -3,27 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.sync;
 
 import dao.CategoryDAO;
+import dao.ProductDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Cart;
 import model.Category;
+import model.Product;
 
 /**
  *
  * @author ADMIN
  */
-public class DeleteCartController extends HttpServlet {
+public class ProductDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,26 +35,21 @@ public class DeleteCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         int productId = Integer.parseInt(request.getParameter("productId"));
 
-        HttpSession session = request.getSession();
-
-        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
-        if (carts == null) {
-            carts = new LinkedHashMap<>();
-        }
-
-        if (carts.containsKey(productId)) {
-            carts.remove(productId);
-        }
+        List<Product> productDetail = new ProductDAO().getProductByProductId(productId);
+        List<Product> listProducts = new ProductDAO().getAllProducts();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
         
 
         session.setAttribute("listCategories", listCategories);
-        session.setAttribute("carts", carts);
-        response.sendRedirect("cart-controller");
-        
-//        request.getRequestDispatcher("Cart.jsp").forward(request, response);
+        request.setAttribute("productDetail", productDetail);
+        request.getSession().setAttribute("listProducts", listProducts);
+        session.setAttribute("productId", productId);
+        session.setAttribute("urlHistory", "product-detail?productId=" + productId);
+
+        request.getRequestDispatcher("ProductDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

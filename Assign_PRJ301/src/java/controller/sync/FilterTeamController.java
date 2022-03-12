@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.playerCRUD;
+package controller.sync;
 
 import dao.CategoryDAO;
 import dao.PlayerDAO;
@@ -24,7 +24,7 @@ import model.Team;
  *
  * @author ADMIN
  */
-public class UpdatePlayer extends HttpServlet {
+public class FilterTeamController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,32 +39,35 @@ public class UpdatePlayer extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-
-        int playerId = (int) session.getAttribute("checkPlayerId");
-        String pImg_url = request.getParameter("pImg_url");
-        int teamId = Integer.parseInt(request.getParameter("team"));
-        String pName = request.getParameter("pName");
-        String pHeight = request.getParameter("pHeight");
-        String pDob = request.getParameter("pDob");
-        String pPosition = request.getParameter("pPosition");
-        int pNo = Integer.parseInt(request.getParameter("pNo"));
-        String pAchievement = request.getParameter("pAchievement");
-
-        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
-        if (checkPlayerExist == null) {
-            new PlayerDAO().updatePlayer(playerId, pImg_url, teamId, pName, pHeight, pDob, pPosition, pNo, pAchievement);
-            Player newOnlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
-            session.setAttribute("checkTeamId", teamId);
-            session.setAttribute("onlyPlayerByPlayerId", newOnlyPlayerByPlayerId);
+        int teamId = Integer.parseInt(request.getParameter("teamId"));
+        final int PAGE_SIZE = 12;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
         }
 
+        int totalPlayers = new PlayerDAO().getTotalPlayers(teamId);
+        int totalPage = totalPlayers / PAGE_SIZE;
+        if (totalPlayers % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+
+        List<Player> listPlayers = new PlayerDAO().getPlayerByTeamIdAndPagging(teamId, page, PAGE_SIZE);
+
+//        List<Player> listPlayers = new PlayerDAO().getPlayerByTeamId(teamId);
         List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
 
-        session.setAttribute("listTeams", listTeams);
         session.setAttribute("listCategories", listCategories);
+        request.setAttribute("listPlayers", listPlayers);
+        session.setAttribute("listTeams", listTeams);
+        request.setAttribute("page", page);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pagination_url", "filter-team?teamId=" + teamId + "&");
 
-        request.getRequestDispatcher("UpdatePlayer.jsp").forward(request, response);
+        request.getRequestDispatcher("Players.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,7 +82,7 @@ public class UpdatePlayer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../UpdatePlayer.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

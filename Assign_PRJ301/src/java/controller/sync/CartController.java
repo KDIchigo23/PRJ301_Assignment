@@ -3,27 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.sync;
 
 import dao.CategoryDAO;
-import dao.ProductDAO;
-import dao.TeamDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Cart;
 import model.Category;
-import model.Product;
-import model.Team;
 
 /**
  *
  * @author ADMIN
  */
-public class SearchProductController extends HttpServlet {
+public class CartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,34 +37,26 @@ public class SearchProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String keyword = request.getParameter("keyword");
-        final int PAGE_SIZE = 12;
-        int page = 1;
-        String pageStr = request.getParameter("page");
-        if (pageStr != null) {
-            page = Integer.parseInt(pageStr);
-        }
-
-        int totalProducts = new ProductDAO().getTotalProducts(keyword);
-        int totalPage = totalProducts / PAGE_SIZE;
-        if (totalProducts % PAGE_SIZE != 0) {
-            totalPage += 1;
-        }
-        
-
-        List<Product> listProducts = new ProductDAO().getProductsWithPaggingAndSearch(keyword, page, PAGE_SIZE);
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
-        List<Team> listTeams = new TeamDAO().getAllTeams();
         HttpSession session = request.getSession();
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
 
-        session.setAttribute("listTeams", listTeams);
+        //tinh tong tien
+        double totalMoney = 0;
+        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+            Integer productId = entry.getKey();
+            Cart cart = entry.getValue();
+
+            totalMoney += cart.getQuantity() * cart.getProduct().getProPrice();
+        }
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
         session.setAttribute("listCategories", listCategories);
-        request.setAttribute("listProducts", listProducts);
-        request.setAttribute("page", page);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("pagination_url", "search-product?keyword=" + keyword + "&");
-
-        request.getRequestDispatcher("Products.jsp").forward(request, response);
+        request.setAttribute("totalMoney", totalMoney);
+        request.setAttribute("carts", carts);
+        request.getRequestDispatcher("Cart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

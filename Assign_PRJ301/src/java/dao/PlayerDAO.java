@@ -253,7 +253,7 @@ public class PlayerDAO {
         List<Player> list = new ArrayList<>();
         try {
             String sql = "with s as (select ROW_NUMBER() over (order by p.pId asc) as r,\n"
-                    + "p.pId, p.pName, p.pDob, p.pPosition, p.Height,  p.pNo, \n"
+                    + "p.pId, p.pName, p.pDob, p.pPosition, p.pHeight,  p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
                     + "from Players p inner join Team t on p.tId = t.tId and p.pName like ?)\n"
                     + "select * from s where r between ?*?-(?-1) and ?*?";

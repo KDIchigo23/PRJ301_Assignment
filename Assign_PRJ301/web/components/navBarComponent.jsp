@@ -31,13 +31,13 @@
                         </li>
                         <c:forEach items="${sessionScope.listCategories}" var="CT">
                             <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
-                            <c:if test="${sessionScope.account.isSell == 1}">
-                            <li>
-                                <hr class="dropdown-divider" style="color: #d8e3e887;" />
-                            </li>
-                            <li><a class="dropdown-item text-white bg-color-grey-hover" href="create-product">Create Player</a></li>
-                            </c:if>
-                            </c:forEach>
+
+                        </c:forEach>
+<!--                    c:if-->
+                        <li>
+                            <hr class="dropdown-divider" style="color: #d8e3e887;" />
+                        </li>
+                        <li><a class="dropdown-item text-white bg-color-grey-hover" href="create-product">Create Product</a></li>
                     </ul>
                 </li>
             </ul>
@@ -51,7 +51,7 @@
                 <a href="cart-controller" class="btn btn-outline-light btn-cart">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
+                    <span id="cart_number" class="badge bg-light text-dark ms-1 rounded-pill">${sessionScope.carts.size()}</span>
                     <table class="text-dark cart-table row pe-3" style="border: 1px solid gray;">
                         <c:choose>
                             <c:when test="${carts==null || carts.size()==0}">
@@ -85,29 +85,9 @@
                     <a class="btn ms-1 pb-1 account-div">
                         <i class="bi bi-person-circle text-white me-2 py-5"></i><span class="text-white">${sessionScope.account.aDisplayName}</span>
                         <table class="text-dark cart-table row account-table" style="border: 1px solid gray;">
-                            <c:if test="${sessionScope.account.isSell == 1 && sessionScope.account.isAdmin == 1}">
-                                <tr>
-                                    <td class="text-center">Manager Account</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Manager Sell</td>
-                                </tr>
-                            </c:if>
-                            <c:if test="${sessionScope.account.isSell == 1 && sessionScope.account.isAdmin == 0}">
-                                <tr>
-                                    <td class="text-center">Manager Sell</td>
-                                </tr>
-                            </c:if>
-                            <c:if test="${sessionScope.account.isAdmin == 1 && sessionScope.account.isSell == 0}">
-                                <tr>
-                                    <td class="text-center">Manager Account</td>
-                                </tr>
-                            </c:if>
-                            <c:if test="${sessionScope.account.isSell == 0 && sessionScope.account.isAdmin == 0}">
-                                <tr>
-                                    <td class="ext-center" style="width: 100%">Customer</td>
-                                </tr>
-                            </c:if>
+                            <tr>
+                                <td class="text-center">${sessionScope.account.getaRole()}</td>
+                            </tr>
                             <tr>
                                 <td><a href="AccountInfor.jsp" 
                                        class="btn btn-outline-secondary ms-lg-2 mt-2" style="padding: 6px 17px 6px 17px !important">Information</a></td>   

@@ -5,15 +5,20 @@
  */
 package controller.playerCRUD;
 
+import dao.CategoryDAO;
 import dao.PlayerDAO;
 import dao.TeamDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Category;
 import model.Player;
+import model.Team;
 
 /**
  *
@@ -33,6 +38,7 @@ public class CreatePlayer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         String pImg_url = request.getParameter("pImg_url");
         int teamId = Integer.parseInt(request.getParameter("team"));
         String pName = request.getParameter("pName");
@@ -41,12 +47,18 @@ public class CreatePlayer extends HttpServlet {
         String pPosition = request.getParameter("pPosition");
         int pNo = Integer.parseInt(request.getParameter("pNo"));
         String pAchievement = request.getParameter("pAchievement");
-        
+
         Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
-        if(checkPlayerExist == null){
+        if (checkPlayerExist == null) {
             new PlayerDAO().createPlayer(pImg_url, teamId, pName, pHeight, pDob, pPosition, pNo, pAchievement);
         }
-        
+
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("listCategories", listCategories);
+
         response.sendRedirect("player-controller");
     }
 
@@ -62,7 +74,7 @@ public class CreatePlayer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("CreatePlayer.jsp").forward(request, response);
+        request.getRequestDispatcher("../CreatePlayer.jsp").forward(request, response);
     }
 
     /**
