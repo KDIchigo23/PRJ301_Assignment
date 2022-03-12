@@ -134,7 +134,7 @@
                                     <i class="bi-cart-fill me-1"></i>
                                     Add to Card
                                 </a>
-                                <a href="checkout-controller?productId=${Pd.proId}" class="btn btn-outline-success flex-shrink-0" type="button" style="padding: 8px;">
+                                <a href="buy-now?productId=${Pd.proId}" class="btn btn-outline-success flex-shrink-0" type="button" style="padding: 8px;">
                                     <i class="bi-cart-fill me-1"></i>
                                     Buy now
                                 </a>
@@ -144,10 +144,30 @@
                                         <i class="bi bi-arrow-up-circle"></i>
                                         Update Product
                                     </a>
-                                    <a href="delete-product?productId=${Pd.proId}" class="btn btn-outline-danger mt-2" type="button">
+                                    <button data-bs-toggle="modal" class="btn btn-outline-danger mt-2" data-bs-target="#deletePro" type="button">
                                         <i class="bi bi-trash"></i>
                                         Delete Product
-                                    </a>                           
+                                    </button>  
+                                    <!-- The Modal -->
+                                    <div class="modal fade" id="deletePro">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title text-danger">?</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="modal-body text-danger text-center" style="font-size: 20px">
+                                                    You want to delete this product?
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <a href="delete-product?productId=${Pd.proId}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </c:forEach> 
                         </div>

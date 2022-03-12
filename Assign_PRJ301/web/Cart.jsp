@@ -5,7 +5,9 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<fmt:setLocale value="en_US" scope="session"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -63,19 +65,11 @@
                                     <td scope="row" class="col-1">${C.value.product.proId}</td>
                                     <td scope="col" class="col-2"><img src="${C.value.product.proImg_url}" width="100"/></td>
                                     <td scope="col" class="col-2">${C.value.product.proName}</td>
-                                    <td scope="col" class="col-1">$${C.value.product.proPrice}</td>
+                                    <td scope="col" class="col-1">
+                                        <fmt:formatNumber value="${C.value.product.proPrice}" type="currency" /></p>
+                                    </td>
                                     <td scope="col" class="col-2"><input onchange="this.form.submit()" type="number" name="quantity"
                                                                          value="${C.value.quantity}" style="width: 48px"/>
-                                        <c:if test="${sessionScope.checkqQuantity < 0}">
-                                            <div class="${classAlert}">
-                                                ${alert}
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${sessionScope.checkqQuantity > sessionScope.chechProQuantity}">
-                                            <div class="${classAlert}">
-                                                ${alert}
-                                            </div>
-                                        </c:if>
                                     </td>
                                     <td scope="col" class="col-2">$${C.value.product.proPrice*C.value.quantity}</td>
                                     <td scope="col" class="col-2"><a href="delete-cart?productId=${C.value.product.proId}" 
@@ -88,26 +82,10 @@
                         </c:otherwise>
                     </c:choose>
                 </table>
-                <div>
-                    <h2 style="float: right; margin-right: 10px">Total Amount: $${totalMoney}</h2><br/><br/>
-                    <c:choose>
-                        <c:when test="${sessionScope.carts==null||sessionScope.carts.size()==0}">
-                            <a class="text-decoration-none text-light">
-                                <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px" data-bs-target="#myModal">
-                                    Check out
-                                </button>
-                            </a>
-                        </c:when>
-                        <c:otherwise>
-                            <form action="checkout-controller" method="POST">
-                                <a href="checkout-controller?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="text-decoration-none text-light">
-                                    <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px">
-                                        Check out
-                                    </button>
-                                </a>
-                            </form>
-                        </c:otherwise>
-                    </c:choose>
+                <div style="height:50px">
+                    <h2 style="float: right; margin-right: 10px; height: 100%; margin-bottom: 0px !important">Total Amount: <fmt:formatNumber value="${totalMoney}" type="currency" /></p></h2>
+                    <br/><br/>
+
                     <!-- The Modal -->
                     <div class="modal fade" id="myModal">
                         <div class="modal-dialog">
@@ -129,6 +107,26 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <c:choose>
+                        <c:when test="${sessionScope.carts==null||sessionScope.carts.size()==0}">
+                            <a class="text-decoration-none text-light">
+                                <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px" data-bs-target="#myModal">
+                                    Check out
+                                </button>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <form action="checkout-controller" method="POST">
+                                <a href="checkout-controller?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="text-decoration-none text-light">
+                                    <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" style="float: right; margin-right: 10px">
+                                        Check out
+                                    </button>
+                                </a>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>

@@ -457,33 +457,7 @@ public class PlayerDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void updatePlayerByPlayerId(int playerId) {
-        String sql = "UPDATE [Assign_PRJ301].[dbo].[Players]\n"
-                + "   SET [pName] = ?\n"
-                + "      ,[pDob] = ?\n"
-                + "      ,[tId] = ?\n"
-                + "      ,[pPosition] = ?\n"
-                + "      ,[pHeight] = ?\n"
-                + "      ,[pNo] = ?\n"
-                + "      ,[pAchievement] = ?\n"
-                + "      ,[pImg_url] = ?\n"
-                + " WHERE pId = ?";
-        try {
-
-            //Mở kết nối với sql server
-            Connection conn = new DBContext().getConnection();
-
-            //Đưa câu sql vào prepareStatement 
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, playerId);
-            //Thực thi câu lệnh sql sẽ trả về result set
-            ps.executeUpdate();
-
-        } catch (Exception ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 
     public int getTeamIdByPlayerId(int playerId) {
         try {

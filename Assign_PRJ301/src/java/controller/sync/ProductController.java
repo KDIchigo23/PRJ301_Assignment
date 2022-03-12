@@ -68,7 +68,7 @@ public class ProductController extends HttpServlet {
         session.setAttribute("listTeams", listTeams);
         session.setAttribute("urlHistory", "product-controller");
         request.setAttribute("pagination_url", "product-controller?");
-
+        
         request.getRequestDispatcher("Products.jsp").forward(request, response);
     }
 

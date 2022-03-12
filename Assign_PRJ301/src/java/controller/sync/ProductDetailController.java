@@ -38,15 +38,18 @@ public class ProductDetailController extends HttpServlet {
         HttpSession session = request.getSession();
         int productId = Integer.parseInt(request.getParameter("productId"));
 
+        Product onlyProductByProductId = new ProductDAO().getProductByProId(productId);
         List<Product> productDetail = new ProductDAO().getProductByProductId(productId);
         List<Product> listProducts = new ProductDAO().getAllProducts();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-        
+        int checkProTeamId = new ProductDAO().getTeamIdByProductId(productId);
 
         session.setAttribute("listCategories", listCategories);
         request.setAttribute("productDetail", productDetail);
+        session.setAttribute("onlyProductByProductId", onlyProductByProductId);
         request.getSession().setAttribute("listProducts", listProducts);
         session.setAttribute("productId", productId);
+        session.setAttribute("checkProTeamId", checkProTeamId);
         session.setAttribute("urlHistory", "product-detail?productId=" + productId);
 
         request.getRequestDispatcher("ProductDetail.jsp").forward(request, response);

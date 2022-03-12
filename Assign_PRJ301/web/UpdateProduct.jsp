@@ -34,18 +34,24 @@
 
     <center>
         <div class="my-5" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem; width: 40%">
-            <h3>Add new product</h3>
+            <h3>Update Product ${sessionScope.onlyProductByProductId.getProName()}</h3>
             <form action="create-product" method="POST" class="container">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="proImg_url" name="proImg_url" placeholder="Product Img_url">
+                    <input type="text" class="form-control" id="proImg_url" name="proImg_url" placeholder="Product Img_url"
+                           value="${sessionScope.onlyProductByProductId.getProImg_url()}">
                 </div>
                 <div class="my-3">
-                    <input type="text" class="form-control" id="proName" name="proName" placeholder="Product Name">
+                    <input type="text" class="form-control" id="proName" name="proName" placeholder="Product Name"
+                           value="${sessionScope.onlyProductByProductId.getProName()}">
                 </div>
                 <div class="mb-3">
-                    <select name="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
+                    <select name="team" id="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
                         <c:forEach items="${sessionScope.listTeams}" var="T">
-                            <option value="${T.tId}">
+                            <option value="${T.tId}"
+                                    <c:if test="${T.tId == sessionScope.checkProTeamId}">
+                                        selected
+                                    </c:if>
+                                    >
                                 ${T.tName}
                             </option>
                         </c:forEach>
@@ -54,29 +60,40 @@
                 <div class="mb-3">
                     <select name="player" id="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
                         <c:forEach items="${sessionScope.listPlayers}" var="P">
-                            <option value="${P.pId}">
+                            <option value="${P.pId}"
+                                    <c:if test="${P.pId == sessionScope.onlyProductByProductId.getpId()}">
+                                        selected
+                                    </c:if>
+                                    >
                                 ${P.pName}
                             </option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="proDescription" name="proDescription" rows="3" placeholder="Product Description"></textarea>
+                    <input type="text" class="form-control" id="proDescription" name="proDescription" placeholder="Product Description"
+                           value="${sessionScope.onlyProductByProductId.getProDescription()}">
                 </div>
                 <div class="mb-3 row d-flex" style="padding-left: 2%">
-                    <input type="text" class="form-control me-2" id="proQuantity" name="proQuantity" placeholder="Product Quantity" style="width: 48% !important">
-                    <input type="text" class="form-control" id="proPrice" name="proPrice" placeholder="Product Price" style="width: 48% !important">
+                    <input type="text" class="form-control me-2" id="proQuantity" name="proQuantity" placeholder="Product Quantity" style="width: 48% !important"
+                           value="${sessionScope.onlyProductByProductId.getProQuantity()}">
+                    <input type="text" class="form-control" id="proPrice" name="proPrice" placeholder="Product Price" style="width: 48% !important"
+                           value="${sessionScope.onlyProductByProductId.getProPrice()}">
                 </div>
                 <div class="mb-3">
                     <select name="category" id="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
                         <c:forEach items="${sessionScope.listCategories}" var="Ct">
-                            <option value="${Ct.ctId}">
+                            <option value="${Ct.ctId}"
+                                    <c:if test="${Ct.ctId == sessionScope.onlyProductByProductId.getCtId()}">
+                                        selected
+                                    </c:if>
+                                    >
                                 ${Ct.ctName}
                             </option>
                         </c:forEach>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success w-100">Create</button>
+                <button type="submit" class="btn btn-success w-100">Update</button>
             </form>
         </div>
     </center>
@@ -86,21 +103,21 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!--    <script>
-        function createPlayerIdByTeamIdAsync(teamId) {
-            axios.get('create-pTeamId-async', {
-                params: {
-                    teamId: teamId
-                }
-            }).then((response) => {
-                //lấy data thanh công
-//                console.log(response);
-                document.getElementById("team").innerHTML = response.data;
-
-                //Cập nhật view
-            })
-        }
-    </script>-->
+    <!--    <script>
+            function createPlayerIdByTeamIdAsync(teamId) {
+                axios.get('create-pTeamId-async', {
+                    params: {
+                        teamId: teamId
+                    }
+                }).then((response) => {
+                    //lấy data thanh công
+    //                console.log(response);
+                    document.getElementById("team").innerHTML = response.data;
+    
+                    //Cập nhật view
+                })
+            }
+        </script>-->
 
 </body>
 </html>

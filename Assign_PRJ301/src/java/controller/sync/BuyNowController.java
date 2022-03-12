@@ -32,7 +32,7 @@ import model.Shipping;
  *
  * @author ADMIN
  */
-public class CheckOutController extends HttpServlet {
+public class BuyNowController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +47,7 @@ public class CheckOutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-//        int proId = Integer.parseInt(request.getParameter("productId"));
+        int proId = Integer.parseInt(request.getParameter("productId"));
         String accountUser = request.getParameter("accountUser");
         String accountPass = request.getParameter("accountPass");
         session.setAttribute("accountUser", accountUser);
@@ -58,17 +58,16 @@ public class CheckOutController extends HttpServlet {
             carts = new LinkedHashMap<>();
         }
 
-//        if (carts.containsKey(proId)) {//sản phẩm đã có trên giỏ hàng
-//            int oldQuantity = carts.get(proId).getQuantity();
-//            carts.get(proId).setQuantity(oldQuantity + 1);
-//        } else {//sản phẩm chưa có trên giỏ hàng
-//            Product product = new ProductDAO().getProductByProId(proId);
-//            carts.put(proId, Cart.builder().product(product).quantity(1).build());
-//        }
-//        //lưu carts lên session
-//        session.setAttribute("carts", carts);
-        
-        
+        if (carts.containsKey(proId)) {//sản phẩm đã có trên giỏ hàng
+            int oldQuantity = carts.get(proId).getQuantity();
+            carts.get(proId).setQuantity(oldQuantity + 1);
+        } else {//sản phẩm chưa có trên giỏ hàng
+            Product product = new ProductDAO().getProductByProId(proId);
+            carts.put(proId, Cart.builder().product(product).quantity(1).build());
+        }
+        //lưu carts lên session
+        session.setAttribute("carts", carts);
+
         //tinh tong tien
         double totalMoney = 0;
         for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
@@ -84,8 +83,6 @@ public class CheckOutController extends HttpServlet {
         request.setAttribute("carts", carts);
 
         request.getRequestDispatcher("Checkout.jsp").forward(request, response);
-        
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -138,8 +135,6 @@ public class CheckOutController extends HttpServlet {
         if (carts == null) {
             carts = new LinkedHashMap<>();
         }
-        
-        
 
         //tinh tong tien
         double totalPrice = 0;
@@ -165,7 +160,7 @@ public class CheckOutController extends HttpServlet {
                 .sId(shippingId)
                 .build();
         int orderId = new OrderDAO().createReturnId(order);
-        
+
         //Thay đổi giá trị quantity
         List<Product> listProducts = new ProductDAO().getAllProducts();
         for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {

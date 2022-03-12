@@ -24,7 +24,7 @@ import model.Team;
  *
  * @author ADMIN
  */
-public class CreateProduct extends HttpServlet {
+public class UpdateProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,15 +38,18 @@ public class CreateProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-
-        List<Team> listTeams = new TeamDAO().getAllTeams();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-        session.setAttribute("listTeams", listTeams);
-        session.setAttribute("listCategories", listCategories);
-
-        request.getRequestDispatcher("CreateProduct.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdateProduct</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateProduct at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +64,7 @@ public class CreateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("CreateProduct.jsp").forward(request, response);
+        request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
     }
 
     /**
@@ -76,10 +79,11 @@ public class CreateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        HttpSession session = request.getSession();
+        int productId = (int) session.getAttribute("productId");
         String proImg_url = request.getParameter("proImg_url");
         String proName = request.getParameter("proName");
-        String team = request.getParameter("team");
-        int teamId = Integer.parseInt(team);
+        int teamId = Integer.parseInt(request.getParameter("team"));
         int playerId = Integer.parseInt(request.getParameter("player"));
         String proDescription = request.getParameter("proDescription");
         int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
@@ -88,10 +92,19 @@ public class CreateProduct extends HttpServlet {
 
         Product checkProductExist = new ProductDAO().checkProductExist(proName);
         if (checkProductExist == null) {
-            new ProductDAO().createProduct(proImg_url,proName,teamId,playerId,proDescription,proQuantity,proPrice,categoryId);
+            new ProductDAO().updateProduct(productId, proImg_url, proName, playerId, proQuantity, proPrice, categoryId, proDescription);
+            Product newOnlyProductByProductId = new ProductDAO().getProductByProId(productId);
+            session.setAttribute("newOnlyProductByProductId", newOnlyProductByProductId);
         }
-        
-        response.sendRedirect("product-controller");
+
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("listCategories", listCategories);
+
+        request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
+
     }
 
     /**

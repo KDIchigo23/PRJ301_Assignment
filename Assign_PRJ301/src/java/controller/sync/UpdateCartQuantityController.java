@@ -49,22 +49,6 @@ public class UpdateCartQuantityController extends HttpServlet {
             if (carts.containsKey(proId)) {
                 carts.get(proId).setQuantity(quantity);
             }
-            session.setAttribute("classAlert", "");
-            session.setAttribute("strongAlert", "");
-            session.setAttribute("alert", "");
-        } else {
-            if (quantity < 0) {
-                session.setAttribute("classAlert", "alert alert-danger");
-                session.setAttribute("alert", "Can't reduce quantity");
-                session.setAttribute("lessProId", proId);
-                session.setAttribute("checkqQuantity", quantity);
-            } else {
-                session.setAttribute("classAlert", "alert alert-danger");
-                session.setAttribute("alert", "Over Quantity in shop");
-                session.setAttribute("overProId", proId);
-                session.setAttribute("checkQuantity", quantity);
-            }
-
         }
 
         session.setAttribute("carts", carts);

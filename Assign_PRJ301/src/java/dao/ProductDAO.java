@@ -574,4 +574,56 @@ public class ProductDAO {
         }
     }
 
+    public int getTeamIdByProductId(int productId) {
+        try {
+            String sql = "select tId from Products pro\n"
+                    + "inner join Players p on p.pId = pro.pId\n"
+                    + "where pro.proId = ? ";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public void updateProduct(int productId, String proImg_url, String proName, int playerId, int proQuantity, float proPrice, int categoryId, String proDescription) {
+        String sql = "UPDATE [Assign_PRJ301].[dbo].[Products]\n"
+                + "   SET [pId] = ?\n"
+                + "      ,[proName] = ?\n"
+                + "      ,[proDescription] = ?\n"
+                + "      ,[proQuantity] = ?\n"
+                + "      ,[proPrice] = ?\n"
+                + "      ,[proImg_url] = ?\n"
+                + "      ,[ctId] = ?\n"
+                + " WHERE proId = ?";
+        try {
+
+            //Mở kết nối với sql server
+            Connection conn = new DBContext().getConnection();
+
+            //Đưa câu sql vào prepareStatement 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, playerId);
+            ps.setString(2, proName);
+            ps.setString(3, proDescription);
+            ps.setInt(4, proQuantity);
+            ps.setFloat(5, proPrice);
+            ps.setString(6, proImg_url);
+            ps.setInt(7, categoryId);
+            ps.setInt(8, productId);
+
+            //Thực thi câu lệnh sql sẽ trả về result set
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

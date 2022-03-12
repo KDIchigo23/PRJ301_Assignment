@@ -116,6 +116,14 @@
         <servlet-name>CreatePlayerIdByTeamIdAsync</servlet-name>
         <servlet-class>controller.async.CreatePlayerIdByTeamIdAsync</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateProduct</servlet-name>
+        <servlet-class>controller.productCRUD.UpdateProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuyNowController</servlet-name>
+        <servlet-class>controller.sync.BuyNowController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
         <url-pattern>/allstar-controller</url-pattern>
@@ -243,6 +251,14 @@
     <servlet-mapping>
         <servlet-name>CreatePlayerIdByTeamIdAsync</servlet-name>
         <url-pattern>/create-pTeamId-async</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProduct</servlet-name>
+        <url-pattern>/update-product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyNowController</servlet-name>
+        <url-pattern>/buy-now</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

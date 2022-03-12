@@ -5,6 +5,8 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<fmt:setLocale value="en_US" scope="session"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -102,7 +104,7 @@
                             <form style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
                                 <div class="mb-3" style="border-bottom: 1px solid gainsboro">
                                     <span>Total Product: </span>
-                                    <h2 style="float: right; margin-right: 10px">$${totalMoney}</h2><br/><br/>
+                                    <h2 style="float: right; margin-right: 10px"><fmt:formatNumber value="${totalMoney}" type="currency" /></p></h2><br/><br/>
                                 </div>
                                 <div class="mb-3" style="border-bottom: 1px solid gainsboro">
                                     <span>Shipping: </span>
@@ -110,7 +112,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <span>Total Amount: </span>
-                                    <h2 style="float: right; margin-right: 10px">$${totalMoney+10.0}</h2><br/><br/>
+                                    <h2 style="float: right; margin-right: 10px"><fmt:formatNumber value="${totalMoney+10.0}" type="currency" /></p></h2><br/><br/>
                                 </div>
 
                             </form>

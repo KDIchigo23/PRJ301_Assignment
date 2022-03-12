@@ -84,7 +84,7 @@
                                 <c:forEach items="${sessionScope.listCategories}" var="CT">
                                     <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
                                     </c:forEach>
-                                    <c:if test="${sessionScope.account.getaRole() eq (Account.SELLER)}">
+                                    <c:if test="${sessionScope.account.getaRole() == (Account.SELLER)}">
                                     <li>
                                         <hr class="dropdown-divider" style="color: #d8e3e887;" />
                                     </li>

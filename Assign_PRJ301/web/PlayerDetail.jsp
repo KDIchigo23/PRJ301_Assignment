@@ -133,10 +133,30 @@
                                     <i class="bi bi-arrow-up-circle"></i>
                                     Update Player
                                 </a>
-                                <a href="/admin/delete-player?playerId=${P.pId}" class="btn btn-outline-danger mt-2" type="button">
+                                <button data-bs-toggle="modal" data-bs-target="#deleteP" class="btn btn-outline-danger mt-2" type="button">
                                     <i class="bi bi-trash"></i>
                                     Delete Player
-                                </a>
+                                </button>
+                                <!-- The Modal -->
+                                <div class="modal fade" id="deleteP">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title text-danger">?</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <div class="modal-body text-danger text-center" style="font-size: 20px">
+                                                You want to delete this player?
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <a href="/admin/delete-player?playerId=${P.pId}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </c:if>
                         </c:forEach> 
 
