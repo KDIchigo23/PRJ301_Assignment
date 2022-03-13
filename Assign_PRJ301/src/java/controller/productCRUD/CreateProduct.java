@@ -38,15 +38,22 @@ public class CreateProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
+        String team = request.getParameter("team");
+        int teamId = Integer.parseInt(team);
+        String proImg_url = request.getParameter("proImg_url");
+        String proName = request.getParameter("proName");
+        int playerId = Integer.parseInt(request.getParameter("player"));
+        String proDescription = request.getParameter("proDescription");
+        int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
+        float proPrice = Float.parseFloat(request.getParameter("proPrice"));
+        int categoryId = Integer.parseInt(request.getParameter("category"));
 
-        List<Team> listTeams = new TeamDAO().getAllTeams();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
+        Product checkProductExist = new ProductDAO().checkProductExist(proName);
+        if (checkProductExist == null) {
+            new ProductDAO().createProduct(proImg_url, proName, teamId, playerId, proDescription, proQuantity, proPrice, categoryId);
+        }
 
-        session.setAttribute("listTeams", listTeams);
-        session.setAttribute("listCategories", listCategories);
-
-        request.getRequestDispatcher("CreateProduct.jsp").forward(request, response);
+        response.sendRedirect("../product-controller");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +68,7 @@ public class CreateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("CreateProduct.jsp").forward(request, response);
+        request.getRequestDispatcher("../CreateProduct.jsp").forward(request, response);
     }
 
     /**
@@ -75,23 +82,8 @@ public class CreateProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        String proImg_url = request.getParameter("proImg_url");
-        String proName = request.getParameter("proName");
-        String team = request.getParameter("team");
-        int teamId = Integer.parseInt(team);
-        int playerId = Integer.parseInt(request.getParameter("player"));
-        String proDescription = request.getParameter("proDescription");
-        int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
-        float proPrice = Float.parseFloat(request.getParameter("proPrice"));
-        int categoryId = Integer.parseInt(request.getParameter("category"));
-
-        Product checkProductExist = new ProductDAO().checkProductExist(proName);
-        if (checkProductExist == null) {
-            new ProductDAO().createProduct(proImg_url,proName,teamId,playerId,proDescription,proQuantity,proPrice,categoryId);
-        }
+        processRequest(request, response);
         
-        response.sendRedirect("product-controller");
     }
 
     /**

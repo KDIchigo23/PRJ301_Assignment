@@ -17,8 +17,8 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="css/Home.css">
-        <link href="css/styles.css" rel="stylesheet"/>        
+        <link rel="stylesheet" href="/Assign_PRJ301/css/Home.css">
+        <link href="/Assign_PRJ301/css/styles.css" rel="stylesheet"/>        
     </head>
 
 
@@ -31,7 +31,7 @@
     <center>
         <div style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem; width: 40%" class="my-5">
             <h3>Update Player ${sessionScope.onlyPlayerByPlayerId.getpName()}</h3>
-            <form action="/admin/update-player" method="POST" class="container">
+            <form action="http://localhost:8080/Assign_PRJ301/admin/update-player" method="POST" class="container">
                 <div class="mb-3">
                     <input type="text" class="form-control" id="pImg_url" name="pImg_url" placeholder="Player Img_url Link"
                            value="${sessionScope.onlyPlayerByPlayerId.getpImg_url()}">

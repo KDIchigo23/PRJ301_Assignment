@@ -21,8 +21,8 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="css/Home.css">
-        <link href="css/styles.css" rel="stylesheet"/>        
+        <link rel="stylesheet" href="/Assign_PRJ301/css/Home.css">
+        <link href="/Assign_PRJ301/css/styles.css" rel="stylesheet"/>        
     </head>
 
 
@@ -35,7 +35,7 @@
     <center>
         <div class="my-5" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem; width: 40%">
             <h3>Update Product ${sessionScope.onlyProductByProductId.getProName()}</h3>
-            <form action="create-product" method="POST" class="container">
+            <form action="update-product" method="POST" class="container">
                 <div class="mb-3">
                     <input type="text" class="form-control" id="proImg_url" name="proImg_url" placeholder="Product Img_url"
                            value="${sessionScope.onlyProductByProductId.getProImg_url()}">
@@ -101,23 +101,6 @@
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!--    <script>
-            function createPlayerIdByTeamIdAsync(teamId) {
-                axios.get('create-pTeamId-async', {
-                    params: {
-                        teamId: teamId
-                    }
-                }).then((response) => {
-                    //lấy data thanh công
-    //                console.log(response);
-                    document.getElementById("team").innerHTML = response.data;
-    
-                    //Cập nhật view
-                })
-            }
-        </script>-->
 
 </body>
 </html>

@@ -59,7 +59,7 @@ public class CreatePlayer extends HttpServlet {
         session.setAttribute("listTeams", listTeams);
         session.setAttribute("listCategories", listCategories);
 
-        response.sendRedirect("player-controller");
+        response.sendRedirect("../player-controller");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,6 +74,7 @@ public class CreatePlayer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        response.sendRedirect("http://localhost:8080/Assign_PRJ301/CreatePlayer.jsp");
         request.getRequestDispatcher("../CreatePlayer.jsp").forward(request, response);
     }
 

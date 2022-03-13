@@ -38,18 +38,29 @@ public class UpdateProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateProduct</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateProduct at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        HttpSession session = request.getSession();
+        int productId = (int) session.getAttribute("productId");
+        String proImg_url = request.getParameter("proImg_url");
+        String proName = request.getParameter("proName");
+        int teamId = Integer.parseInt(request.getParameter("team"));
+        int playerId = Integer.parseInt(request.getParameter("player"));
+        String proDescription = request.getParameter("proDescription");
+        int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
+        float proPrice = Float.parseFloat(request.getParameter("proPrice"));
+        int categoryId = Integer.parseInt(request.getParameter("category"));
+
+//        Product checkProductExist = new ProductDAO().checkProductExist(proName);
+        new ProductDAO().updateProduct(productId, proImg_url, proName, playerId, proQuantity, proPrice, categoryId, proDescription);
+        Product newOnlyProductByProductId = new ProductDAO().getProductByProId(productId);
+        session.setAttribute("onlyProductByProductId", newOnlyProductByProductId);
+
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("listCategories", listCategories);
+
+        response.sendRedirect("../seller/update-product");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,7 +75,8 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
+//        response.sendRedirect("http://localhost:8080/Assign_PRJ301/UpdateProduct.jsp");
+        request.getRequestDispatcher("../UpdateProduct.jsp").forward(request, response);
     }
 
     /**
@@ -78,32 +90,7 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        HttpSession session = request.getSession();
-        int productId = (int) session.getAttribute("productId");
-        String proImg_url = request.getParameter("proImg_url");
-        String proName = request.getParameter("proName");
-        int teamId = Integer.parseInt(request.getParameter("team"));
-        int playerId = Integer.parseInt(request.getParameter("player"));
-        String proDescription = request.getParameter("proDescription");
-        int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
-        float proPrice = Float.parseFloat(request.getParameter("proPrice"));
-        int categoryId = Integer.parseInt(request.getParameter("category"));
-
-        Product checkProductExist = new ProductDAO().checkProductExist(proName);
-        if (checkProductExist == null) {
-            new ProductDAO().updateProduct(productId, proImg_url, proName, playerId, proQuantity, proPrice, categoryId, proDescription);
-            Product newOnlyProductByProductId = new ProductDAO().getProductByProId(productId);
-            session.setAttribute("newOnlyProductByProductId", newOnlyProductByProductId);
-        }
-
-        List<Team> listTeams = new TeamDAO().getAllTeams();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-        session.setAttribute("listTeams", listTeams);
-        session.setAttribute("listCategories", listCategories);
-
-        request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
+        processRequest(request, response);
 
     }
 

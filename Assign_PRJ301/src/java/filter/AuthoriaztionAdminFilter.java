@@ -25,7 +25,7 @@ import model.Account;
  *
  * @author ADMIN
  */
-@WebFilter(filterName = "AuthoriaztionAdminFilter", urlPatterns = {"/admin/*"})
+@WebFilter(filterName = "AuthoriaztionAdminFilter", urlPatterns = {"/admin/*","/CreatePlayer.jsp","/UpdatePlayer.jsp"})
 public class AuthoriaztionAdminFilter implements Filter {
     
     @Override

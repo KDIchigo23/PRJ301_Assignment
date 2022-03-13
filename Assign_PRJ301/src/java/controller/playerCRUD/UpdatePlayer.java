@@ -50,13 +50,11 @@ public class UpdatePlayer extends HttpServlet {
         int pNo = Integer.parseInt(request.getParameter("pNo"));
         String pAchievement = request.getParameter("pAchievement");
 
-        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
-        if (checkPlayerExist == null) {
-            new PlayerDAO().updatePlayer(playerId, pImg_url, teamId, pName, pHeight, pDob, pPosition, pNo, pAchievement);
-            Player newOnlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
-            session.setAttribute("checkTeamId", teamId);
-            session.setAttribute("onlyPlayerByPlayerId", newOnlyPlayerByPlayerId);
-        }
+//        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
+        new PlayerDAO().updatePlayer(playerId, pImg_url, teamId, pName, pHeight, pDob, pPosition, pNo, pAchievement);
+        Player newOnlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
+        session.setAttribute("checkTeamId", teamId);
+        session.setAttribute("onlyPlayerByPlayerId", newOnlyPlayerByPlayerId);
 
         List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
@@ -64,7 +62,7 @@ public class UpdatePlayer extends HttpServlet {
         session.setAttribute("listTeams", listTeams);
         session.setAttribute("listCategories", listCategories);
 
-        request.getRequestDispatcher("UpdatePlayer.jsp").forward(request, response);
+        response.sendRedirect("../admin/update-player");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,6 +77,7 @@ public class UpdatePlayer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        response.sendRedirect("http://localhost:8080/Assign_PRJ301/UpdatePlayer.jsp");
         request.getRequestDispatcher("../UpdatePlayer.jsp").forward(request, response);
     }
 

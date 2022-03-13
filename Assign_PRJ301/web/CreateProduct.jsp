@@ -21,8 +21,8 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="css/Home.css">
-        <link href="css/styles.css" rel="stylesheet"/>        
+        <link rel="stylesheet" href="/Assign_PRJ301/css/Home.css">
+        <link href="/Assign_PRJ301/css/styles.css" rel="stylesheet"/>        
     </head>
 
 
@@ -43,7 +43,7 @@
                     <input type="text" class="form-control" id="proName" name="proName" placeholder="Product Name">
                 </div>
                 <div class="mb-3">
-                    <select name="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
+                    <select name="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px" onchange="createProductAsync()">
                         <c:forEach items="${sessionScope.listTeams}" var="T">
                             <option value="${T.tId}">
                                 ${T.tName}
@@ -84,23 +84,21 @@
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!--    <script>
-        function createPlayerIdByTeamIdAsync(teamId) {
-            axios.get('create-pTeamId-async', {
-                params: {
-                    teamId: teamId
-                }
-            }).then((response) => {
-                //lấy data thanh công
-//                console.log(response);
-                document.getElementById("team").innerHTML = response.data;
+    <script>
+                        function createProductAsync(productId) {
+                            axios.get('create-product-async', {
+                                params: {
+                                    productId: productId
+                                }
+                            }).then((response) => {
+                                //lấy data thanh công
+                                document.getElementById("cart_number").innerHTML = response.data;
 
-                //Cập nhật view
-            })
-        }
-    </script>-->
+                                //Cập nhật view
+                            })
+                        }
+    </script>
 
 </body>
 </html>

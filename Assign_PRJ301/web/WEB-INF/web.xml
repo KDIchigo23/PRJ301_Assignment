@@ -113,10 +113,6 @@
         <servlet-class>controller.productCRUD.DeleteProduct</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreatePlayerIdByTeamIdAsync</servlet-name>
-        <servlet-class>controller.async.CreatePlayerIdByTeamIdAsync</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdateProduct</servlet-name>
         <servlet-class>controller.productCRUD.UpdateProduct</servlet-class>
     </servlet>
@@ -202,7 +198,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateProduct</servlet-name>
-        <url-pattern>/create-product</url-pattern>
+        <url-pattern>/seller/create-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CartHistoryController</servlet-name>
@@ -246,15 +242,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteProduct</servlet-name>
-        <url-pattern>/delete-product</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreatePlayerIdByTeamIdAsync</servlet-name>
-        <url-pattern>/create-pTeamId-async</url-pattern>
+        <url-pattern>/seller/delete-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateProduct</servlet-name>
-        <url-pattern>/update-product</url-pattern>
+        <url-pattern>/seller/update-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BuyNowController</servlet-name>

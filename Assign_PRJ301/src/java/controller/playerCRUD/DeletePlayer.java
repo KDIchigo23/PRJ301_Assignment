@@ -36,7 +36,7 @@ public class DeletePlayer extends HttpServlet {
         
         new PlayerDAO().deletePlayerByPlayerId(playerId);
         
-        response.sendRedirect("player-controller");
+        response.sendRedirect("../player-controller");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

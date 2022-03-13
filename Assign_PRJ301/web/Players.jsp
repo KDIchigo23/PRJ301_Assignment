@@ -38,10 +38,11 @@
                 <div class="dropdown dropend team-hover mb-4">
                     <a href="player-controller" class="text-dark text-decoration-none">All Players in NBA</a>    
                 </div>
-                <div class="dropdown dropend team-hover mb-4">
-                    <a href="admin/create-player" class="text-dark text-decoration-none">Create Player</a>    
-                </div>
-
+                <c:if test="${sessionScope.account.getaRole() eq 'ADMIN'}">
+                    <div class="dropdown dropend team-hover mb-4">
+                        <a href="admin/create-player" class="text-dark text-decoration-none">Create Player</a>    
+                    </div>
+                </c:if>
                 <h4 class="text-dark">West</h4>
                 <c:forEach begin="0" end="3" items="${sessionScope.listTeams}" var="T">
                     <div class="dropdown dropend team-hover">
@@ -84,11 +85,11 @@
                                 <c:forEach items="${sessionScope.listCategories}" var="CT">
                                     <li><a class="dropdown-item text-white bg-color-grey-hover" href="filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
                                     </c:forEach>
-                                    <c:if test="${sessionScope.account.getaRole() == (Account.SELLER)}">
+                                    <c:if test="${sessionScope.account.getaRole() eq 'SELLER'}">
                                     <li>
                                         <hr class="dropdown-divider" style="color: #d8e3e887;" />
                                     </li>
-                                    <li><a class="dropdown-item text-white bg-color-grey-hover" href="create-product">Create product</a></li>
+                                    <li><a class="dropdown-item text-white bg-color-grey-hover" href="seller/create-product">Create product</a></li>
                                     </c:if>
 
                             </ul>

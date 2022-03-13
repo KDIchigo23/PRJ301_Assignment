@@ -128,8 +128,8 @@
                             </div>
                             <div class="mb-1">
                             </div>
-                            <c:if test="${sessionScope.account.getaRole() eq (Account.ADMIN)}">
-                                <a href="/admin/update-player?playerId=${P.pId}" class="btn btn-outline-success mt-2 me-2" type="button">
+                            <c:if test="${sessionScope.account.getaRole() eq 'ADMIN'}">
+                                <a href="admin/update-player?playerId=${P.pId}" class="btn btn-outline-success mt-2 me-2" type="button">
                                     <i class="bi bi-arrow-up-circle"></i>
                                     Update Player
                                 </a>
@@ -137,27 +137,28 @@
                                     <i class="bi bi-trash"></i>
                                     Delete Player
                                 </button>
-                                <!-- The Modal -->
-                                <div class="modal fade" id="deleteP">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title text-danger">?</h4>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <div class="modal-body text-danger text-center" style="font-size: 20px">
-                                                You want to delete this player?
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <a href="/admin/delete-player?playerId=${P.pId}"><button type="button" class="btn btn-danger">Delete</button></a>
-                                            </div>
+                            </c:if>
+                            <!-- The Modal -->
+                            <div class="modal fade" id="deleteP">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-danger">?</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body text-danger text-center" style="font-size: 20px">
+                                            You want to delete this player?
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <a href="http://localhost:8080/Assign_PRJ301/admin/delete-player?playerId=${P.pId}"><button type="button" class="btn btn-danger">Delete</button></a>
                                         </div>
                                     </div>
                                 </div>
-                            </c:if>
+                            </div>
+
                         </c:forEach> 
 
                     </div>

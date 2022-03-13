@@ -25,7 +25,7 @@ import model.Account;
  *
  * @author ADMIN
  */
-@WebFilter(filterName = "AuthorizationSellerFilter", urlPatterns = {"/seller/*"})
+@WebFilter(filterName = "AuthorizationSellerFilter", urlPatterns = {"/seller/*","/CreateProduct.jsp","/UpdateProduct.jsp"})
 public class AuthorizationSellerFilter implements Filter {
     
     @Override

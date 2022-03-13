@@ -139,15 +139,16 @@
                                     Buy now
                                 </a>
                                 <div class="mt-2 ps-1">
-                                    <!--                        c:if-->
-                                    <a href="update-product?productId=${Pd.proId}" class="btn btn-outline-success mt-2 me-2" type="button">
-                                        <i class="bi bi-arrow-up-circle"></i>
-                                        Update Product
-                                    </a>
-                                    <button data-bs-toggle="modal" class="btn btn-outline-danger mt-2" data-bs-target="#deletePro" type="button">
-                                        <i class="bi bi-trash"></i>
-                                        Delete Product
-                                    </button>  
+                                    <c:if test="${sessionScope.account.getaRole() eq 'SELLER'}">
+                                        <a href="http://localhost:8080/Assign_PRJ301/seller/update-product?productId=${Pd.proId}" class="btn btn-outline-success mt-2 me-2" type="button">
+                                            <i class="bi bi-arrow-up-circle"></i>
+                                            Update Product
+                                        </a>
+                                        <button data-bs-toggle="modal" class="btn btn-outline-danger mt-2" data-bs-target="#deletePro" type="button">
+                                            <i class="bi bi-trash"></i>
+                                            Delete Product
+                                        </button>  
+                                    </c:if>
                                     <!-- The Modal -->
                                     <div class="modal fade" id="deletePro">
                                         <div class="modal-dialog">
@@ -163,7 +164,7 @@
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                    <a href="delete-product?productId=${Pd.proId}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                                    <a href="http://localhost:8080/Assign_PRJ301/seller/delete-product?productId=${Pd.proId}"><button type="button" class="btn btn-danger">Delete</button></a>
                                                 </div>
                                             </div>
                                         </div>

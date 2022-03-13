@@ -40,7 +40,7 @@ public class DeleteProduct extends HttpServlet {
             int checkCategoryId = (int) session.getAttribute("checkCategoryId");
             new ProductDAO().deleteProductByProductId(productId);
 
-            response.sendRedirect("filter-category?categoryId="+checkCategoryId+"&page="+checkPage);
+            response.sendRedirect("../filter-category?categoryId="+checkCategoryId+"&page="+checkPage);
         }
     }
 
