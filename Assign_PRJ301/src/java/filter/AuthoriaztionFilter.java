@@ -25,8 +25,8 @@ import model.Account;
  *
  * @author ADMIN
  */
-@WebFilter(filterName = "AuthorizationSellerFilter", urlPatterns = {"/seller/*","/CreateProduct.jsp","/UpdateProduct.jsp"})
-public class AuthorizationSellerFilter implements Filter {
+@WebFilter(filterName = "AuthoriaztionFilter", urlPatterns = {"/admin/*","/CreatePlayer.jsp","/UpdatePlayer.jsp","/CreateProduct.jsp","/UpdateProduct.jsp"})
+public class AuthoriaztionFilter implements Filter {
     
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -40,7 +40,7 @@ public class AuthorizationSellerFilter implements Filter {
         //Kiểm tra đăng nhập
         Account account = (Account) session.getAttribute("account");
 
-        if (account != null && account.getaRole().equals(Account.SELLER)) {
+        if (account != null && account.getaRole().equals(Account.ADMIN)) {
             //cho qua
             chain.doFilter(request, response);
             return;
@@ -64,5 +64,5 @@ public class AuthorizationSellerFilter implements Filter {
     public void init(FilterConfig filterConfig) {        
 
     }
-    
+
 }

@@ -20,6 +20,7 @@ public class Order {
     
     private int oId;
     private int aId;
+    private String aDisplayName;
     private double oTotalPrice;
     private String oNote;
     private String oCreated_date;
@@ -31,9 +32,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(int oId, int aId, double oTotalPrice, String oNote, String oCreated_date, int sId, String odProImg_url, String odProName, String odQuantity) {
+    public Order(int oId, int aId, String aDisplayName, double oTotalPrice, String oNote, String oCreated_date, int sId, String odProImg_url, String odProName, String odQuantity) {
         this.oId = oId;
         this.aId = aId;
+        this.aDisplayName = aDisplayName;
         this.oTotalPrice = oTotalPrice;
         this.oNote = oNote;
         this.oCreated_date = oCreated_date;
@@ -57,6 +59,14 @@ public class Order {
 
     public void setaId(int aId) {
         this.aId = aId;
+    }
+
+    public String getaDisplayName() {
+        return aDisplayName;
+    }
+
+    public void setaDisplayName(String aDisplayName) {
+        this.aDisplayName = aDisplayName;
     }
 
     public double getoTotalPrice() {
@@ -91,6 +101,7 @@ public class Order {
         this.sId = sId;
     }
 
+    
     
     
 }

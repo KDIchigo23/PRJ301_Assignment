@@ -101,8 +101,8 @@
         <servlet-class>controller.playerCRUD.UpdatePlayer</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SuccessfulController</servlet-name>
-        <servlet-class>controller.sync.SuccessfulController</servlet-class>
+        <servlet-name>SuccessfullController</servlet-name>
+        <servlet-class>controller.sync.SuccessfullController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToCartAsyncController</servlet-name>
@@ -119,6 +119,38 @@
     <servlet>
         <servlet-name>BuyNowController</servlet-name>
         <servlet-class>controller.sync.BuyNowController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProductAsync</servlet-name>
+        <servlet-class>controller.async.CreateProductAsync</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Dashboard</servlet-name>
+        <servlet-class>controller.dashboard.Dashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FullAccountInforController</servlet-name>
+        <servlet-class>controller.dashboard.FullAccountInforController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MessageController</servlet-name>
+        <servlet-class>controller.sync.MessageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SeeMoreAccount</servlet-name>
+        <servlet-class>controller.dashboard.SeeMoreAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAccount</servlet-name>
+        <servlet-class>controller.dashboard.DeleteAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EarningDailyController</servlet-name>
+        <servlet-class>controller.dashboard.EarningDailyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EarningMonthController</servlet-name>
+        <servlet-class>controller.dashboard.EarningMonthController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
@@ -198,7 +230,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateProduct</servlet-name>
-        <url-pattern>/seller/create-product</url-pattern>
+        <url-pattern>/admin/create-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CartHistoryController</servlet-name>
@@ -221,19 +253,15 @@
         <url-pattern>/admin/update-player</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SuccessfulController</servlet-name>
-        <url-pattern>/successful</url-pattern>
+        <servlet-name>SuccessfullController</servlet-name>
+        <url-pattern>/successfull</url-pattern>
     </servlet-mapping>
     <filter-mapping>
         <filter-name>AunthenticationFilter</filter-name>
         <url-pattern/>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>AuthorizationSellerFilter</filter-name>
-        <url-pattern/>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AuthorizationAdminFilter</filter-name>
+        <filter-name>AuthorizationFilter</filter-name>
         <url-pattern/>
     </filter-mapping>
     <servlet-mapping>
@@ -242,15 +270,47 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteProduct</servlet-name>
-        <url-pattern>/seller/delete-product</url-pattern>
+        <url-pattern>/admin/delete-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateProduct</servlet-name>
-        <url-pattern>/seller/update-product</url-pattern>
+        <url-pattern>/admin/update-product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BuyNowController</servlet-name>
         <url-pattern>/buy-now</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductAsync</servlet-name>
+        <url-pattern>/create-product-async</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dashboard</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FullAccountInforController</servlet-name>
+        <url-pattern>/admin/full-account-infor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageController</servlet-name>
+        <url-pattern>/message</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SeeMoreAccount</servlet-name>
+        <url-pattern>/admin/see-more</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccount</servlet-name>
+        <url-pattern>/admin/delete-account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EarningDailyController</servlet-name>
+        <url-pattern>/admin/earning-daily</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EarningMonthController</servlet-name>
+        <url-pattern>/admin/earning-month</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

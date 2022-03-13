@@ -88,8 +88,24 @@ CREATE TABLE [dbo].[Account](
 	[aEmail] [nvarchar](255) NULL,
 	[aPhone] [nvarchar](255) NULL,
 	[aRole] [nvarchar](255) NULL,
+	[isDeleted] [bit] null,
+)
+GO
+
+ALTER TABLE [dbo].[Account] ADD  CONSTRAINT [DF_Account_isDeleted]  DEFAULT ((0)) FOR [isDeleted]
+GO
+
+---------- Table [dbo].[Message]
+
+CREATE TABLE [dbo].[Message](
+	[mId] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[aId] [int] FOREIGN KEY(aId) REFERENCES [Account](aId) NOT NULL,
+	[mCreated_date] [date] NULL,
+	[mNote] [nvarchar](255) NULL,
 )
 
+GO
+ALTER TABLE [dbo].[Message] ADD  CONSTRAINT [DF_Message_mCreated_date]  DEFAULT (getdate()) FOR [mCreated_date]
 GO
 
 -------------- Table [dbo].[Shipping]  
@@ -127,7 +143,7 @@ CREATE TABLE [dbo].[OrderDetail](
 )
 GO
 
- 
+DROP TABLE [Message]
 DROP TABLE [OrderDetail] 
 DROP TABLE [Orders] 
 DROP TABLE [Shipping]
@@ -355,9 +371,9 @@ INSERT INTO [Products] (pId, proName, proDescription, proQuantity, proPrice, pro
 
 
 INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('user', '123456', 'USER', '', '', '', 'USER')
-INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('seller', '123456', 'SELL', '', '', '', 'SELLER')
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('seller', '123456', 'SELL', '', '', '', 'USER')
 INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('admin', '123456', 'KDIchigo', '', '', '', 'ADMIN')
-INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('admin2', '123456', 'KDIchigo2', '', '', '', 'SELLER')
+INSERT INTO [Account] (aUsername, aPassword, aDisplayName, aAddress, aEmail, aPhone, aRole) VALUES('admin2', '123456', 'KDIchigo2', '', '', '', 'USER')
 
 
 

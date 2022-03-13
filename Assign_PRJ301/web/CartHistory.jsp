@@ -36,11 +36,11 @@
                 <table class="row" border="1" style="min-width: 60%;">
                     <thead>
                         <tr class="row mx-auto px-1 py-1">
-                            <th class="col-2">Image</th>
-                            <th class="col-3">Name</th>
-                            <th class="col-2">Quantity</th>
-                            <th class="col-3">Created Date</th>
-                            <th class="col-2">Total Price</th>
+                            <th class="col-2 text-center">Image</th>
+                            <th class="col-3 text-center">Name</th>
+                            <th class="col-2 text-center">Quantity</th>
+                            <th class="col-3 text-center">Created Date</th>
+                            <th class="col-2 text-center">Total Price</th>
                         </tr>
                     </thead>
                 </table>
@@ -57,11 +57,11 @@
                                 <form action="cart-history">
                                     <tbody>
                                         <tr class="row mx-auto px-1 py-1">
-                                    <td scope="col" class="col-2"><img src="${O.odProImg_url}" width="100"/></td>
-                                    <td scope="col" class="col-3">${O.odProName}</td>
-                                    <td scope="col" class="col-2">${O.odQuantity}</td>
-                                    <td scope="col" class="col-2">${O.oCreated_date}</td>
-                                    <td scope="col" class="col-3">$${O.oTotalPrice}</td>
+                                    <td scope="col" class="col-2 text-center"><img src="${O.odProImg_url}" width="100"/></td>
+                                    <td scope="col" class="col-3 text-center">${O.odProName}</td>
+                                    <td scope="col" class="col-2 text-center">${O.odQuantity}</td>
+                                    <td scope="col" class="col-2 text-center">${O.oCreated_date}</td>
+                                    <td scope="col" class="col-3 text-center">$${O.oTotalPrice}</td>
                                     </tr>
                                     </tbody>  
                                 </form>

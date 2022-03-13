@@ -18,7 +18,6 @@ import lombok.ToString;
 public class Account {
 
     public static final String ADMIN = "ADMIN";
-    public static final String USER = "USER";
     public static final String SELLER = "SELLER";
     private int aId;
     private String aUsername;
@@ -28,11 +27,12 @@ public class Account {
     private String aEmail;
     private String aPhone;
     private String aRole;
+    private int isDeleted;
 
     public Account() {
     }
 
-    public Account(int aId, String aUsername, String aPassword, String aDisplayName, String aAddress, String aEmail, String aPhone, String aRole) {
+    public Account(int aId, String aUsername, String aPassword, String aDisplayName, String aAddress, String aEmail, String aPhone, String aRole, int isDeleted) {
         this.aId = aId;
         this.aUsername = aUsername;
         this.aPassword = aPassword;
@@ -41,6 +41,7 @@ public class Account {
         this.aEmail = aEmail;
         this.aPhone = aPhone;
         this.aRole = aRole;
+        this.isDeleted = isDeleted;
     }
 
     public int getaId() {

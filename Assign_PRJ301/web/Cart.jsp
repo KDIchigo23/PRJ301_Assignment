@@ -38,13 +38,13 @@
                 <table class="row" border="1" style="min-width: 60%;">
                     <thead>
                         <tr class="row mx-auto px-1 py-1">
-                            <th class="col-1">#</th>
-                            <th class="col-2">Image</th>
-                            <th class="col-2">Name</th>
-                            <th class="col-1">Price</th>
-                            <th class="col-2">Quantity</th>
-                            <th class="col-2">Total Price</th>
-                            <th class="col-2">Action</th>
+                            <th class="col-1 text-center">#</th>
+                            <th class="col-2 text-center">Image</th>
+                            <th class="col-2 text-center">Name</th>
+                            <th class="col-1 text-center">Price</th>
+                            <th class="col-2 text-center">Quantity</th>
+                            <th class="col-2 text-center">Total Price</th>
+                            <th class="col-2 text-center">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -62,18 +62,18 @@
                                     <tbody>
                                         <tr class="row mx-auto px-1 py-1">
                                     <input type="hidden" name="productId" value="${C.value.product.proId}"/>
-                                    <td scope="row" class="col-1">${C.value.product.proId}</td>
-                                    <td scope="col" class="col-2"><img src="${C.value.product.proImg_url}" width="100"/></td>
-                                    <td scope="col" class="col-2">${C.value.product.proName}</td>
-                                    <td scope="col" class="col-1">
+                                    <td scope="row" class="col-1 text-center">${C.value.product.proId}</td>
+                                    <td scope="col" class="col-2 text-center"><img src="${C.value.product.proImg_url}" width="100"/></td>
+                                    <td scope="col" class="col-2 text-center">${C.value.product.proName}</td>
+                                    <td scope="col" class="col-1 text-center">
                                         <fmt:formatNumber value="${C.value.product.proPrice}" type="currency" /></p>
                                     </td>
-                                    <td scope="col" class="col-2"><input onchange="this.form.submit()" type="number" name="quantity"
+                                    <td scope="col" class="col-2 text-center"><input onchange="this.form.submit()" type="number" name="quantity"
                                                                          value="${C.value.quantity}" style="width: 48px"/>
                                     </td>
-                                    <td scope="col" class="col-2">$${C.value.product.proPrice*C.value.quantity}</td>
-                                    <td scope="col" class="col-2"><a href="delete-cart?productId=${C.value.product.proId}" 
-                                                                     class="btn btn-outline-danger"><i class="bi bi-trash"></i>Delete</a></td>
+                                    <td scope="col" class="col-2 text-center"><fmt:formatNumber value="${C.value.product.proPrice*C.value.quantity}" type="currency" /></p></td>
+                                    <td scope="col" class="col-2 text-center"><a href="delete-cart?productId=${C.value.product.proId}" 
+                                                                     class="btn btn-outline-danger"><i class="bi bi-trash pe-1"></i>Delete</a></td>
                                     </tr>
                                     </tbody>  
                                 </form>

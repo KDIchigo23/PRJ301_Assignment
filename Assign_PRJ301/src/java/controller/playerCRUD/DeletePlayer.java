@@ -33,10 +33,10 @@ public class DeletePlayer extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         int playerId = Integer.parseInt(request.getParameter("playerId"));
-        
+        int teamId = new PlayerDAO().getTeamIdByPlayerId(playerId);
         new PlayerDAO().deletePlayerByPlayerId(playerId);
         
-        response.sendRedirect("../player-controller");
+        response.sendRedirect("../filter-team?teamId="+teamId);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

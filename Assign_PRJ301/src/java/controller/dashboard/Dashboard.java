@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.productCRUD;
+package controller.dashboard;
 
-import dao.CategoryDAO;
-import dao.ProductDAO;
-import dao.TeamDAO;
+import dao.AccountDAO;
+import dao.MessageDAO;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,15 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
-import model.Product;
-import model.Team;
+import model.Order;
 
 /**
  *
  * @author ADMIN
  */
-public class UpdateProduct extends HttpServlet {
+public class Dashboard extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,29 +36,6 @@ public class UpdateProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        int productId = (int) session.getAttribute("productId");
-        String proImg_url = request.getParameter("proImg_url");
-        String proName = request.getParameter("proName");
-        int teamId = Integer.parseInt(request.getParameter("team"));
-        int playerId = Integer.parseInt(request.getParameter("player"));
-        String proDescription = request.getParameter("proDescription");
-        int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
-        float proPrice = Float.parseFloat(request.getParameter("proPrice"));
-        int categoryId = Integer.parseInt(request.getParameter("category"));
-
-//        Product checkProductExist = new ProductDAO().checkProductExist(proName);
-        new ProductDAO().updateProduct(productId, proImg_url, proName, playerId, proQuantity, proPrice, categoryId, proDescription);
-        Product newOnlyProductByProductId = new ProductDAO().getProductByProId(productId);
-        session.setAttribute("onlyProductByProductId", newOnlyProductByProductId);
-
-        List<Team> listTeams = new TeamDAO().getAllTeams();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-        session.setAttribute("listTeams", listTeams);
-        session.setAttribute("listCategories", listCategories);
-
-        response.sendRedirect("../admin/update-product");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -75,8 +50,17 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.sendRedirect("http://localhost:8080/Assign_PRJ301/UpdateProduct.jsp");
-        request.getRequestDispatcher("../UpdateProduct.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        int totalAccount = new AccountDAO().getTotalAccount();
+        double totalPriceEveryDay = new OrderDAO().getTotalPriceEveryDay();
+        double totalPriceEveryMonth = new OrderDAO().getTotalPriceEveryMonth();
+        int totalMessage = new MessageDAO().getTotalMessage();
+
+        session.setAttribute("totalAccount", totalAccount);
+        session.setAttribute("totalPriceEveryDay", totalPriceEveryDay);
+        session.setAttribute("totalPriceEveryMonth", totalPriceEveryMonth);
+        session.setAttribute("totalMessage", totalMessage);
+        request.getRequestDispatcher("../Dashboard.jsp").forward(request, response);
     }
 
     /**
@@ -91,7 +75,6 @@ public class UpdateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

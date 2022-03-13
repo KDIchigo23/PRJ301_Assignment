@@ -27,7 +27,8 @@ import model.Account;
  *
  * @author ADMIN
  */
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/add-to-cart","/account-infor","/cart-controller","/cart-history","/checkout-controller","/delete-cart","/update-quantity","/admin/*","/seller/*"})
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/add-to-cart","/account-infor","/cart-controller","/cart-history","/checkout-controller","/delete-cart","/update-quantity"
+        ,"/admin/*","/seller/*"})
 public class AuthenticationFilter implements Filter {
 
     /**

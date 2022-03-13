@@ -48,6 +48,7 @@ public class HomeController extends HttpServlet {
         List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Player> listPlayers = new PlayerDAO().getAllPlayers();
         
+        
         session.setAttribute("listPlayers", listPlayers);
         session.setAttribute("listTeams", listTeams);
         session.setAttribute("listCategories", listCategories);

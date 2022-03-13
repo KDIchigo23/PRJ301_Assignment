@@ -33,7 +33,7 @@
             <div class="alert alert-success text-center mt-5" role="alert" >
                 Order successfully, Thank you very much...
                 <div class="text-center mt-2">
-                    <a class="btn btn-outline-primary" href="home-controller">Continue Shopping</a>
+                    <a class="btn btn-outline-primary" href="product-controller">Continue Shopping</a>
                 </div>
             </div>
         </div>

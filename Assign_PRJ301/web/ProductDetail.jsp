@@ -139,8 +139,8 @@
                                     Buy now
                                 </a>
                                 <div class="mt-2 ps-1">
-                                    <c:if test="${sessionScope.account.getaRole() eq 'SELLER'}">
-                                        <a href="http://localhost:8080/Assign_PRJ301/seller/update-product?productId=${Pd.proId}" class="btn btn-outline-success mt-2 me-2" type="button">
+                                    <c:if test="${sessionScope.account.getaRole() eq 'ADMIN'}">
+                                        <a href="http://localhost:8080/Assign_PRJ301/admin/update-product?productId=${Pd.proId}" class="btn btn-outline-success mt-2 me-2" type="button">
                                             <i class="bi bi-arrow-up-circle"></i>
                                             Update Product
                                         </a>
@@ -164,7 +164,7 @@
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                    <a href="http://localhost:8080/Assign_PRJ301/seller/delete-product?productId=${Pd.proId}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                                    <a href="http://localhost:8080/Assign_PRJ301/admin/delete-product?productId=${Pd.proId}"><button type="button" class="btn btn-danger">Delete</button></a>
                                                 </div>
                                             </div>
                                         </div>

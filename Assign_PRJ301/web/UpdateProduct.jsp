@@ -45,7 +45,7 @@
                            value="${sessionScope.onlyProductByProductId.getProName()}">
                 </div>
                 <div class="mb-3">
-                    <select name="team" id="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
+                    <select name="team" id="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px" onchange="updateProductAsync(this.value)">
                         <c:forEach items="${sessionScope.listTeams}" var="T">
                             <option value="${T.tId}"
                                     <c:if test="${T.tId == sessionScope.checkProTeamId}">
@@ -57,7 +57,7 @@
                         </c:forEach>
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="update_player">
                     <select name="player" id="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
                         <c:forEach items="${sessionScope.listPlayers}" var="P">
                             <option value="${P.pId}"
@@ -101,6 +101,17 @@
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function updateProductAsync(teamId) {
+            axios.get('http://localhost:8080/Assign_PRJ301/create-product-async', {
+                params: {
+                    teamId: teamId
+                }
+            }).then((response) => {
+                document.getElementById("update_player").innerHTML = response.data;
+            })
+        }
+    </script>
 </body>
 </html>

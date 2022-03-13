@@ -33,11 +33,11 @@
                             <li><a class="dropdown-item text-white bg-color-grey-hover" href="http://localhost:8080/Assign_PRJ301/filter-category?categoryId=${CT.ctId}">${CT.ctName}</a></li>
 
                         </c:forEach>
-                        <c:if test="${sessionScope.account.getaRole() eq 'SELLER'}">
+                        <c:if test="${sessionScope.account.getaRole() eq 'ADMIN'}">
                             <li>
                                 <hr class="dropdown-divider" style="color: #d8e3e887;" />
                             </li>
-                            <li><a class="dropdown-item text-white bg-color-grey-hover" href="http://localhost:8080/Assign_PRJ301/seller/create-product">Create Product</a></li>
+                            <li><a class="dropdown-item text-white bg-color-grey-hover" href="http://localhost:8080/Assign_PRJ301/admin/create-product">Create Product</a></li>
                             </c:if>
                     </ul>
                 </li>
@@ -78,6 +78,10 @@
                 </a>
             </form>
 
+            <c:if test="${sessionScope.account.getaRole() eq 'ADMIN'}">
+                <a href="http://localhost:8080/Assign_PRJ301/admin/dashboard"><button class="btn btn-outline-secondary ms-lg-2"><i class="bi bi-speedometer2 me-1"></i>Dashboard</button></a>
+            </c:if>
+
             <c:choose>
                 <c:when test="${sessionScope.account == null}">
                     <a href="http://localhost:8080/Assign_PRJ301/login"><button class="btn btn-outline-primary ms-lg-2">Login</button></a>
@@ -92,6 +96,10 @@
                             <tr>
                                 <td><a href="http://localhost:8080/Assign_PRJ301/AccountInfor.jsp" 
                                        class="btn btn-outline-secondary ms-lg-2 mt-2" style="padding: 6px 17px 6px 17px !important">Information</a></td>   
+                            </tr>
+                            <tr>
+                                <td><a href="message" type="buttton" class="btn btn-outline-success ms-lg-2 mt-2"
+                                       style="padding: 6px 27px 6px 27px !important">Message</a>
                             </tr>
                             <tr>
                                 <td><a href="http://localhost:8080/Assign_PRJ301/cart-history?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="btn btn-outline-dark ms-lg-2 mt-2"

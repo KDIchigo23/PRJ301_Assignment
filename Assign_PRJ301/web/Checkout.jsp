@@ -37,12 +37,12 @@
             <table class="row" border="1" style="min-width: 60%;">
                 <thead>
                     <tr class="row mx-auto px-1 py-1">
-                        <th class="col-1">#</th>
-                        <th class="col-2">Image</th>
-                        <th class="col-4">Name</th>
-                        <th class="col-2">Price</th>
-                        <th class="col-1">Quantity</th>
-                        <th class="col-2">Total Price</th>
+                        <th class="col-1 text-center">#</th>
+                        <th class="col-2 text-center">Image</th>
+                        <th class="col-4 text-center">Name</th>
+                        <th class="col-2 text-center">Price</th>
+                        <th class="col-1 text-center">Quantity</th>
+                        <th class="col-2 text-center">Total Price</th>
                     </tr>
                 </thead>
             </table>
@@ -61,12 +61,12 @@
                                     <tbody>
                                         <tr class="row mx-auto px-1 py-1">
                                     <input type="hidden" name="productId" value="${C.value.product.proId}"/>
-                                    <td scope="row" class="col-1">${C.value.product.proId}</td>
-                                    <td scope="col" class="col-2"><img src="${C.value.product.proImg_url}" width="140"/></td>
-                                    <td scope="col" class="col-4">${C.value.product.proName}</td>
-                                    <td scope="col" class="col-2">$${C.value.product.proPrice}</td>
-                                    <td scope="col" class="col-1"><input type="number" name="quantity" value="${C.value.quantity}" style="width: 34px" readonly/></td>
-                                    <td scope="col" class="col-2">$${C.value.product.proPrice*C.value.quantity}</td>
+                                    <td scope="row" class="col-1 text-center">${C.value.product.proId}</td>
+                                    <td scope="col" class="col-2 text-center"><img src="${C.value.product.proImg_url}" width="140"/></td>
+                                    <td scope="col" class="col-4 text-center">${C.value.product.proName}</td>
+                                    <td scope="col" class="col-2 text-center">$${C.value.product.proPrice}</td>
+                                    <td scope="col" class="col-1 text-center"><input type="number" name="quantity" value="${C.value.quantity}" style="width: 34px" readonly/></td>
+                                    <td scope="col" class="col-2 text-center"><fmt:formatNumber value="${C.value.product.proPrice*C.value.quantity}" type="currency" /></p></td>
                                     </tr>
                                     </tbody>  
                                 </form>

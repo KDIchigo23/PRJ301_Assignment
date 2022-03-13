@@ -236,6 +236,7 @@ public class ProductDAO {
         return list;
     }
 
+
     public List<Product> getProductsWithPagging(int page, int PAGE_SIZE) {
         List<Product> list = new ArrayList<>();
         try {

@@ -43,7 +43,7 @@
                     <input type="text" class="form-control" id="proName" name="proName" placeholder="Product Name">
                 </div>
                 <div class="mb-3">
-                    <select name="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px" onchange="createProductAsync()">
+                    <select name="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px" onchange="createProductAsync(this.value)">
                         <c:forEach items="${sessionScope.listTeams}" var="T">
                             <option value="${T.tId}">
                                 ${T.tName}
@@ -51,8 +51,8 @@
                         </c:forEach>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <select name="player" id="team" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
+                <div class="mb-3" id="create_player">
+                    <select name="player" id="player" style="border: 1px solid #ced4da; width: 100% !important; padding: 8px">
                         <c:forEach items="${sessionScope.listPlayers}" var="P">
                             <option value="${P.pId}">
                                 ${P.pName}
@@ -86,18 +86,15 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-                        function createProductAsync(productId) {
-                            axios.get('create-product-async', {
-                                params: {
-                                    productId: productId
+                                function createProductAsync(teamId) {
+                                    axios.get('http://localhost:8080/Assign_PRJ301/create-product-async', {
+                                        params: {
+                                            teamId: teamId
+                                        }
+                                    }).then((response) => {
+                                        document.getElementById("create_player").innerHTML=response.data;
+                                    })
                                 }
-                            }).then((response) => {
-                                //lấy data thanh công
-                                document.getElementById("cart_number").innerHTML = response.data;
-
-                                //Cập nhật view
-                            })
-                        }
     </script>
 
 </body>
