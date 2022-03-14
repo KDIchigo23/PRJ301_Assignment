@@ -101,7 +101,7 @@ CREATE TABLE [dbo].[Message](
 	[mId] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[aId] [int] FOREIGN KEY(aId) REFERENCES [Account](aId) NOT NULL,
 	[mCreated_date] [date] NULL,
-	[mNote] [nvarchar](255) NULL,
+	[mMessage] [nvarchar](255) NULL,
 )
 
 GO

@@ -34,10 +34,31 @@ public class SeeMoreAccount extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        
+        int accountId = Integer.parseInt(request.getParameter("accountId"));
+        final int PAGE_SIZE = 6;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
+        }
+
+        int totalOrder = new OrderDAO().getTotalOrderByAccountId(accountId);
+        int totalPage = totalOrder / PAGE_SIZE;
+        if (totalOrder % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+        List<Order> listOrdersByAccountId = new OrderDAO().getOrderByAccountIdAndPagging(accountId,page,PAGE_SIZE);
+        
+        session.setAttribute("listOrdersByAccountId", listOrdersByAccountId);
+        request.setAttribute("page", page);
+        request.setAttribute("totalPage", totalPage);
+        
+        request.getRequestDispatcher("../SeeMoreAccount.jsp").forward(request, response);
         
         
-        
-        response.sendRedirect("../see-more");
+//        response.sendRedirect("../see-more");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,10 +75,25 @@ public class SeeMoreAccount extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         int accountId = Integer.parseInt(request.getParameter("accountId"));
-        
-        List<Order> listOrdersByAccountId = new OrderDAO().getOrderByAccountId(accountId);
+        final int PAGE_SIZE = 6;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
+        }
+
+        int totalOrder = new OrderDAO().getTotalOrderByAccountId(accountId);
+        int totalPage = totalOrder / PAGE_SIZE;
+        if (totalOrder % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+        List<Order> listOrdersByAccountId = new OrderDAO().getOrderByAccountIdAndPagging(accountId,page,PAGE_SIZE);
         
         session.setAttribute("listOrdersByAccountId", listOrdersByAccountId);
+        request.setAttribute("page", page);
+        request.setAttribute("totalPage", totalPage);
+        session.setAttribute("checkAccountId", accountId);
+        
         request.getRequestDispatcher("../SeeMoreAccount.jsp").forward(request, response);
     }
 

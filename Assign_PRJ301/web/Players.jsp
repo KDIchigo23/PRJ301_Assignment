@@ -147,10 +147,12 @@
                                         <td><a href="AccountInfor.jsp" 
                                                class="btn btn-outline-secondary ms-lg-2 mt-2" style="padding: 6px 17px 6px 17px !important">Information</a></td>   
                                     </tr>
-                                    <tr>
-                                        <td><a href="message" type="buttton" class="btn btn-outline-success ms-lg-2 mt-2"
-                                               style="padding: 6px 27px 6px 27px !important">Message</a>
-                                    </tr>
+                                    <c:if test="${sessionScope.account.getaRole() ne 'ADMIN'}">
+                                        <tr>
+                                            <td><a href="message" type="buttton" class="btn btn-outline-success ms-lg-2 mt-2"
+                                                   style="padding: 6px 27px 6px 27px !important">Message</a>
+                                        </tr>
+                                    </c:if>
                                     <tr>
                                         <td><a href="cart-history?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="btn btn-outline-dark ms-lg-2 mt-2"
                                                style="padding: 6px 34px 6px 34px !important">History</a></td>   
@@ -194,7 +196,6 @@
                 <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                     <ul class="pagination">
                         <c:forEach begin="1" end="${totalPage}" var="i">
-                            <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
                             </c:forEach>
                     </ul>
                 </nav>

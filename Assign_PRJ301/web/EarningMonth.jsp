@@ -27,7 +27,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </head>
 
-    <body style="background-color: lightgoldenrodyellow;">
+    <body>
         <header class="sb-nav-fixed">
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark py-3">
                 <!-- Navbar Brand-->
@@ -190,7 +190,6 @@
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="earning-month?page=${i}">${i}</a></li>
                                     </c:forEach>
                             </ul>
                         </nav>

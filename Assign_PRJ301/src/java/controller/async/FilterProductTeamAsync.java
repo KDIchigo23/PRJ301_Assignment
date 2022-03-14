@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.dashboard;
+package controller.async;
 
-import dao.AccountDAO;
+import dao.CategoryDAO;
+import dao.ProductDAO;
+import dao.TeamDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -14,13 +16,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
+import model.Category;
+import model.Product;
+import model.Team;
 
 /**
  *
  * @author ADMIN
  */
-public class FullAccountInforController extends HttpServlet {
+public class FilterProductTeamAsync extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,27 +37,37 @@ public class FullAccountInforController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        final int PAGE_SIZE = 6;
+        int teamId = Integer.parseInt(request.getParameter("teamId"));
+        final int PAGE_SIZE = 12;
         int page = 1;
         String pageStr = request.getParameter("page");
         if (pageStr != null) {
             page = Integer.parseInt(pageStr);
         }
 
-        int totalAccounts = new AccountDAO().getTotalAccount();
-        int totalPage = totalAccounts / PAGE_SIZE;
-        if (totalAccounts % PAGE_SIZE != 0) {
+        int totalProducts = new ProductDAO().getTotalProductsByTeamId(teamId);
+        int totalPage = totalProducts / PAGE_SIZE;
+        if (totalProducts % PAGE_SIZE != 0) {
             totalPage += 1;
         }
-        List<Account> listAccounts = new AccountDAO().getAllAccounts(page, PAGE_SIZE);
+        
+        List<Product> listProducts = new ProductDAO().getProductByTeamIdAndPagging(teamId, page, PAGE_SIZE);
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+        
 
-        session.setAttribute("listAccounts", listAccounts);
+        session.setAttribute("listCategories", listCategories);
+        request.setAttribute("listProducts", listProducts);       
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("teamId", teamId);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
+        session.setAttribute("urlHistory", "filter-proteam?teamId=" + teamId);
+        request.setAttribute("pagination_url", "filter-proteam?teamId=" + teamId + "&");
         
-        request.getRequestDispatcher("../FullAccountInfor.jsp").forward(request, response);
-        
+//        request.getRequestDispatcher("Products.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,26 +82,7 @@ public class FullAccountInforController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        final int PAGE_SIZE = 6;
-        int page = 1;
-        String pageStr = request.getParameter("page");
-        if (pageStr != null) {
-            page = Integer.parseInt(pageStr);
-        }
-
-        int totalAccounts = new AccountDAO().getTotalAccount();
-        int totalPage = totalAccounts / PAGE_SIZE;
-        if (totalAccounts % PAGE_SIZE != 0) {
-            totalPage += 1;
-        }
-        List<Account> listAccounts = new AccountDAO().getAllAccounts(page, PAGE_SIZE);
-
-        session.setAttribute("listAccounts", listAccounts);
-        request.setAttribute("page", page);
-        request.setAttribute("totalPage", totalPage);
-        
-        request.getRequestDispatcher("../FullAccountInfor.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

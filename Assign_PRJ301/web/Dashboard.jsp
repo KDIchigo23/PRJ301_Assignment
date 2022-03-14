@@ -27,7 +27,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </head>
 
-    <body style="background-color: lightgoldenrodyellow;">
+    <body>
         <header class="sb-nav-fixed">
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark py-3">
                 <!-- Navbar Brand-->
@@ -38,7 +38,7 @@
                     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
                     <!-- Navbar Search-->
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <form action="http://localhost:8080/Assign_PRJ301/search-product" class="d-flex mx-auto">
+                        <form action="#" class="d-flex mx-auto">
                             <input class="form-control me-2" type="search" placeholder="Search in here" aria-label="Search" name="keyword"/>
                             <button class="btn btn-outline-success" type="submit">
                                 Search
@@ -119,7 +119,7 @@
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="table-dashboard-account">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
                             </a>
@@ -186,45 +186,104 @@
                                     </div>
 
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-info stretched-link" href="#">View Details</a>
+                                        <a class="small text-info stretched-link" href="receive-message">View Details</a>
                                         <div class="small text-info"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
+
+                    </div>
+                    <div class="container-fluid px-4" style="margin-top: 40px">
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Account
+                                List Account
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
 
-                                </table>
+                                <c:choose>
+                                    <c:when test="${sessionScope.listNewOrder == null || sessionScope.listNewOrder.size() == 0}">
+                                        <h1>List Table is Empty</h1>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form action="full-account-infor" method="POST">
+                                            <table class="row" style="min-width: 60%;">
+                                                <thead>
+                                                    <tr class="row mx-auto px-1 py-1 pb-3" style="border-bottom: 1px solid rgba(29, 27, 27, 0.151)">
+                                                        <th class="col-2 text-center">Account Id</th>
+                                                        <th class="col-2 text-center">Username</th>
+                                                        <th class="col-3 text-center">Display Name</th>
+                                                        <th class="col-2 text-center">Role</th>
+                                                        <th class="col-3 text-center">Total Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${sessionScope.listAccounts}" var="A">
+                                                        <c:forEach items="${sessionScope.listNewOrder}" var="O">
+                                                            <c:if test="${A.aId eq O.aId}">
+                                                                <tr class="row mx-auto px-1 py-1 mt-3 mb-1" style="border-bottom: 1px solid rgba(29, 27, 27, 0.151)">
+                                                                    <td scope="col" class="col-2 text-center">${A.aId}</td>
+                                                                    <td scope="col" class="col-2 text-center">${A.aUsername}</td>
+                                                                    <td scope="col" class="col-3 text-center">${A.aDisplayName}</td>
+                                                                    <td scope="col" class="col-2 text-center">${A.aRole}</td>
+                                                                    <td scope="col" class="col-3 text-center"><fmt:formatNumber value="${O.oTotalPrice}" type="currency" /></p></td>
+                                                                </tr>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:forEach>
+
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
+                    <c:choose>
+                        <c:when test="${totalPage < 2}">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                        </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:when test="${page < 2}">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">                               
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                        <li class="page-item ${i == page?"active":""}"><a class="page-link" href="dashboard?page=${i}">${i}</a></li>
+                                        </c:forEach>
+                                    <li class="page-item"><a class="page-link" href="dashboard?page=${page+1}">Next</a></li>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:when test="${page+1 > totalPage}">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="dashboard?page=${page-1}">Previous</a></li>
+                                        <c:forEach begin="1" end="${totalPage}" var="i">
+                                        <li class="page-item ${i == page?"active":""}"><a class="page-link" href="dashboard?page=${i}">${i}</a></li>
+                                        </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:otherwise>
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="dashboard?page=${page-1}">Previous</a></li>
+                                        <c:forEach begin="1" end="${totalPage}" var="i">
+                                        <li class="page-item ${i == page?"active":""}"><a class="page-link" href="dashboard?page=${i}">${i}</a></li>
+                                        </c:forEach>
+                                    <li class="page-item"><a class="page-link" href="dashboard?page=${page+1}">Next</a></li>
+                                </ul>
+                            </nav>
+                        </c:otherwise>
+                    </c:choose>
                 </main>
             </div>
         </div>

@@ -97,12 +97,14 @@
                                 <td><a href="http://localhost:8080/Assign_PRJ301/AccountInfor.jsp" 
                                        class="btn btn-outline-secondary ms-lg-2 mt-2" style="padding: 6px 17px 6px 17px !important">Information</a></td>   
                             </tr>
+                            <c:if test="${sessionScope.account.getaRole() ne 'ADMIN'}">
+                                <tr>
+                                    <td><a href="message" type="buttton" class="btn btn-outline-success ms-lg-2 mt-2"
+                                           style="padding: 6px 27px 6px 27px !important">Message</a>
+                                </tr>
+                            </c:if>
                             <tr>
-                                <td><a href="message" type="buttton" class="btn btn-outline-success ms-lg-2 mt-2"
-                                       style="padding: 6px 27px 6px 27px !important">Message</a>
-                            </tr>
-                            <tr>
-                                <td><a href="http://localhost:8080/Assign_PRJ301/cart-history?accountUser=${sessionScope.account.getaUsername()}&accountPass=${sessionScope.account.getaPassword()}" class="btn btn-outline-dark ms-lg-2 mt-2"
+                                <td><a href="http://localhost:8080/Assign_PRJ301/cart-history?accountId=${sessionScope.account.getaId()}" class="btn btn-outline-dark ms-lg-2 mt-2"
                                        style="padding: 6px 34px 6px 34px !important">History</a></td>   
                             </tr>
                             <tr>

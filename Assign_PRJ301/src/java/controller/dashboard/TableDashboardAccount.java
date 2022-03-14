@@ -6,8 +6,10 @@
 package controller.dashboard;
 
 import dao.AccountDAO;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Order;
 
 /**
  *
  * @author ADMIN
  */
-public class FullAccountInforController extends HttpServlet {
+public class TableDashboardAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,6 +36,7 @@ public class FullAccountInforController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         final int PAGE_SIZE = 6;
         int page = 1;
@@ -47,13 +51,34 @@ public class FullAccountInforController extends HttpServlet {
             totalPage += 1;
         }
         List<Account> listAccounts = new AccountDAO().getAllAccounts(page, PAGE_SIZE);
+        List<Order> listNewOrder = new ArrayList<>();
+        if (listAccounts != null) {
+            int accountId = 0;
+            for (Account listAccount : listAccounts) {
+                accountId = listAccount.getaId();
+                List<Order> listOrdersByAccountId = new OrderDAO().getListOrderByAccountId(accountId);
+                double oFinalTotalPrice = 0;
+                if (listOrdersByAccountId != null) {
+                    for (Order order : listOrdersByAccountId) {
+                        oFinalTotalPrice += order.getoTotalPrice();
+                    }
+                }
+
+                Order newOrder = Order.builder()
+                        .aId(listAccount.getaId())
+                        .oTotalPrice(oFinalTotalPrice)
+                        .build();
+
+                listNewOrder.add(newOrder);
+            }
+            session.setAttribute("listNewOrder", listNewOrder);
+        }
 
         session.setAttribute("listAccounts", listAccounts);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
-        
-        request.getRequestDispatcher("../FullAccountInfor.jsp").forward(request, response);
-        
+
+        request.getRequestDispatcher("../TableDashboardAccount.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,12 +107,34 @@ public class FullAccountInforController extends HttpServlet {
             totalPage += 1;
         }
         List<Account> listAccounts = new AccountDAO().getAllAccounts(page, PAGE_SIZE);
+        List<Order> listNewOrder = new ArrayList<>();
+        if (listAccounts != null) {
+            int accountId = 0;
+            for (Account listAccount : listAccounts) {
+                accountId = listAccount.getaId();
+                List<Order> listOrdersByAccountId = new OrderDAO().getListOrderByAccountId(accountId);
+                double oFinalTotalPrice = 0;
+                if (listOrdersByAccountId != null) {
+                    for (Order order : listOrdersByAccountId) {
+                        oFinalTotalPrice += order.getoTotalPrice();
+                    }
+                }
+
+                Order newOrder = Order.builder()
+                        .aId(listAccount.getaId())
+                        .oTotalPrice(oFinalTotalPrice)
+                        .build();
+
+                listNewOrder.add(newOrder);
+            }
+            session.setAttribute("listNewOrder", listNewOrder);
+        }
 
         session.setAttribute("listAccounts", listAccounts);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
-        
-        request.getRequestDispatcher("../FullAccountInfor.jsp").forward(request, response);
+
+        request.getRequestDispatcher("../TableDashboardAccount.jsp").forward(request, response);
     }
 
     /**

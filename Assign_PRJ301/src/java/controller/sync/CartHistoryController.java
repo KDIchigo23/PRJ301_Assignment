@@ -36,14 +36,30 @@ public class CartHistoryController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        String accountUser = request.getParameter("accountUser");
-        String accountPass = request.getParameter("accountPass");
-        int accountId = new AccountDAO().getAccountIdByUserAndPass(accountUser, accountPass);
+//        String accountUser = request.getParameter("accountUser");
+//        String accountPass = request.getParameter("accountPass");
+        int accountId = Integer.parseInt(request.getParameter("accountId"));
 
-        List<Order> listOrders = new OrderDAO().getOrderByAccountId(accountId);
+        final int PAGE_SIZE = 6;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
+        }
+
+        int totalOrder = new OrderDAO().getTotalOrderByAccountId(accountId);
+        int totalPage = totalOrder / PAGE_SIZE;
+        if (totalOrder % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+
+        List<Order> listOrders = new OrderDAO().getOrderByAccountIdAndPagging(accountId, page, PAGE_SIZE);
 
         request.setAttribute("listOrders", listOrders);
         session.setAttribute("listOrders", listOrders);
+        request.setAttribute("page", page);
+        session.setAttribute("historyAccountId", accountId);
+        request.setAttribute("totalPage", totalPage);
 
         request.getRequestDispatcher("CartHistory.jsp").forward(request, response);
     }

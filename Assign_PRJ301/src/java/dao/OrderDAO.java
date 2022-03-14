@@ -50,23 +50,30 @@ public class OrderDAO {
         return 0;
     }
 
-    public List<Order> getOrderByAccountId(int accountId) {
+    public List<Order> getOrderByAccountIdAndPagging(int accountId,int page, int PAGE_SIZE) {
         List<Order> list = new ArrayList<>();
         try {
-            String sql = "select od.proImg_url, od.proName, od.odQuantity, o.oCreated_date, o.oTotalPrice \n"
+            String sql = "with t as (select ROW_NUMBER() over (order by o.oId asc) as r, \n"
+                    + "od.proImg_url, od.proName, od.odQuantity, o.oCreated_date, o.oTotalPrice \n"
                     + "from Orders o inner join OrderDetail od on o.oId = od.oId \n"
-                    + "inner join Account a on a.aId = o.aId where a.aId = ?";
+                    + "inner join Account a on a.aId = o.aId where a.aId = ? )\n"
+                    + "select * from t where r between ?*?-(?-1) and ?*?";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, accountId);
+            ps.setInt(2, page);
+            ps.setInt(3, PAGE_SIZE);
+            ps.setInt(4, PAGE_SIZE);
+            ps.setInt(5, page);
+            ps.setInt(6, PAGE_SIZE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Order order = Order.builder()
-                        .odProImg_url(rs.getString(1))
-                        .odProName(rs.getString(2))
-                        .odQuantity(rs.getString(3))
-                        .oCreated_date(rs.getString(4))
-                        .oTotalPrice(rs.getDouble(5))
+                        .odProImg_url(rs.getString(2))
+                        .odProName(rs.getString(3))
+                        .odQuantity(rs.getString(4))
+                        .oCreated_date(rs.getString(5))
+                        .oTotalPrice(rs.getDouble(6))
                         .build();
                 list.add(order);
             }
@@ -194,7 +201,7 @@ public class OrderDAO {
         }
         return list;
     }
-    
+
     public int getTotalOrderMonth() {
         try {
             String sql = "select count(o.oId) from Orders o \n"
@@ -227,10 +234,10 @@ public class OrderDAO {
         }
     }
 
-    public List<Order> getOrderIdByAccountId(int accountId) {
+    public List<Order> getListOrderByAccountId(int accountId) {
         List<Order> list = new ArrayList<>();
         try {
-            String sql = "select oId from Orders where aId = ?";
+            String sql = "select * from Orders where aId = ?";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, accountId);
@@ -238,6 +245,11 @@ public class OrderDAO {
             while (rs.next()) {
                 Order order = Order.builder()
                         .oId(rs.getInt(1))
+                        .aId(rs.getInt(2))
+                        .oTotalPrice(rs.getDouble(3))
+                        .oNote(rs.getString(4))
+                        .oCreated_date(rs.getString(5))
+                        .sId(rs.getInt(6))
                         .build();
                 list.add(order);
             }
@@ -297,6 +309,23 @@ public class OrderDAO {
                 return rs.getInt(1);
             }
 
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getTotalOrderByAccountId(int accountId) {
+        try {
+            String sql = "select count(o.oId) from Orders o \n"
+                    + "where o.aId = ? ";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
         } catch (Exception ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

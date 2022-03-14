@@ -40,7 +40,6 @@ public class FilterProductTeamController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         int teamId = Integer.parseInt(request.getParameter("teamId"));
-        int checkCategoryId = (int) session.getAttribute("checkCategoryId");
         final int PAGE_SIZE = 12;
         int page = 1;
         String pageStr = request.getParameter("page");

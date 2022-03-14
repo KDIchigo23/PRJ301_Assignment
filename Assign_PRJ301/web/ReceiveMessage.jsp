@@ -134,41 +134,39 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4" style="margin-top: 70px">
-                        <h1 class="mt-4">List Account</h1>
+                        <h1 class="mt-4">List Message</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">List Account</li>
+                            <li class="breadcrumb-item active">List Message</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                List Account
+                                List Message
                             </div>
                             <div class="card-body">
 
                                 <c:choose>
-                                    <c:when test="${sessionScope.listOrdersByAccountId == null || sessionScope.listOrdersByAccountId.size() == 0}">
-                                        <h1>List Order is Empty</h1>
+                                    <c:when test="${listMessages == null || listMessages.size() == 0}">
+                                        <h1>List Message is Empty</h1>
                                     </c:when>
                                     <c:otherwise>
-                                        <form action="see-more" method="POST">
+                                        <form action="receive-message" method="POST">
                                             <table class="row" style="min-width: 60%;">
                                                 <thead>
                                                     <tr class="row mx-auto px-1 py-1 pb-3" style="border-bottom: 1px solid rgba(29, 27, 27, 0.151)">
-                                                        <th class="col-2 text-center">Image</th>
-                                                        <th class="col-3 text-center">Name</th>
-                                                        <th class="col-2 text-center">Quantity</th>
+                                                        <th class="col-1 text-center">Account ID</th>
+                                                        <th class="col-3 text-center">Display Name</th>
+                                                        <th class="col-6 text-center">Message</th>
                                                         <th class="col-2 text-center">Created Date</th>
-                                                        <th class="col-3 text-center">Total Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${sessionScope.listOrdersByAccountId}" var="O">
+                                                    <c:forEach items="${listMessages}" var="M">
                                                         <tr class="row mx-auto px-1 py-1 mt-3 mb-1" style="border-bottom: 1px solid rgba(29, 27, 27, 0.151)">
-                                                            <td scope="col" class="col-2 text-center"><img src="${O.odProImg_url}" width="100"/></td>
-                                                            <td scope="col" class="col-3 text-center">${O.odProName}</td>
-                                                            <td scope="col" class="col-2 text-center">${O.odQuantity}</td>
-                                                            <td scope="col" class="col-2 text-center">${O.oCreated_date}</td>
-                                                            <td scope="col" class="col-3 text-center"><fmt:formatNumber value="${O.oTotalPrice}" type="currency" /></p></td>
+                                                            <td scope="col" class="col-1 text-center">${M.aId}</td>
+                                                            <td scope="col" class="col-3 text-center">${M.aDisplayName}</td>
+                                                            <td scope="col" class="col-6 text-center">${M.mMessage}</td>
+                                                            <td scope="col" class="col-2 text-center">${M.mCreated_date}</td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -179,48 +177,49 @@
                             </div>
                         </div>
                     </div>
+                    <c:choose>
+                        <c:when test="${totalPage < 2}">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                        </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:when test="${page < 2}">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">                               
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                        <li class="page-item ${i == page?"active":""}"><a class="page-link" href="receive-message?page=${i}">${i}</a></li>
+                                        </c:forEach>
+                                    <li class="page-item"><a class="page-link" href="receive-message?page=${page+1}">Next</a></li>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:when test="${page+1 > totalPage}">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="receive-message?page=${page-1}">Previous</a></li>
+                                        <c:forEach begin="1" end="${totalPage}" var="i">
+                                        <li class="page-item ${i == page?"active":""}"><a class="page-link" href="receive-message?page=${i}">${i}</a></li>
+                                        </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:otherwise>
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="receive-message?page=${page-1}">Previous</a></li>
+                                        <c:forEach begin="1" end="${totalPage}" var="i">
+                                        <li class="page-item ${i == page?"active":""}"><a class="page-link" href="receive-message?page=${i}">${i}</a></li>
+                                        </c:forEach>
+                                    <li class="page-item"><a class="page-link" href="receive-message?page=${page+1}">Next</a></li>
+                                </ul>
+                            </nav>
+                        </c:otherwise>
+                    </c:choose>
                 </main>
-                <c:choose>
-                    <c:when test="${totalPage < 2}">
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                            <ul class="pagination">
-                                <c:forEach begin="1" end="${totalPage}" var="i">
-                                    </c:forEach>
-                            </ul>
-                        </nav>
-                    </c:when>
-                    <c:when test="${page < 2}">
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                            <ul class="pagination">                               
-                                <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="see-more?accountId=${sessionScope.checkAccountId}&page=${i}">${i}</a></li>
-                                    </c:forEach>
-                                <li class="page-item"><a class="page-link" href="see-more?accountId=${sessionScope.checkAccountId}&page=${page+1}">Next</a></li>
-                            </ul>
-                        </nav>
-                    </c:when>
-                    <c:when test="${page+1 > totalPage}">
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="see-more?accountId=${sessionScope.checkAccountId}&page=${page-1}">Previous</a></li>
-                                    <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="see-more?accountId=${sessionScope.checkAccountId}&page=${i}">${i}</a></li>
-                                    </c:forEach>
-                            </ul>
-                        </nav>
-                    </c:when>
-                    <c:otherwise>
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="see-more?accountId=${sessionScope.checkAccountId}&page=${page-1}">Previous</a></li>
-                                    <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="see-more?accountId=${sessionScope.checkAccountId}&page=${i}">${i}</a></li>
-                                    </c:forEach>
-                                <li class="page-item"><a class="page-link" href="see-more?accountId=${sessionScope.checkAccountId}&page=${page+1}">Next</a></li>
-                            </ul>
-                        </nav>
-                    </c:otherwise>
-                </c:choose>
+
             </div>
         </div>
     </body>

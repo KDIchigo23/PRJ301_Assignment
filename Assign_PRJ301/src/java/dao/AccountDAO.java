@@ -17,15 +17,22 @@ import model.Account;
 
 public class AccountDAO {
 
-    public List<Account> getAllAccounts() {
+    public List<Account> getAllAccounts(int page, int PAGE_SIZE) {
         List<Account> list = new ArrayList<>();
         try {
-            String sql = "select * from Account where aRole = 'USER' and isDeleted <> 1";
+            String sql = "with t as (select ROW_NUMBER() over (order by a.aId asc) as r,\n"
+                    + "* from Account a where aRole = 'USER' and isDeleted <> 1)\n"
+                    + "select * from t where r between ?*?-(?-1) and ?*?";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
 
             //Đưa câu sql vào prepareStatement 
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, page);
+            ps.setInt(2, PAGE_SIZE);
+            ps.setInt(3, PAGE_SIZE);
+            ps.setInt(4, page);
+            ps.setInt(5, PAGE_SIZE);
 
             //Thực thi câu lệnh sql sẽ trả về result set
             ResultSet rs = ps.executeQuery();
@@ -33,14 +40,14 @@ public class AccountDAO {
             //Lặp rs để lấy data
             while (rs.next()) {
                 Account account = Account.builder()
-                        .aId(rs.getInt(1))
-                        .aUsername(rs.getString(2))
-                        .aPassword(rs.getString(3))
-                        .aDisplayName(rs.getString(4))
-                        .aAddress(rs.getString(5))
-                        .aEmail(rs.getString(6))
-                        .aPhone(rs.getString(7))
-                        .aRole(rs.getString(8))
+                        .aId(rs.getInt(2))
+                        .aUsername(rs.getString(3))
+                        .aPassword(rs.getString(4))
+                        .aDisplayName(rs.getString(5))
+                        .aAddress(rs.getString(6))
+                        .aEmail(rs.getString(7))
+                        .aPhone(rs.getString(8))
+                        .aRole(rs.getString(9))
                         .build();
                 list.add(account);
             }

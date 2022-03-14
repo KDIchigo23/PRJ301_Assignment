@@ -10,25 +10,28 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
-
 @Builder
 @Getter
 @Setter
 @ToString
 
 public class Message {
+
     private int mId;
     private int aId;
-    private String mNote;
+    private String aDisplayName;
+    private String mMessage;
+    private String mCreated_date;
 
     public Message() {
     }
 
-    public Message(int mId, int aId, String mNote) {
+    public Message(int mId, int aId, String aDisplayName, String mMessage, String mCreated_date) {
         this.mId = mId;
         this.aId = aId;
-        this.mNote = mNote;
+        this.aDisplayName = aDisplayName;
+        this.mMessage = mMessage;
+        this.mCreated_date = mCreated_date;
     }
 
     public int getmId() {
@@ -47,13 +50,29 @@ public class Message {
         this.aId = aId;
     }
 
-    public String getmNote() {
-        return mNote;
+    public String getaDisplayName() {
+        return aDisplayName;
     }
 
-    public void setmNote(String mNote) {
-        this.mNote = mNote;
+    public void setaDisplayName(String aDisplayName) {
+        this.aDisplayName = aDisplayName;
     }
-    
+
+    public String getmMessage() {
+        return mMessage;
+    }
+
+    public void setmMessage(String mMessage) {
+        this.mMessage = mMessage;
+    }
+
+    public String getmCreated_date() {
+        return mCreated_date;
+    }
+
+    public void setmCreated_date(String mCreated_date) {
+        this.mCreated_date = mCreated_date;
+    }
+
     
 }

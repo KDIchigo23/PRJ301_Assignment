@@ -51,7 +51,7 @@
                             <c:forEach items="${sessionScope.listTeams}" var="T">
                                 <div class="card">
                                     <div class="card-header">
-                                        <a class="btn" href="filter-proteam?teamId=${T.tId}" style="font-size: 18px">
+                                        <a class="btn" href="filter-proteam?teamId=${T.tId}" style="font-size: 18px" onclick="filterProTeamAsync(${T.tId})">
                                             ${T.tName}
                                         </a> 
                                     </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="row col-xl-9 gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+                <div class="row col-xl-9 gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center" id="list_product">
                     <c:forEach items="${listProducts}" var="Pro">
                         <div class="col mb-5">
                             <div class="card h-100">
@@ -144,10 +144,12 @@
                                     </div>
                                 </div>
                                 <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" onclick="addToCartAsync(${Pro.proId})">Add to cart</a>
+                                <c:if test="${sessionScope.account.getaRole() ne 'ADMIN'}">
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" onclick="addToCartAsync(${Pro.proId})">Add to cart</a>
+                                        </div>
                                     </div>
-                                </div>
+                                </c:if>
                             </div>
                         </div>
                     </c:forEach>
@@ -161,7 +163,6 @@
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="${pagination_url}page=${i}">${i}</a></li>
                                     </c:forEach>
                             </ul>
                         </nav>
@@ -208,18 +209,32 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-                                                function addToCartAsync(productId) {
-                                                    axios.get('add-to-cart-async', {
-                                                        params: {
-                                                            productId: productId
-                                                        }
-                                                    }).then((response) => {
-                                                        //lấy data thanh công
-                                                        document.getElementById("cart_number").innerHTML = response.data;
-
-                                                        //Cập nhật view
-                                                    })
+                                        function addToCartAsync(productId) {
+                                            axios.get('add-to-cart-async', {
+                                                params: {
+                                                    productId: productId
                                                 }
+                                            }).then((response) => {
+                                                //lấy data thanh công
+                                                document.getElementById("cart_number").innerHTML = response.data;
+
+                                                //Cập nhật view
+                                            })
+                                        }
+                                        
+                                        function filterProTeamAsync(teamId) {
+                                            console.log(teamId);
+                                            axios.get('filter-proteam-async', {
+                                                params: {
+                                                    teamId: teamId
+                                                }
+                                            }).then((response) => {
+                                                //lấy data thanh công
+                                                document.getElementById("list_product").innerHTML = response.data;
+
+                                                //Cập nhật view
+                                            })
+                                        }
     </script>
 
 </html>

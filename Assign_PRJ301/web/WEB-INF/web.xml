@@ -152,6 +152,18 @@
         <servlet-name>EarningMonthController</servlet-name>
         <servlet-class>controller.dashboard.EarningMonthController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReceiveMessageController</servlet-name>
+        <servlet-class>controller.dashboard.ReceiveMessageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TableDashboardAccount</servlet-name>
+        <servlet-class>controller.dashboard.TableDashboardAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterProductTeamAsync</servlet-name>
+        <servlet-class>controller.async.FilterProductTeamAsync</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
         <url-pattern>/allstar-controller</url-pattern>
@@ -311,6 +323,18 @@
     <servlet-mapping>
         <servlet-name>EarningMonthController</servlet-name>
         <url-pattern>/admin/earning-month</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReceiveMessageController</servlet-name>
+        <url-pattern>/admin/receive-message</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TableDashboardAccount</servlet-name>
+        <url-pattern>/admin/table-dashboard-account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterProductTeamAsync</servlet-name>
+        <url-pattern>/filter-proteam-async</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

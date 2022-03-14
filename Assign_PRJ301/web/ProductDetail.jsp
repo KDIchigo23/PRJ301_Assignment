@@ -128,23 +128,25 @@
                             <span class="me-1" style="font-size: 20px">Description:</span>
                             <span class="lead" style="font-size: 20px">${Pd.proDescription}</span>
                             <div class="mt-2">
-                                <input class="form-control text-center ms-1" id="inputQuantity" type="num" value="${Pd.proQuantity}"
-                                       style="max-width: 4rem; float: right; font-size: 20px; float: left" readonly=""/>
-                                <a href="add-to-cart?productId=${Pd.proId}" class="btn btn-outline-dark flex-shrink-0 mx-2" type="button" style="padding: 8px;">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Add to Card
-                                </a>
-                                <a href="buy-now?productId=${Pd.proId}" class="btn btn-outline-success flex-shrink-0" type="button" style="padding: 8px;">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Buy now
-                                </a>
+                                <input class="form-control text-center ms-1 me-2" id="inputQuantity" type="num" value="${Pd.proQuantity}"
+                                       style="max-width: 4rem; float: right; font-size: 20px; float: left" readonly/>
+                                <c:if test="${sessionScope.account.getaRole() ne 'ADMIN'}">
+                                    <button onclick="addToCartAsync(${Pd.proId})" class="btn btn-outline-dark flex-shrink-0 mx-2" type="button" style="padding: 8px;">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Add to Card
+                                    </button>
+                                    <a href="buy-now?productId=${Pd.proId}" class="btn btn-outline-success flex-shrink-0" type="button" style="padding: 8px;">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Buy now
+                                    </a>
+                                </c:if>
                                 <div class="mt-2 ps-1">
                                     <c:if test="${sessionScope.account.getaRole() eq 'ADMIN'}">
-                                        <a href="http://localhost:8080/Assign_PRJ301/admin/update-product?productId=${Pd.proId}" class="btn btn-outline-success mt-2 me-2" type="button">
+                                        <a href="http://localhost:8080/Assign_PRJ301/admin/update-product?productId=${Pd.proId}" class="btn btn-outline-success mt-1 me-2" type="button">
                                             <i class="bi bi-arrow-up-circle"></i>
                                             Update Product
                                         </a>
-                                        <button data-bs-toggle="modal" class="btn btn-outline-danger mt-2" data-bs-target="#deletePro" type="button">
+                                        <button data-bs-toggle="modal" class="btn btn-outline-danger mt-1" data-bs-target="#deletePro" type="button">
                                             <i class="bi bi-trash"></i>
                                             Delete Product
                                         </button>  
@@ -263,9 +265,11 @@
                                     </div>
                                 </div>
                                 <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                                </div>
+                                <c:if test="${sessionScope.account.getaRole() ne 'ADMIN'}">
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                    </div>
+                                </c:if>
                             </div>
                         </div>
                     </c:forEach>
@@ -277,5 +281,18 @@
     <footer>
         <%@include file="components/footerComponent.jsp" %>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function addToCartAsync(productId) {
+            axios.get('add-to-cart-async', {
+                params: {
+                    productId: productId
+                }
+            }).then((response) => {
+                //lấy data thanh công
+                document.getElementById("cart_number").innerHTML = response.data;
 
+            })
+        }
+    </script>
 </html>

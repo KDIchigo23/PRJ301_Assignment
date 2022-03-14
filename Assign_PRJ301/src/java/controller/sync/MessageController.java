@@ -32,14 +32,8 @@ public class MessageController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
-        String message = request.getParameter("message");
-        Account account = (Account) session.getAttribute("account");
-        int accountId = account.getaId();
-        new MessageDAO().sendMessage(accountId,message);
-        
-        response.sendRedirect("home-controller");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,7 +62,14 @@ public class MessageController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String message = request.getParameter("message");
+        Account account = (Account) session.getAttribute("account");
+        int accountId = account.getaId();
+        new MessageDAO().sendMessage(accountId, message);
+
+        response.sendRedirect("home-controller");
     }
 
     /**

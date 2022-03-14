@@ -25,7 +25,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </head>
 
-    <body style="background-color: lightgoldenrodyellow;">
+    <body">
         <header class="sb-nav-fixed">
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark py-3">
                 <!-- Navbar Brand-->
@@ -172,15 +172,54 @@
                                                     </td>
                                                 </tr>
                                             </c:forEach>
-
                                         </tbody>
                                     </table>
                                 </form>
-
                             </div>
                         </div>
                     </div>
                 </main>
+                <c:choose>
+                    <c:when test="${totalPage < 2}">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <c:forEach begin="1" end="${totalPage}" var="i">
+                                    </c:forEach>
+                            </ul>
+                        </nav>
+                    </c:when>
+                    <c:when test="${page < 2}">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">                               
+                                <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="full-account-infor?page=${i}">${i}</a></li>
+                                    </c:forEach>
+                                <li class="page-item"><a class="page-link" href="full-account-infor?page=${page+1}">Next</a></li>
+                            </ul>
+                        </nav>
+                    </c:when>
+                    <c:when test="${page+1 > totalPage}">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="full-account-infor?page=${page-1}">Previous</a></li>
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href=full-account-infor?page=${i}">${i}</a></li>
+                                    </c:forEach>
+                            </ul>
+                        </nav>
+                    </c:when>
+                    <c:otherwise>
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="full-account-infor?page=${page-1}">Previous</a></li>
+                                    <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="full-account-infor?page=${i}">${i}</a></li>
+                                    </c:forEach>
+                                <li class="page-item"><a class="page-link" href="full-account-infor?page=${page+1}">Next</a></li>
+                            </ul>
+                        </nav>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </body>
