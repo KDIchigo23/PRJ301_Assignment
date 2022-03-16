@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.async;
+package controller.dashboard;
 
 import dao.CategoryDAO;
 import dao.ProductDAO;
@@ -24,7 +24,7 @@ import model.Team;
  *
  * @author ADMIN
  */
-public class FilterProductTeamAsync extends HttpServlet {
+public class ProductsDashboard extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +39,7 @@ public class FilterProductTeamAsync extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        int teamId = Integer.parseInt(request.getParameter("teamId"));
+
         final int PAGE_SIZE = 12;
         int page = 1;
         String pageStr = request.getParameter("page");
@@ -47,27 +47,27 @@ public class FilterProductTeamAsync extends HttpServlet {
             page = Integer.parseInt(pageStr);
         }
 
-        int totalProducts = new ProductDAO().getTotalProductsByTeamId(teamId);
+        int totalProducts = new ProductDAO().getTotalProducts();
         int totalPage = totalProducts / PAGE_SIZE;
         if (totalProducts % PAGE_SIZE != 0) {
             totalPage += 1;
         }
-        
-        List<Product> listProducts = new ProductDAO().getProductByTeamIdAndPagging(teamId, page, PAGE_SIZE);
+
+//        List<Player> listPlayersByTeamId = new PlayerDAO().getPlayersByTeamId(teamId);
+        List<Product> listProducts = new ProductDAO().getProductsWithPagging(page, PAGE_SIZE);
+        List<Product> listPlayers = new ProductDAO().getAllProducts();
         List<Team> listTeams = new TeamDAO().getAllTeams();
         List<Category> listCategories = new CategoryDAO().getAllCategories();
-        
 
         session.setAttribute("listCategories", listCategories);
-        request.setAttribute("listProducts", listProducts);       
-        session.setAttribute("listTeams", listTeams);
-        session.setAttribute("teamId", teamId);
+        session.setAttribute("listProducts", listProducts);
+        request.setAttribute("listPlayers", listPlayers);
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
-        session.setAttribute("urlHistory", "filter-proteam?teamId=" + teamId);
-        request.setAttribute("pagination_url", "filter-proteam?teamId=" + teamId + "&");
-        
-        request.getRequestDispatcher("ListProducts.jsp").forward(request, response);
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("urlHistory", "product-controller");
+        request.setAttribute("pagination_url", "product-controller?");
+        request.getRequestDispatcher("../ProductDashboard.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,7 +82,37 @@ public class FilterProductTeamAsync extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        final int PAGE_SIZE = 12;
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
+        }
+
+        int totalProducts = new ProductDAO().getTotalProducts();
+        int totalPage = totalProducts / PAGE_SIZE;
+        if (totalProducts % PAGE_SIZE != 0) {
+            totalPage += 1;
+        }
+
+//        List<Player> listPlayersByTeamId = new PlayerDAO().getPlayersByTeamId(teamId);
+        List<Product> listProducts = new ProductDAO().getProductsWithPagging(page, PAGE_SIZE);
+        List<Product> listPlayers = new ProductDAO().getAllProducts();
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        session.setAttribute("listCategories", listCategories);
+        session.setAttribute("listProducts", listProducts);
+        request.setAttribute("listPlayers", listPlayers);
+        request.setAttribute("page", page);
+        request.setAttribute("totalPage", totalPage);
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("urlHistory", "product-controller");
+        request.setAttribute("pagination_url", "product-controller?");
+        request.getRequestDispatcher("../ProductDashboard.jsp").forward(request, response);
     }
 
     /**

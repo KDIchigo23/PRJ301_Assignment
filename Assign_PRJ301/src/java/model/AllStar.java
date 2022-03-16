@@ -23,39 +23,39 @@ public class AllStar {
     private String apName;
     private int apPTS;
     private String apRules;
-    private String pPosition;
-    private int pNo;
+    private String apPosition;
+    private int apNo;
     private String tName;
     private String apImg_url;
 
     public AllStar() {
     }
 
-    public AllStar(int apId, String apName, int apPTS, String apRules, String pPosition, int pNo, String tName, String apImg_url) {
+    public AllStar(int apId, String apName, int apPTS, String apRules, String apPosition, int apNo, String tName, String apImg_url) {
         this.apId = apId;
         this.apName = apName;
         this.apPTS = apPTS;
         this.apRules = apRules;
-        this.pPosition = pPosition;
-        this.pNo = pNo;
+        this.apPosition = apPosition;
+        this.apNo = apNo;
         this.tName = tName;
         this.apImg_url = apImg_url;
     }
 
-    public String getpPosition() {
-        return pPosition;
+    public String getapPosition() {
+        return apPosition;
     }
 
-    public void setpPosition(String pPosition) {
-        this.pPosition = pPosition;
+    public void setapPosition(String apPosition) {
+        this.apPosition = apPosition;
     }
 
-    public int getpNo() {
-        return pNo;
+    public int getapNo() {
+        return apNo;
     }
 
-    public void setpNo(int pNo) {
-        this.pNo = pNo;
+    public void setapNo(int apNo) {
+        this.apNo = apNo;
     }
 
     public String gettName() {

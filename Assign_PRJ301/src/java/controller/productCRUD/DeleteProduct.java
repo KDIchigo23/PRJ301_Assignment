@@ -36,11 +36,9 @@ public class DeleteProduct extends HttpServlet {
             HttpSession session = request.getSession();
 
             int productId = Integer.parseInt(request.getParameter("productId"));
-            int checkPage = (int) session.getAttribute("checkPage");
-            int checkCategoryId = (int) session.getAttribute("checkCategoryId");
             new ProductDAO().deleteProductByProductId(productId);
 
-            response.sendRedirect("../filter-category?categoryId="+checkCategoryId+"&page="+checkPage);
+            response.sendRedirect("../admin/products-dashboard");
         }
     }
 

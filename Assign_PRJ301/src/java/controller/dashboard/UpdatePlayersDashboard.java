@@ -3,26 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.sync;
+package controller.dashboard;
 
-import dao.AllStarDAO;
-import dao.CategoryDAO;
+import dao.PlayerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AllStar;
-import model.Category;
+import model.Player;
 
 /**
  *
  * @author ADMIN
  */
-public class AllStarController extends HttpServlet {
+public class UpdatePlayersDashboard extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,16 +33,7 @@ public class AllStarController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
 
-        List<AllStar> listAllStarsLebrons = new AllStarDAO().getAllAllStarLebrons();
-        List<AllStar> listAllStarsDurants = new AllStarDAO().getAllAllStarDurants();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
-
-        session.setAttribute("listCategories", listCategories);
-        request.setAttribute("listAllStarsLebrons", listAllStarsLebrons);
-        request.setAttribute("listAllStarsDurants", listAllStarsDurants);
-        request.getRequestDispatcher("AllStar-2022.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,32 +48,41 @@ public class AllStarController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        int playerId = Integer.parseInt(request.getParameter("playerId"));
 
+        Player onlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
+        session.setAttribute("playerId", playerId);
+        session.setAttribute("onlyPlayerByPlayerId", onlyPlayerByPlayerId);
+
+        request.getRequestDispatcher("../UpdatePlayer.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doPost
+        (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+            processRequest(request, response);
+        }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }

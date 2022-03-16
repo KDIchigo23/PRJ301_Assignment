@@ -50,16 +50,16 @@
                 </table>
             </div>
 
-            <div class="container" style="min-height: 300px">
+            <div class="container" style="min-height: 300px" id="update_quantity">
                 <table class="row table" border="1" style="min-width: 60%; margin: 0px !important">
                     <c:choose>
                         <c:when test="${sessionScope.carts==null||sessionScope.carts.size()==0}">
                             <h1>List Cart is Empty</h1>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach items="${carts}" var="C">
-                                <form action="update-quantity">
-                                    <tbody>
+                            <form action="update-quantity">
+                                <tbody>
+                                    <c:forEach items="${carts}" var="C">
                                         <tr class="row mx-auto px-1 py-1">
                                     <input type="hidden" name="productId" value="${C.value.product.proId}"/>
                                     <td scope="row" class="col-1 text-center">${C.value.product.proId}</td>
@@ -68,17 +68,17 @@
                                     <td scope="col" class="col-1 text-center">
                                         <fmt:formatNumber value="${C.value.product.proPrice}" type="currency" /></p>
                                     </td>
-                                    <td scope="col" class="col-2 text-center"><input onchange="this.form.submit()" type="number" name="quantity"
-                                                                         value="${C.value.quantity}" style="width: 48px"/>
+                                    <td scope="col" class="col-2 text-center"><input name="quantity" onchange="this.form.submit()" type="number"
+                                                                                     value="${C.value.quantity}" style="width: 48px"/>
                                     </td>
                                     <td scope="col" class="col-2 text-center"><fmt:formatNumber value="${C.value.product.proPrice*C.value.quantity}" type="currency" /></p></td>
                                     <td scope="col" class="col-2 text-center"><a href="delete-cart?productId=${C.value.product.proId}" 
-                                                                     class="btn btn-outline-danger"><i class="bi bi-trash pe-1"></i>Delete</a></td>
+                                                                                 class="btn btn-outline-danger"><i class="bi bi-trash pe-1"></i>Delete</a></td>
                                     </tr>
-                                    </tbody>  
-                                </form>
+                                </c:forEach>
+                                </tbody>  
+                            </form>
 
-                            </c:forEach>
                         </c:otherwise>
                     </c:choose>
                 </table>

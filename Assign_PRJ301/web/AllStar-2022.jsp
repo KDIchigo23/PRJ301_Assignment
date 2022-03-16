@@ -108,8 +108,8 @@
                                             <td>${L.apName}</td>
                                             <td>${L.apPTS}</td>
                                             <td>${L.apRules}</td>
-                                            <td>${L.pPosition}</td>
-                                            <td>${L.pNo}</td>
+                                            <td>${L.apPosition}</td>
+                                            <td>${L.apNo}</td>
                                             <td>${L.tName}</td>
                                             <td><img style="width: 86%" src="${L.apImg_url}"></td>
                                         </tr>
@@ -144,8 +144,8 @@
                                             <td>${L.apName}</td>
                                             <td>${L.apPTS}</td>
                                             <td>${L.apRules}</td>
-                                            <td>${L.pPosition}</td>
-                                            <td>${L.pNo}</td>
+                                            <td>${L.apPosition}</td>
+                                            <td>${L.apNo}</td>
                                             <td>${L.tName}</td>
                                             <td><img style="width: 100%" src="${L.apImg_url}"></td>
                                         </tr>

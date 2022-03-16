@@ -30,20 +30,27 @@ CREATE TABLE [Players] (
 	pHeight VARCHAR(10) NOT NULL,
 	pNo INT NOT NULL,
 	pAchievement VARCHAR(255),
-	pImg_url VARCHAR(2000)
+	pImg_url VARCHAR(2000),
+	[isDeleted] bit NOT NULL,
 )
 GO
+
+ALTER TABLE [dbo].[Players] ADD  CONSTRAINT [DF_Players_isDeleted]  DEFAULT ((0)) FOR [isDeleted]
+GO
+
 ---------- Table [dbo].[AllStar_Players_2022]
 
 CREATE TABLE [AllStar_Players_2022] (
 	apId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	apName VARCHAR(255) NOT NULL,
-	pId INT FOREIGN KEY(pId) REFERENCES [Players](pId) NOT NULL,
+	pId INT NOT NULL,
 	tId INT FOREIGN KEY(tId) REFERENCES [Team](tId) NOT NULL,
 	apGroup VARCHAR(255) NOT NULL,
 	apPTS INT,
 	apRules VARCHAR(255) NOT NULL,
 	apImg_url NVARCHAR(2000),
+	apPosition VARCHAR(255) NOT NULL,
+	apNo INT NOT NULL,
 )
 GO
 ---------- Table [dbo].[Category]
@@ -64,8 +71,10 @@ CREATE TABLE [Products] (
 	proPrice FLOAT NOT NULL,
 	proImg_url NVARCHAR(255),
 	ctId INT FOREIGN KEY(ctId) REFERENCES [Category](ctId) NOT NULL
+	
 )
 GO
+
 ---GO------- Table [dbo].[Customer]
 
 CREATE TABLE [Customer] (
@@ -239,16 +248,16 @@ INSERT INTO [Players] (pName, pDob, tId, pPosition, pHeight, pNo, pAchievement, 
 
 
 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Lebron James', 36, 8, 'Team Lebron', 24, 'Captain', 'images/Allstars-2022/Allstars-2022-LeBron.png')
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Stephen Curry', 26, 6, 'Team Lebron', 50, 'Member', 'images/Allstars-2022/Allstars-2022-Curry.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Giannis Antetokounmpo', 6, 2, 'Team Lebron', 30, 'Member', 'images/Allstars-2022/Allstars-2022-Giannis.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Chris Paul', 22, 5, 'Team Lebron', 15, 'Member', 'images/Allstars-2022/Allstars-2022-Paul.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Fred Vanvleet', 14, 3, 'Team Lebron', 6, 'Member', 'images/Allstars-2022/Allstars-2022-Vanvleet.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Draymond Green', 28, 6, 'Team Durant', 18, 'Member', 'images/Allstars-2022/Allstars-2022-Green.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Andrew Wiggins', 29, 6, 'Team Durant', 10, 'Member', 'images/Allstars-2022/Allstars-2022-Wiggins.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Joel Embiid', 1, 1, 'Team Durant', 36, 'Member', 'images/Allstars-2022/Allstars-2022-Embiid.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Devin Booker', 21, 5, 'Team Durant', 20, 'Member', 'images/Allstars-2022/Allstars-2022-Booker.png') 
-INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url) VALUES ('Khris Middleton', 7, 2, 'Team Durant', 5, 'Member', 'images/Allstars-2022/Allstars-2022-Middleton.png') 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Lebron James', 36, 8, 'Team Lebron', 24, 'Captain', 'images/Allstars-2022/Allstars-2022-LeBron.png', 'SF', 6)
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Stephen Curry', 26, 6, 'Team Lebron', 50, 'Member', 'images/Allstars-2022/Allstars-2022-Curry.png', 'PG', 30) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Giannis Antetokounmpo', 6, 2, 'Team Lebron', 30, 'Member', 'images/Allstars-2022/Allstars-2022-Giannis.png', 'PF', 34) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Chris Paul', 22, 5, 'Team Lebron', 15, 'Member', 'images/Allstars-2022/Allstars-2022-Paul.png', 'PG', 3) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Fred Vanvleet', 14, 3, 'Team Lebron', 6, 'Member', 'images/Allstars-2022/Allstars-2022-Vanvleet.png', 'SG', 23) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Draymond Green', 28, 6, 'Team Durant', 18, 'Member', 'images/Allstars-2022/Allstars-2022-DGreen.png', 'PF', 23) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Andrew Wiggins', 29, 6, 'Team Durant', 10, 'Member', 'images/Allstars-2022/Allstars-2022-Wiggins.png', 'SF', 22) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Joel Embiid', 1, 1, 'Team Durant', 36, 'Member', 'images/Allstars-2022/Allstars-2022-Embiid.png', 'C', 21) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Devin Booker', 21, 5, 'Team Durant', 20, 'Member', 'images/Allstars-2022/Allstars-2022-Booker.png', 'PG', 1) 
+INSERT INTO [AllStar_Players_2022] (apName, pId, tId, apGroup, apPTS, apRules, apImg_url, apPosition, apNo) VALUES ('Khris Middleton', 7, 2, 'Team Durant', 5, 'Member', 'images/Allstars-2022/Allstars-2022-Middleton.png', 'SG', 22) 
  
  
 INSERT INTO [Category] (ctId, ctName) VALUES (1, 'Jersey')

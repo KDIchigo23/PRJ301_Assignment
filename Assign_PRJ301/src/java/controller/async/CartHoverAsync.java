@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.sync;
+package controller.async;
 
-import dao.AllStarDAO;
-import dao.CategoryDAO;
+import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AllStar;
-import model.Category;
+import model.Cart;
+import model.Product;
 
 /**
  *
  * @author ADMIN
  */
-public class AllStarController extends HttpServlet {
+public class CartHoverAsync extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,15 +37,24 @@ public class AllStarController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        int productId = Integer.parseInt(request.getParameter("productId"));
 
-        List<AllStar> listAllStarsLebrons = new AllStarDAO().getAllAllStarLebrons();
-        List<AllStar> listAllStarsDurants = new AllStarDAO().getAllAllStarDurants();
-        List<Category> listCategories = new CategoryDAO().getAllCategories();
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
 
-        session.setAttribute("listCategories", listCategories);
-        request.setAttribute("listAllStarsLebrons", listAllStarsLebrons);
-        request.setAttribute("listAllStarsDurants", listAllStarsDurants);
-        request.getRequestDispatcher("AllStar-2022.jsp").forward(request, response);
+        if (carts.containsKey(productId)) {//sản phẩm đã có trên giỏ hàng
+            int oldQuantity = carts.get(productId).getQuantity();
+            carts.get(productId).setQuantity(oldQuantity + 1);
+        } else {//sản phẩm chưa có trên giỏ hàng
+            Product product = new ProductDAO().getProductByProId(productId);
+            carts.put(productId, Cart.builder().product(product).quantity(1).build());
+        }
+        //lưu carts lên session
+        session.setAttribute("carts", carts);
+        
+        request.getRequestDispatcher("CartHover.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +70,6 @@ public class AllStarController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

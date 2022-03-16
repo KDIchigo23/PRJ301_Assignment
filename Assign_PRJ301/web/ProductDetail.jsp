@@ -140,38 +140,6 @@
                                         Buy now
                                     </a>
                                 </c:if>
-                                <div class="mt-2 ps-1">
-                                    <c:if test="${sessionScope.account.getaRole() eq 'ADMIN'}">
-                                        <a href="http://localhost:8080/Assign_PRJ301/admin/update-product?productId=${Pd.proId}" class="btn btn-outline-success mt-1 me-2" type="button">
-                                            <i class="bi bi-arrow-up-circle"></i>
-                                            Update Product
-                                        </a>
-                                        <button data-bs-toggle="modal" class="btn btn-outline-danger mt-1" data-bs-target="#deletePro" type="button">
-                                            <i class="bi bi-trash"></i>
-                                            Delete Product
-                                        </button>  
-                                    </c:if>
-                                    <!-- The Modal -->
-                                    <div class="modal fade" id="deletePro">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title text-danger">?</h4>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <!-- Modal body -->
-                                                <div class="modal-body text-danger text-center" style="font-size: 20px">
-                                                    You want to delete this product?
-                                                </div>
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                    <a href="http://localhost:8080/Assign_PRJ301/admin/delete-product?productId=${Pd.proId}"><button type="button" class="btn btn-danger">Delete</button></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </c:forEach> 
                         </div>
                     </div>
@@ -283,16 +251,25 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function addToCartAsync(productId) {
-            axios.get('add-to-cart-async', {
-                params: {
-                    productId: productId
-                }
-            }).then((response) => {
-                //lấy data thanh công
-                document.getElementById("cart_number").innerHTML = response.data;
+                                        function addToCartAsync(productId) {
+                                            axios.get('add-to-cart-async', {
+                                                params: {
+                                                    productId: productId
+                                                }
+                                            }).then((response) => {
+                                                //lấy data thanh công
+                                                document.getElementById("cart_number").innerHTML = response.data;
 
-            })
-        }
+                                            })
+                                            axios.get('cart-hover-async', {
+                                                params: {
+                                                    productId: productId
+                                                }
+                                            }).then((response) => {
+                                                //lấy data thanh công
+                                                document.getElementById("cart_hover").innerHTML = response.data;
+                                                //Cập nhật view
+                                            })
+                                        }
     </script>
 </html>

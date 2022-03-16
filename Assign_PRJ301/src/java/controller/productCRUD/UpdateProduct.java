@@ -37,19 +37,20 @@ public class UpdateProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+
         int productId = (int) session.getAttribute("productId");
+        String team = request.getParameter("team");
+        int teamId = Integer.parseInt(team);
         String proImg_url = request.getParameter("proImg_url");
         String proName = request.getParameter("proName");
-        int teamId = Integer.parseInt(request.getParameter("team"));
         int playerId = Integer.parseInt(request.getParameter("player"));
         String proDescription = request.getParameter("proDescription");
         int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
         float proPrice = Float.parseFloat(request.getParameter("proPrice"));
         int categoryId = Integer.parseInt(request.getParameter("category"));
 
-//        Product checkProductExist = new ProductDAO().checkProductExist(proName);
+//        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
         new ProductDAO().updateProduct(productId, proImg_url, proName, playerId, proQuantity, proPrice, categoryId, proDescription);
         Product newOnlyProductByProductId = new ProductDAO().getProductByProId(productId);
         session.setAttribute("onlyProductByProductId", newOnlyProductByProductId);
@@ -59,7 +60,6 @@ public class UpdateProduct extends HttpServlet {
 
         session.setAttribute("listTeams", listTeams);
         session.setAttribute("listCategories", listCategories);
-
         response.sendRedirect("../admin/update-product");
     }
 
@@ -76,7 +76,9 @@ public class UpdateProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        response.sendRedirect("http://localhost:8080/Assign_PRJ301/UpdateProduct.jsp");
+
         request.getRequestDispatcher("../UpdateProduct.jsp").forward(request, response);
+
     }
 
     /**
@@ -90,7 +92,30 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        HttpSession session = request.getSession();
+        int productId = (int) session.getAttribute("productId");
+        String team = request.getParameter("team");
+        int teamId = Integer.parseInt(team);
+        String proImg_url = request.getParameter("proImg_url");
+        String proName = request.getParameter("proName");
+        int playerId = Integer.parseInt(request.getParameter("player"));
+        String proDescription = request.getParameter("proDescription");
+        int proQuantity = Integer.parseInt(request.getParameter("proQuantity"));
+        float proPrice = Float.parseFloat(request.getParameter("proPrice"));
+        int categoryId = Integer.parseInt(request.getParameter("category"));
+
+//        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
+        new ProductDAO().updateProduct(productId, proImg_url, proName, playerId, proQuantity, proPrice, categoryId, proDescription);
+        Product newOnlyProductByProductId = new ProductDAO().getProductByProId(productId);
+        session.setAttribute("onlyProductByProductId", newOnlyProductByProductId);
+
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("listCategories", listCategories);
+        response.sendRedirect("../admin/update-product");
 
     }
 

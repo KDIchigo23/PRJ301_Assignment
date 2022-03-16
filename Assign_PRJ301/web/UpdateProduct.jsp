@@ -35,7 +35,7 @@
     <center>
         <div class="my-5" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem; width: 40%">
             <h3>Update Product ${sessionScope.onlyProductByProductId.getProName()}</h3>
-            <form action="update-product" method="POST" class="container">
+            <form action="http://localhost:8080/Assign_PRJ301/admin/update-product" method="POST" class="container">
                 <div class="mb-3">
                     <input type="text" class="form-control" id="proImg_url" name="proImg_url" placeholder="Product Img_url"
                            value="${sessionScope.onlyProductByProductId.getProImg_url()}">

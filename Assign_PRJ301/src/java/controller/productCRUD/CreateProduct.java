@@ -46,7 +46,7 @@ public class CreateProduct extends HttpServlet {
             new ProductDAO().createProduct(proImg_url, proName, teamId, playerId, proDescription, proQuantity, proPrice, categoryId);
         }
 
-        response.sendRedirect("../product-controller");
+        request.getRequestDispatcher("../Dashboard.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

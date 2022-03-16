@@ -3,26 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.sync;
+package controller.async;
 
-import dao.AllStarDAO;
 import dao.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AllStar;
+import model.Cart;
 import model.Category;
 
 /**
  *
  * @author ADMIN
  */
-public class AllStarController extends HttpServlet {
+public class CartControllerAsync extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,15 +38,24 @@ public class AllStarController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
 
-        List<AllStar> listAllStarsLebrons = new AllStarDAO().getAllAllStarLebrons();
-        List<AllStar> listAllStarsDurants = new AllStarDAO().getAllAllStarDurants();
+        //tinh tong tien
+        double totalMoney = 0;
+        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+            Integer productId = entry.getKey();
+            Cart cart = entry.getValue();
+
+            totalMoney += cart.getQuantity() * cart.getProduct().getProPrice();
+        }
         List<Category> listCategories = new CategoryDAO().getAllCategories();
 
         session.setAttribute("listCategories", listCategories);
-        request.setAttribute("listAllStarsLebrons", listAllStarsLebrons);
-        request.setAttribute("listAllStarsDurants", listAllStarsDurants);
-        request.getRequestDispatcher("AllStar-2022.jsp").forward(request, response);
+        request.setAttribute("totalMoney", totalMoney);
+        request.setAttribute("carts", carts);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +71,6 @@ public class AllStarController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

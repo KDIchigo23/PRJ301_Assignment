@@ -81,7 +81,12 @@ public class LoginController extends HttpServlet {
             Account account = new AccountDAO().login(username, password);
             if (account != null) { //cookie hợp lệ
                 request.getSession().setAttribute("account", account);
-                response.sendRedirect("home-controller");
+                if(account.getaRole().equals(Account.ADMIN)){
+                    response.sendRedirect("http://localhost:8080/Assign_PRJ301/admin/dashboard");
+                }else{
+                    response.sendRedirect("home-controller");
+                }
+                
                 return;
             }
         }

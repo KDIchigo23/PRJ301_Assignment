@@ -40,7 +40,7 @@ public class UpdatePlayer extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
 
-        int playerId = (int) session.getAttribute("checkPlayerId");
+        int playerId = (int) session.getAttribute("playerId");
         String pImg_url = request.getParameter("pImg_url");
         int teamId = Integer.parseInt(request.getParameter("team"));
         String pName = request.getParameter("pName");
@@ -92,7 +92,31 @@ public class UpdatePlayer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        int playerId = (int) session.getAttribute("playerId");
+        String pImg_url = request.getParameter("pImg_url");
+        int teamId = Integer.parseInt(request.getParameter("team"));
+        String pName = request.getParameter("pName");
+        String pHeight = request.getParameter("pHeight");
+        String pDob = request.getParameter("pDob");
+        String pPosition = request.getParameter("pPosition");
+        int pNo = Integer.parseInt(request.getParameter("pNo"));
+        String pAchievement = request.getParameter("pAchievement");
+
+//        Player checkPlayerExist = new PlayerDAO().checkPlayerExist(pName);
+        new PlayerDAO().updatePlayer(playerId, pImg_url, teamId, pName, pHeight, pDob, pPosition, pNo, pAchievement);
+        Player newOnlyPlayerByPlayerId = new PlayerDAO().getOnlyPlayerByPlayerId(playerId);
+        session.setAttribute("checkTeamId", teamId);
+        session.setAttribute("onlyPlayerByPlayerId", newOnlyPlayerByPlayerId);
+
+        List<Team> listTeams = new TeamDAO().getAllTeams();
+        List<Category> listCategories = new CategoryDAO().getAllCategories();
+
+        session.setAttribute("listTeams", listTeams);
+        session.setAttribute("listCategories", listCategories);
+
+        response.sendRedirect("../admin/update-player");
     }
 
     /**

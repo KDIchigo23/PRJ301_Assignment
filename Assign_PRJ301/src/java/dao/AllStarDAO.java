@@ -25,9 +25,8 @@ public class AllStarDAO {
         List<AllStar> list = new ArrayList<>();
         try {
             String sql = "select ap.apId, ap.apName, ap.apPTS, ap.apRules, \n"
-                    + "p.pPosition, p.pNo, t.tName, ap.apImg_url \n"
-                    + "from AllStar_Players_2022 ap inner join Players p\n"
-                    + "on ap.pId = p.pId inner join Team t \n"
+                    + "ap.apPosition, ap.apNo, t.tName, ap.apImg_url \n"
+                    + "from AllStar_Players_2022 ap inner join Team t \n"
                     + "on ap.tId = t.tId and ap.apGroup = 'Team Lebron'";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
@@ -46,8 +45,8 @@ public class AllStarDAO {
                         .apName(rs.getString(2))
                         .apPTS(rs.getInt(3))
                         .apRules(rs.getString(4))
-                        .pPosition(rs.getString(5))
-                        .pNo(rs.getInt(6))
+                        .apPosition(rs.getString(5))
+                        .apNo(rs.getInt(6))
                         .tName(rs.getString(7))
                         .apImg_url(rs.getString(8))
                         .build();
@@ -64,9 +63,8 @@ public class AllStarDAO {
         List<AllStar> list = new ArrayList<>();
         try {
             String sql = "select ap.apId, ap.apName, ap.apPTS, ap.apRules, \n"
-                    + "p.pPosition, p.pNo, t.tName, ap.apImg_url \n"
-                    + "from AllStar_Players_2022 ap inner join Players p\n"
-                    + "on ap.pId = p.pId inner join Team t \n"
+                    + "ap.apPosition, ap.apNo, t.tName, ap.apImg_url \n"
+                    + "from AllStar_Players_2022 ap inner join Team t \n"
                     + "on ap.tId = t.tId and ap.apGroup = 'Team Durant'";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
@@ -84,8 +82,8 @@ public class AllStarDAO {
                         .apName(rs.getString(2))
                         .apPTS(rs.getInt(3))
                         .apRules(rs.getString(4))
-                        .pPosition(rs.getString(5))
-                        .pNo(rs.getInt(6))
+                        .apPosition(rs.getString(5))
+                        .apNo(rs.getInt(6))
                         .tName(rs.getString(7))
                         .apImg_url(rs.getString(8))
                         .build();

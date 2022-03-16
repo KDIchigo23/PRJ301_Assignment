@@ -118,20 +118,6 @@
                                     </div>
                                 </nav>
                             </div>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseThreeAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Player
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseThreeAuth" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/create-product">Create Player</a>
-                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/players-dashboard">List Player</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseTwoAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
@@ -142,6 +128,20 @@
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/create-product">Create Product</a>
                                             <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/products-dashboard">List Product</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseThreeAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Player
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseThreeAuth" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/create-product">Create Player</a>
+                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/players-dashboard">List Player</a>
                                         </nav>
                                     </div>
                                 </nav>
@@ -162,49 +162,74 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4" style="margin-top: 70px">
-                        <h1 class="mt-4">List Cart Month</h1>
+                        <h1 class="mt-4">List Products Table</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">List Cart</li>
+                            <li class="breadcrumb-item active">List Products</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                List Cart Month
+                                List Products
                             </div>
                             <div class="card-body">
                                 <c:choose>
-                                    <c:when test="${sessionScope.listOrdersMonthAndPagging == null || sessionScope.listOrdersMonthAndPagging.size() == 0}">
-                                        <h1>List Order is Empty</h1>
+                                    <c:when test="${sessionScope.listProducts == null || sessionScope.listProducts.size() == 0}">
+                                        <h1>List Products is Empty</h1>
                                     </c:when>
                                     <c:otherwise>
-                                        <form action="full-account-infor" method="POST">
+                                        <form action="table-dashboard-account" method="POST">
                                             <table class="row" style="min-width: 60%;">
                                                 <thead>
                                                     <tr class="row mx-auto px-1 py-1 pb-3" style="border-bottom: 1px solid rgba(29, 27, 27, 0.151)">
-                                                        <th class="col-1 text-center">Account ID</th>
-                                                        <th class="col-1 text-center">Display Name</th>
-                                                        <th class="col-3 text-center">Image</th>
+                                                        <th class="col-2 text-center">Product Image</th>
                                                         <th class="col-2 text-center">Product Name</th>
-                                                        <th class="col-1 text-center">Quantity</th>
-                                                        <th class="col-2 text-center">Created Date</th>
-                                                        <th class="col-2 text-center">Total Price</th>
+                                                        <th class="col-2 text-center">Product Quantity</th>
+                                                        <th class="col-2 text-center">Product Price</th>
+                                                        <th class="col-4 text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${sessionScope.listOrdersMonthAndPagging}" var="OD">
+                                                    <c:forEach items="${sessionScope.listProducts}" var="Pro">
                                                         <tr class="row mx-auto px-1 py-1 mt-3 mb-1" style="border-bottom: 1px solid rgba(29, 27, 27, 0.151)">
-                                                            <td scope="col" class="col-1 text-center">${OD.aId}</td>
-                                                            <td scope="col" class="col-1 text-center">${OD.aDisplayName}</td>
-                                                            <td scope="col" class="col-3 text-center"><img src="${OD.odProImg_url}" width="100"/></td>
-                                                            <td scope="col" class="col-2 text-center">${OD.odProName}</td>
-                                                            <td scope="col" class="col-1 text-center">${OD.odQuantity}</td>
-                                                            <td scope="col" class="col-2 text-center">${OD.oCreated_date}</td>
-                                                            <td scope="col" class="col-2 text-center"><fmt:formatNumber value="${OD.oTotalPrice}" type="currency" /></p></td>
+                                                            <td scope="col" class="col-2 text-center"><img src="${Pro.proImg_url}" width="100"/></td>
+                                                            <td scope="col" class="col-2 text-center">${Pro.proName}</td>
+                                                            <td scope="col" class="col-2 text-center">${Pro.proQuantity}</td>
+                                                            <td scope="col" class="col-2 text-center"><fmt:formatNumber value="${Pro.proPrice}" type="currency" /></p></td>
+                                                            <td scope="col" class="col-4 mx-auto">
+                                                                    <a href="http://localhost:8080/Assign_PRJ301/admin/update-product-dashboard?productId=${Pro.proId}" class="btn btn-outline-success mt-1 me-1 ms-4" type="button">
+                                                                        <i class="bi bi-arrow-up-circle"></i>
+                                                                        Update Product
+                                                                    </a>
+                                                                    <button data-bs-toggle="modal" class="btn btn-outline-danger mt-1" data-bs-target="#deletePro" type="button">
+                                                                        <i class="bi bi-trash"></i>
+                                                                        Delete Product
+                                                                    </button>
+
+                                                                <!-- The Modal -->
+                                                                <div class="modal fade" id="deletePro">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <!-- Modal Header -->
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title text-danger">?</h4>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                            </div>
+                                                                            <!-- Modal body -->
+                                                                            <div class="modal-body text-danger text-center" style="font-size: 20px">
+                                                                                You want to delete this product?
+                                                                            </div>
+                                                                            <!-- Modal footer -->
+                                                                            <div class="modal-footer">
+                                                                                <a href="http://localhost:8080/Assign_PRJ301/admin/delete-product?productId=${Pro.proId}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </c:forEach>
-                                            </table>
 
-                                            </tbody>
+                                                </tbody>
                                             </table>
                                         </form>
                                     </c:otherwise>
@@ -218,7 +243,7 @@
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <c:forEach begin="1" end="${totalPage}" var="i">
-                                    </c:forEach>
+                                </c:forEach>
                             </ul>
                         </nav>
                     </c:when>
@@ -226,18 +251,18 @@
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">                               
                                 <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="earning-month?page=${i}">${i}</a></li>
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="products-dashboard?page=${i}">${i}</a></li>
                                     </c:forEach>
-                                <li class="page-item"><a class="page-link" href="earning-month?page=${page+1}">Next</a></li>
+                                <li class="page-item"><a class="page-link" href="products-dashboard?page=${page+1}">Next</a></li>
                             </ul>
                         </nav>
                     </c:when>
                     <c:when test="${page+1 > totalPage}">
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="earning-month?page=${page-1}">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="products-dashboard?page=${page-1}">Previous</a></li>
                                     <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="earning-month?page=${i}">${i}</a></li>
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="products-dashboard?page=${i}">${i}</a></li>
                                     </c:forEach>
                             </ul>
                         </nav>
@@ -245,11 +270,11 @@
                     <c:otherwise>
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="earning-month?page=${page-1}">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="products-dashboard?page=${page-1}">Previous</a></li>
                                     <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="earning-month?page=${i}">${i}</a></li>
+                                    <li class="page-item ${i == page?"active":""}"><a class="page-link" href="products-dashboard?page=${i}">${i}</a></li>
                                     </c:forEach>
-                                <li class="page-item"><a class="page-link" href="earning-month?page=${page+1}">Next</a></li>
+                                <li class="page-item"><a class="page-link" href="products-dashboard?page=${page+1}">Next</a></li>
                             </ul>
                         </nav>
                     </c:otherwise>

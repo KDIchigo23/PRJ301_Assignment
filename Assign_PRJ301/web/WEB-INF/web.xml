@@ -164,6 +164,34 @@
         <servlet-name>FilterProductTeamAsync</servlet-name>
         <servlet-class>controller.async.FilterProductTeamAsync</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartHoverAsync</servlet-name>
+        <servlet-class>controller.async.CartHoverAsync</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartControllerAsync</servlet-name>
+        <servlet-class>controller.async.CartControllerAsync</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterCategoryControllerAsync</servlet-name>
+        <servlet-class>controller.async.FilterCategoryControllerAsync</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductsDashboard</servlet-name>
+        <servlet-class>controller.dashboard.ProductsDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProductDashboard</servlet-name>
+        <servlet-class>controller.dashboard.UpdateProductDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlayersDashboard</servlet-name>
+        <servlet-class>controller.dashboard.PlayersDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePlayersDashboard</servlet-name>
+        <servlet-class>controller.dashboard.UpdatePlayersDashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AllStarController</servlet-name>
         <url-pattern>/allstar-controller</url-pattern>
@@ -335,6 +363,34 @@
     <servlet-mapping>
         <servlet-name>FilterProductTeamAsync</servlet-name>
         <url-pattern>/filter-proteam-async</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartHoverAsync</servlet-name>
+        <url-pattern>/cart-hover-async</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartControllerAsync</servlet-name>
+        <url-pattern>/cart-controller-async</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterCategoryControllerAsync</servlet-name>
+        <url-pattern>/filter-category-async</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductsDashboard</servlet-name>
+        <url-pattern>/admin/products-dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProductDashboard</servlet-name>
+        <url-pattern>/admin/update-product-dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayersDashboard</servlet-name>
+        <url-pattern>/admin/players-dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePlayersDashboard</servlet-name>
+        <url-pattern>/admin/update-player-dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

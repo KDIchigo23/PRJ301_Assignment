@@ -27,7 +27,7 @@ public class PlayerDAO {
         try {
             String sql = "select p.pId, p.pName, p.pDob, p.pPosition, pHeight, p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
-                    + "from Players p inner join Team t on p.tId = t.tId";
+                    + "from Players p inner join Team t on p.tId = t.tId and isDeleted <> 1";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -60,7 +60,7 @@ public class PlayerDAO {
             String sql = "select p.pId, p.pName, p.pDob, p.pPosition, pHeight, p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url\n"
                     + "from Players p inner join Team t \n"
-                    + "on p.tId = t.tId where t.tId = ?";
+                    + "on p.tId = t.tId where t.tId = ? and isDeleted <> 1";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
 
@@ -99,7 +99,7 @@ public class PlayerDAO {
             String sql = "select p.pId, p.pName, p.pDob, p.pPosition, p.pHeight, p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url\n"
                     + "from Players p inner join Team t \n"
-                    + "on p.tId = t.tId where p.pId = ?";
+                    + "on p.tId = t.tId where p.pId = ? and isDeleted <> 1";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
 
@@ -137,7 +137,7 @@ public class PlayerDAO {
             String sql = "select p.pId, p.pName, p.pDob, p.pPosition, p.pHeight, p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url\n"
                     + "from Players p inner join Team t \n"
-                    + "on p.tId = t.tId where p.pId = ?";
+                    + "on p.tId = t.tId where p.pId = ? and isDeleted <> 1";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
 
@@ -174,7 +174,7 @@ public class PlayerDAO {
             String sql = "with t as (select ROW_NUMBER() over (order by p.pId asc) as r,\n"
                     + "p.pId, p.pName, p.pDob, p.pPosition, pHeight, p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
-                    + "from Players p inner join Team t on p.tId = t.tId)\n"
+                    + "from Players p inner join Team t on p.tId = t.tId and isDeleted <> 1)\n"
                     + "select * from t where r between ?*?-(?-1) and ?*?";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -211,7 +211,7 @@ public class PlayerDAO {
             String sql = "with s as (select ROW_NUMBER() over (order by p.pId asc) as r,\n"
                     + "p.pId, p.pName, p.pDob, p.pPosition, pHeight, p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
-                    + "from Players p inner join Team t on p.tId = t.tId and p.tId = ?)\n"
+                    + "from Players p inner join Team t on p.tId = t.tId and p.tId = ? and isDeleted <> 1)\n"
                     + "select * from s where r between ?*?-(?-1) and ?*? ";
             //Mở kết nối với sql server
             Connection conn = new DBContext().getConnection();
@@ -255,7 +255,7 @@ public class PlayerDAO {
             String sql = "with s as (select ROW_NUMBER() over (order by p.pId asc) as r,\n"
                     + "p.pId, p.pName, p.pDob, p.pPosition, p.pHeight,  p.pNo, \n"
                     + "t.tId, t.tName, p.pAchievement, p.pImg_url \n"
-                    + "from Players p inner join Team t on p.tId = t.tId and p.pName like ?)\n"
+                    + "from Players p inner join Team t on p.tId = t.tId and p.pName like ? and isDeleted <> 1)\n"
                     + "select * from s where r between ?*?-(?-1) and ?*?";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -289,7 +289,7 @@ public class PlayerDAO {
 
     public int getTotalPlayers() {
         try {
-            String sql = "select count(pId) from Players";
+            String sql = "select count(pId) from Players and isDeleted <> 1";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -304,7 +304,7 @@ public class PlayerDAO {
 
     public int getTotalPlayers(int teamId) {
         try {
-            String sql = "select count(p.pId) from Players p where p.tId = ?";
+            String sql = "select count(p.pId) from Players p where p.tId = ? and isDeleted <> 1";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, teamId);
@@ -320,7 +320,7 @@ public class PlayerDAO {
 
     public int getTotalPlayers(String keyword) {
         try {
-            String sql = "select count(p.pId) from Players p where p.pName like ?";
+            String sql = "select count(p.pId) from Players p where p.pName like ? and isDeleted <> 1";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + keyword + "%");
@@ -335,7 +335,7 @@ public class PlayerDAO {
     }
 
     public Player checkPlayerExist(String pName) {
-        String sql = "select * from Players where pName = ?";
+        String sql = "select * from Players where pName = ? and isDeleted <> 1";
         try {
 
             //Mở kết nối với sql server
@@ -404,8 +404,9 @@ public class PlayerDAO {
     }
 
     public void deletePlayerByPlayerId(int playerId) {
-        String sql = "DELETE FROM [Assign_PRJ301].[dbo].[Players]\n"
-                + "      WHERE pId = ? ";
+        String sql = "UPDATE [Assign_PRJ301].[dbo].[Players]\n"
+                + "   SET [isDeleted] = 1 \n"
+                + " WHERE pId = ? ";
         try {
 
             //Mở kết nối với sql server
@@ -449,7 +450,7 @@ public class PlayerDAO {
             ps.setString(7, pAchievement);
             ps.setString(8, pImg_url);
             ps.setInt(9, playerId);
-            
+
             //Thực thi câu lệnh sql sẽ trả về result set
             ps.executeUpdate();
 
@@ -457,11 +458,10 @@ public class PlayerDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
 
     public int getTeamIdByPlayerId(int playerId) {
         try {
-            String sql = "select p.tId from Players p where p.pId = ?";
+            String sql = "select p.tId from Players p where p.pId = ? and isDeleted <> 1";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, playerId);
@@ -474,7 +474,5 @@ public class PlayerDAO {
         }
         return 0;
     }
-
-    
 
 }

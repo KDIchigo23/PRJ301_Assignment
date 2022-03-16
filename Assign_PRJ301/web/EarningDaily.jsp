@@ -118,6 +118,34 @@
                                     </div>
                                 </nav>
                             </div>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseTwoAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Production
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseTwoAuth" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/create-product">Create Product</a>
+                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/products-dashboard">List Product</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseThreeAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Player
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseThreeAuth" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/create-product">Create Player</a>
+                                            <a class="nav-link" href="http://localhost:8080/Assign_PRJ301/admin/players-dashboard">List Player</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>

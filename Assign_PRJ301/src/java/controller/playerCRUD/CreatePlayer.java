@@ -59,7 +59,7 @@ public class CreatePlayer extends HttpServlet {
         session.setAttribute("listTeams", listTeams);
         session.setAttribute("listCategories", listCategories);
 
-        response.sendRedirect("../player-controller");
+        request.getRequestDispatcher("../Dashboard.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
